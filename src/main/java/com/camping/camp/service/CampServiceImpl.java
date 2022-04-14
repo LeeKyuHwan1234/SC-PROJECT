@@ -14,11 +14,16 @@ public class CampServiceImpl implements CampService {
 	@Autowired
 	CampDao campDao;
 	
-	public List<CampDto> getManyTodoList(){
-		List<CampDto> mem = campDao.getManyTodoList();
+	public List<CampDto> getOpenApi(){
+		List<CampDto> mem = campDao.getOpenApi();
 		return mem;
 	}
-
+	
+	
+	public List<CampDto> getPlaceDetail(String id){
+		List<CampDto> mem = campDao.getPlaceDetail(id);
+		return mem;
+	}
 
 
 }

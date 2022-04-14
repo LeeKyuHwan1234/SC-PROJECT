@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.camping.camp.dao.CampDao">
+	<select id="getOpenApi" resultType="CampDto">
+         SELECT contentid, facltnm, addr1 FROM openapi ORDER BY contentid DESC LIMIT 15
+ 	</select>
+ 	<select id="getPlaceDetail" resultType="CampDto" parameterType="CampDto">
+         SELECT * FROM openapi WHERE kakaoplaceid = #{id} ORDER BY contentid DESC LIMIT 15
+ 	</select>
+</mapper>
+

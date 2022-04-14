@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,21 +21,23 @@ public class CampController {
 	@Autowired
 	CampService campService;
 	
-	@RequestMapping(value = "/123")
-	public String getManyTodoList123(Model model) {
-		List<CampDto> cam = campService.getManyTodoList();
+	@RequestMapping(value = "/openapi")
+	public String getOpenApi(Model model) {
+		List<CampDto> cam = campService.getOpenApi();
 		model.addAttribute("data",cam);
 		return "index";
 	}
 	
 	@RequestMapping(value = "camp")
 	public String getFruit(Model model) {
-	Map<String, String> campingmap = new HashMap<String, String>();
-	campingmap.put("fruit1", "apple");
-	campingmap.put("fruit2", "banana");
-	campingmap.put("fruit3", "orange");
-	model.addAttribute("fruit", campingmap);
 	return "camp";
+	}
+	
+	@RequestMapping(value = "place/{id}")
+	public String getFruit(Model model, @PathVariable String id) {
+		List<CampDto> cam = campService.getPlaceDetail(id);
+		model.addAttribute("data",cam);
+		return "campdetail";
 	}
 
 }

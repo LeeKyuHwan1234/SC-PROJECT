@@ -156,7 +156,7 @@ function getListItem(index, places) {
         itemStr += '    <span>' +  places.address_name  + '</span>'; 
     }
                  
-      itemStr += '  <span class="tel">' + places.phone  + '</span>' +
+      itemStr += '  <span class="tel">' + places.id  + '</span>' +
                 '</div>';           
 
     el.innerHTML = itemStr;
@@ -228,7 +228,7 @@ function displayPagination(pagination) {
 function displayInfowindow(marker, title, places) {
   //마커 오버레이 부분
     var content =  
-        '<div id="wrap"><a href="/campingDetail?placesname='+places.id+'">'+
+        '<div id="wrap"><a href="https://place.map.kakao.com/'+places.id+'">'+
         '<div id="box_a">'+
         '<img src="/images/dachung.jpg">'+'</div>'+
         '<div id="box_b">'+title+'</a><p id="closebtn" onclick="windowClose()">X</p></div>'+
@@ -243,7 +243,7 @@ function displayInfowindow(marker, title, places) {
                 '<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>'+
                 '</div>'+
             '</div>'+
-        '<div id="box_e">40000원</div>'+
+        '<div id="box_e">'+places.id+'</div>'+
         '</a></div>';
 
     infowindow.setContent(content);
