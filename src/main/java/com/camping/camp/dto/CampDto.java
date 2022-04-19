@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class CampDto {
+	private String encurl;
+	private String keyword;
 	private String contentid;
 	private String facltnm;
 	private String lineintro;

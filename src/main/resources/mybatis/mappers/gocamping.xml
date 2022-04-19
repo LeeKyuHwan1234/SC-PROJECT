@@ -10,5 +10,25 @@
  	<select id="getPlaceDetail" resultType="CampDto" parameterType="CampDto">
          SELECT * FROM openapi WHERE kakaoplaceid = #{id} ORDER BY contentid DESC LIMIT 15
  	</select>
-</mapper>
+ 	<select id="getSearchCamp" resultType="CampDto" parameterType="CampDto">
+         SELECT facltnm FROM openapi WHERE facltnm LIKE CONCAT('%', #{encurl}, '%') OR donm LIKE CONCAT('%', #{encurl}, '%')
+         OR sigungunm LIKE CONCAT('%', #{encurl}, '%') OR addr1 LIKE CONCAT('%', #{encurl}, '%') OR addr2 LIKE CONCAT('%', #{encurl}, '%')
+    </select>
+    <select id="getSearchDo" resultType="CampDto" parameterType="CampDto">
+         SELECT facltnm FROM openapi WHERE donm LIKE CONCAT('%', #{encurl}, '%')
+    </select>
+    <select id="getSearchSigungu" resultType="CampDto" parameterType="CampDto">
+         SELECT facltnm FROM openapi WHERE sigungunm LIKE CONCAT('%', #{encurl}, '%')
+    </select>
+   	<select id="getDoCategory" resultType="CampDto" parameterType="CampDto">
+         SELECT DISTINCT donm FROM openapi
+    </select>
+    <select id="getSigunguCategory" resultType="CampDto" parameterType="CampDto">
+      	 SELECT DISTINCT sigungunm FROM openapi WHERE donm = #{category}
+    </select>
+    <select id="getSigunguCamp" resultType="CampDto" parameterType="HashMap">
+      	 SELECT facltnm FROM openapi WHERE donm = #{donm} and sigungunm = #{category}
+    </select>
+ </mapper>
+
 

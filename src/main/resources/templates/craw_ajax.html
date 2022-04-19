@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-latest.js"></script> 
+</head>
+<body>
+ <div class="craw">
+     <input type="text" id="craw_id" name="craw_id" class="form-control" placeholder="ID 입력" style="width:300px;"/>
+     <input type="button" id="craw_submit" name="craw_submit" class="btn btn-warning" value="조회"/>  
+ </div>
+ <div class="content_craw">
+ </div>
+ 
+ <script type="text/javascript">
+     $("#craw_submit").click(function(){
+         $.ajax({
+             url :"/craw/select2",
+             data :{
+                 user_id : $("#craw_id").val(),
+             },
+             dataType : "json",
+             type : "post",
+             success:function(data){
+                console.log(data.NameResult);
+                $(".content_craw").append("<tr><th>"+data.NameResult+"</th></tr>");    
+                 
+             }
+         })
+     })
+ </script>
+
+</body>
+</html>

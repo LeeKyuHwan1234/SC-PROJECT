@@ -1,0 +1,36 @@
+@charset "EUC-KR";
+
+#container {
+	width: 700px;
+	min-height: 700px;
+	float: left;
+	margin: 15px 35px;
+	fill: white;
+}
+#states path {
+	fill: gainsboro;
+	stroke: white;
+	stroke-width: 1.5px;
+}
+
+#states path:hover {
+	fill: #009300;
+}
+
+#states .active {
+	fill: #00B700;
+}
+
+#states .activeDetail {
+	fill: #00B700;
+}
+
+#states path {
+	cursor: pointer;
+}
+
+#states text {
+	cursor: pointer;
+	font-size: 10px;
+	fill: black;
+}

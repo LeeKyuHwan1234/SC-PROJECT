@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/korea.css" />
+</head>
+<script src="http://code.jquery.com/jquery-latest.js"></script> 
+<script type="text/javascript" src="js/d3.js"></script>
+<script type="text/javascript" src="js/korea.js"></script>
+<body>
+ <div class="craw">
+  	 <h1>검색어로 찾기</h1>
+     <input type="text" id="craw_id" name="craw_id" class="form-control" placeholder="ID 입력" style="width:300px;"/>
+     <input type="button" id="craw_submit" name="craw_submit" class="btn btn-warning" value="조회"/>  
+ </div>
+ 
+ <div class="content_craw">
+ </div>
+ <div><hr></div>
+ <div class="search">
+ 	<h1>도이름으로 찾기</h1>
+ 	<select onchange="categoryChange(this)" name="donm" id="doselect">
+	    <option value=""> 선택하세요 </option>
+	    <option th:each="datalist : ${data}" th:text='${datalist.donm}' th:value='${datalist.donm}'></option>
+	</select>
+	<select onchange="subcategoryChange(this)" name="sigungunm" id="sigunguselect">
+	    <option value=""> 선택하세요 </option>
+	</select>
+</div>
+<div class="content_craw2"></div>
+<div><hr></div>
+<div>
+<div id="container"><div id="donm"></div></div>
+<div id="campsite">site</div>
+</div>
+
+
+ <script type="text/javascript">
+     $("#craw_submit").click(function(){
+         $.ajax({
+             url :"search/keyword",
+             type : "get",
+             data :{
+            	 keyword : $("#craw_id").val(),
+             },
+         	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
+             success:function(data){
+            	$(".content_craw").empty();
+                for(var i =0; i< data.length; i++){
+             		$(".content_craw").append("<tr><th>"+data[i].facltnm +"</th></tr>");    
+                }
+             }
+         })
+     })
+     
+     function categoryChange(e) {
+    	 var target = document.getElementById("sigunguselect");
+    	 $.ajax({
+             url :"search/sigungucategory",
+             type : "get",
+             async:false,
+             data :{
+            	 category : e.value,
+             },
+         	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
+             success:function(data){
+            	 $(".content_craw2").empty();
+             	 $("#sigunguselect").empty();
+            	 for(var i =0; i< data.length; i++){
+            		var opt = document.createElement("option");
+        			opt.value = data[i].sigungunm;
+        			opt.innerHTML = data[i].sigungunm;
+        			target.appendChild(opt);
+        		 }
+            	 $.ajax({
+                     url :"search/do",
+                     type : "get",
+                     data :{
+                    	 category : e.value
+                     },
+                     async:false,
+                 	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
+                     success:function(data){
+                    	 for(var i =0; i< data.length; i++){
+                    		$(".content_craw2").append("<tr><th>"+data[i].facltnm +"</th></tr>");    
+                    	 }
+                     }
+                 })
+             }
+         })
+     }
+     
+     function subcategoryChange(e) {
+    	 var dotarget = document.getElementById("doselect");
+    	 $.ajax({
+             url :"search/sigungucamp",
+             type : "get",
+             data :{
+            	 donm : dotarget.value,
+            	 category : e.value,
+             },
+         	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
+             success:function(data){
+             	 $(".content_craw2").empty();
+             	 for(var i =0; i< data.length; i++){
+            		$(".content_craw2").append("<tr><th>"+data[i].facltnm +"</th></tr>");    
+            	 }
+             }
+         })
+     }     
+    
+     
+     
+     
+ </script>
+</body>
+</html>
