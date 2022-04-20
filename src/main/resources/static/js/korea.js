@@ -74,10 +74,9 @@ function drawMap(target) {
 			             success:function(data){
 			            	$("#campsite").empty();
 			            	$("#paging").empty();
-			            	$("#sigunguselect").css("display","");
 			            	$('#doselect').val(d.properties.name).prop("selected", true);
 			            	$('#sigunguselect').css("display","inline");
-			            	document.getElementById("paging").innerHTML += data.count[0].count;
+			            	document.getElementById("totalcount").innerHTML += data.count[0].count;
 							for(var i = 0; i< data.camplist.length; i++) {
 								document.getElementById("campsite").innerHTML += data.camplist[i].facltnm;
 							}
