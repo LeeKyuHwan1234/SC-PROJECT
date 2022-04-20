@@ -15,7 +15,10 @@
          OR sigungunm LIKE CONCAT('%', #{encurl}, '%') OR addr1 LIKE CONCAT('%', #{encurl}, '%') OR addr2 LIKE CONCAT('%', #{encurl}, '%')
     </select>
     <select id="getSearchDo" resultType="CampDto" parameterType="CampDto">
-         SELECT facltnm FROM openapi WHERE donm LIKE CONCAT('%', #{encurl}, '%')
+         SELECT facltnm FROM openapi WHERE donm LIKE CONCAT('%', #{encurl}, '%') LIMIT 6 OFFSET 0
+    </select>
+    <select id="getSearchDoCount" resultType="CampDto" parameterType="CampDto">
+       	SELECT COUNT(facltnm) as count FROM openapi WHERE donm = #{donm}
     </select>
     <select id="getSearchSigungu" resultType="CampDto" parameterType="CampDto">
          SELECT facltnm FROM openapi WHERE sigungunm LIKE CONCAT('%', #{encurl}, '%')

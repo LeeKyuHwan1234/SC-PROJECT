@@ -18,8 +18,15 @@
  <div class="content_craw">
  </div>
  <div><hr></div>
- <div class="search">
- 	<h1>도이름으로 찾기</h1>
+<div>
+
+  	 <h1>지도로 찾기</h1>
+<div id="container"><div id="donm">
+</div>
+</div>
+<div>전체 캠핑장 개수 :</div><div id="paging"></div>
+</div>
+<div class="search">
  	<select onchange="categoryChange(this)" name="donm" id="doselect">
 	    <option value=""> 선택하세요 </option>
 	    <option th:each="datalist : ${data}" th:text='${datalist.donm}' th:value='${datalist.donm}'></option>
@@ -29,12 +36,8 @@
 	</select>
 </div>
 <div class="content_craw2"></div>
-<div><hr></div>
-<div>
-<div id="container"><div id="donm"></div></div>
-<div id="campsite">site</div>
-</div>
 
+<div id="campsite"></div>
 
  <script type="text/javascript">
      $("#craw_submit").click(function(){
@@ -82,8 +85,9 @@
                      async:false,
                  	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
                      success:function(data){
-                    	 for(var i =0; i< data.length; i++){
-                    		$(".content_craw2").append("<tr><th>"+data[i].facltnm +"</th></tr>");    
+                    	 $('#sigunguselect').css("display","inline");
+			             for(var i =0; i< data.length; i++){
+                    		$(".content_craw2").append("<tr><th>"+data[i].facltnm+"</th></tr>");    
                     	 }
                      }
                  })

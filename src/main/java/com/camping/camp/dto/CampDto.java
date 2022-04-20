@@ -1,9 +1,12 @@
 package com.camping.camp.dto;
 
+import com.camping.camp.vo.PageVO;
+
 import lombok.Data;
 
 @Data
 public class CampDto {
+	private String count;
 	private String encurl;
 	private String keyword;
 	private String contentid;

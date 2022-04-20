@@ -1,5 +1,6 @@
 package com.camping.camp.controller;
 
+import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.camping.camp.dto.CampDto;
 import com.camping.camp.service.CampService;
+import com.camping.camp.vo.Criteria;
+import com.camping.camp.vo.PageVO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Controller 
@@ -61,18 +65,19 @@ public class CampController {
 	
 	@RequestMapping(value = "search/do")
 	@JsonProperty("category")
-	public @ResponseBody List<CampDto> getSearchDo(Model model, HttpServletRequest req,HttpServletResponse resp,@RequestParam String category) throws Exception {
-		List<CampDto> cam = null;
-		try {
+	public @ResponseBody HashMap<String,Object> getSearchDo(Model model, HttpServletRequest req,HttpServletResponse resp,Criteria cri ,@RequestParam String category) throws Exception {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+	   try {
 			String encurl = URLDecoder.decode(category, "UTF-8");
-			cam = campService.getSearchDo(encurl);
-		} catch (Exception e) {
+			map.put("camplist",campService.getSearchDo(encurl));
+			map.put("count",campService.getSearchDoCount(encurl));
+			map.put("campcategory", campService.getSigunguCategory(encurl));
+	   } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return cam;
-	}
-		
+		return map;
+	}	
 	@RequestMapping(value = "search/sigungu")
 	@JsonProperty("category")
 	public @ResponseBody List<CampDto> getSearchSigungu(Model model, HttpServletRequest req,HttpServletResponse resp,@RequestParam String category) throws Exception {
@@ -105,6 +110,7 @@ public class CampController {
 	@JsonProperty("category")
 	public @ResponseBody List<CampDto> getSigunguCamp(Model model, HttpServletRequest req,HttpServletResponse resp,@RequestParam HashMap<String, Object> ajaxdata) throws Exception {
 		List<CampDto> cam = null;
+		System.out.println(ajaxdata);
 		try {
 			cam = campService.getSigunguCamp(ajaxdata);
 		} catch (Exception e) {

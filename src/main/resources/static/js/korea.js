@@ -73,15 +73,39 @@ function drawMap(target) {
 			         	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
 			             success:function(data){
 			            	$("#campsite").empty();
-             	        	for(var i = 0; i< data.length; i++) {
-								document.getElementById("campsite").innerHTML += data[i].facltnm;
+			            	$("#paging").empty();
+			            	$("#sigunguselect").css("display","");
+			            	$('#doselect').val(d.properties.name).prop("selected", true);
+			            	$('#sigunguselect').css("display","inline");
+			            	document.getElementById("paging").innerHTML += data.count[0].count;
+							for(var i = 0; i< data.camplist.length; i++) {
+								document.getElementById("campsite").innerHTML += data.camplist[i].facltnm;
 							}
+							var target = document.getElementById("sigunguselect");
+					    	 $.ajax({
+					             url :"search/sigungucategory",
+					             type : "get",
+					             async:false,
+					             data :{
+					            	 category : d.properties.name,
+					             },
+					         	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
+					             success:function(data){
+						        	 $(".content_craw2").empty();
+					            	 $("#sigunguselect").empty();
+					            	 for(var i =0; i<data.length; i++){
+										var option = $("<option>"+data[i].sigungunm+"</option>");
+					            		 $('#sigunguselect').append(option)
+					            	 }
+					        	 }
+					        })
+							
 					    }
          			})
 				 })
     });
     //텍스트 위치 조절 - 하드코딩으로 위치 조절을 했습니다.
-    function translateTolabel(d) {
+  /*  function translateTolabel(d) {
         var arr = path.centroid(d);
         if (d.properties.code == 31) {
             //서울 경기도 이름 겹쳐서 경기도 내리기
@@ -97,7 +121,7 @@ function drawMap(target) {
                     : initialScale / height + 10;
         }
         return 'translate(' + arr + ')';
-    }
+    }*/
    /* function zoom() {
         projection.translate(d3.event.translate).scale(d3.event.scale);
         states.selectAll('path').attr('d', path);

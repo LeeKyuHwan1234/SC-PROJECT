@@ -14,5 +14,6 @@ public interface CampService {
 	List<CampDto> getDoCategory();
 	List<CampDto> getSigunguCategory(String encurl);
 	List<CampDto> getSigunguCamp(HashMap<String, Object> ajaxdata);
+	List<CampDto> getSearchDoCount(String encurl);
 	
 }

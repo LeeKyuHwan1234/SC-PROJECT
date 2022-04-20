@@ -54,5 +54,9 @@ public class CampServiceImpl implements CampService {
 		List<CampDto> cam = campDao.getSigunguCamp(ajaxdata);
 		return cam;
 	}
+	public List<CampDto> getSearchDoCount(String encurl) {
+		List<CampDto> cam = campDao.getSearchDoCount(encurl);
+		return cam;
+	}
 	
 }
