@@ -20,4 +20,6 @@ public interface CampDao {
 	List<CampDto> getSigunguCategory(String encurl);
 	List<CampDto> getSigunguCamp(HashMap<String, Object> ajaxdata);
 	List<CampDto> getSearchDoCount(String encurl);
+	List<CampDto> getSearchSigunguCount(HashMap<String, Object> ajaxdata);
+	
 }

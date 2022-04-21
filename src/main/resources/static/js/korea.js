@@ -73,10 +73,12 @@ function drawMap(target) {
 			         	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
 			             success:function(data){
 			            	$("#campsite").empty();
-			            	$("#paging").empty();
+			            	$("#totalcountsix").empty();
+			            	$("#totalcount").empty();
 			            	$('#doselect').val(d.properties.name).prop("selected", true);
 			            	$('#sigunguselect').css("display","inline");
-			            	document.getElementById("totalcount").innerHTML += data.count[0].count;
+			            	document.getElementById("totalcount").innerHTML += (data.count[0].count);
+			            	document.getElementById("totalcountsix").innerHTML += (parseInt((data.count[0].count)/6)+1);
 							for(var i = 0; i< data.camplist.length; i++) {
 								document.getElementById("campsite").innerHTML += data.camplist[i].facltnm;
 							}
@@ -90,8 +92,11 @@ function drawMap(target) {
 					             },
 					         	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
 					             success:function(data){
-						        	 $(".content_craw2").empty();
 					            	 $("#sigunguselect").empty();
+					            	 var optAll = document.createElement("option");
+					    			 optAll.value = "";
+					    			 optAll.innerHTML = "전체";
+					             	 $('#sigunguselect').append(optAll);
 					            	 for(var i =0; i<data.length; i++){
 										var option = $("<option>"+data[i].sigungunm+"</option>");
 					            		 $('#sigunguselect').append(option)

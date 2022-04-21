@@ -58,5 +58,8 @@ public class CampServiceImpl implements CampService {
 		List<CampDto> cam = campDao.getSearchDoCount(encurl);
 		return cam;
 	}
-	
+	public List<CampDto> getSearchSigunguCount(HashMap<String, Object> ajaxdata) {
+		List<CampDto> cam = campDao.getSearchSigunguCount(ajaxdata);
+		return cam;
+	}
 }

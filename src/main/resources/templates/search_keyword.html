@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/korea.css" />
 </head>
-<script src="http://code.jquery.com/jquery-latest.js"></script> 
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="js/d3.js"></script>
 <script type="text/javascript" src="js/korea.js"></script>
 <body>
@@ -24,7 +24,9 @@
 <div id="container"><div id="donm">
 </div>
 </div>
-<div>전체 캠핑장 개수 :</div><div id="paging"></div>
+
+
+<div id="totalcount"></div>
 </div>
 <div class="search">
  	<select onchange="categoryChange(this)" name="donm" id="doselect">
@@ -35,18 +37,23 @@
 	    <option value=""> 선택하세요 </option>
 	</select>
 </div>
-<div class="content_craw2"></div>
-<nav aria-label="Page navigation" class="text-center">
-<ul class="pagination">
-	<li><a href="#"></a></li>
-	<li id="totalcount"><a href="#"></a></li>
+<div class="pagination">
+  <a id="prebtn" onclick="prebtn()">&laquo;</a>
+  <a id="npage" >1</a>
+  <a>/</a>
+  <a id="totalcountsix"></a>
+  <a id="nextbtn"onclick="nextbtn()">&raquo;</a>
+ </div>
 
-</ul>
-</nav>
 <div id="campsite"></div>
+<input type="hidden" id="npagex" name="npagex">
 
  <script type="text/javascript">
-     $("#craw_submit").click(function(){
+ 	var page = 1;
+ 	if(page == 1){
+ 		$("#prebtn").removeAttr("onclick");
+ 	}	
+ 	$("#craw_submit").click(function(){
          $.ajax({
              url :"search/keyword",
              type : "get",
@@ -64,7 +71,11 @@
      })
      
      function categoryChange(e) {
-    	 var target = document.getElementById("sigunguselect");
+    	page = 1; 
+ 		var target = document.getElementById("sigunguselect");
+    	 $("#npage").empty();
+   	 	 $("#npage").append(page);
+   	 	 console.log(page)
     	 $.ajax({
              url :"search/sigungucategory",
              type : "get",
@@ -74,8 +85,17 @@
              },
          	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
              success:function(data){
-            	 $(".content_craw2").empty();
+            	 $("#campsite").empty();
              	 $("#sigunguselect").empty();
+             	 $("#totalcountsix").empty();
+             	 $("#totalcount").empty();
+             	 if(page == 1){
+             		$("#prebtn").removeAttr("onclick");
+             	 }
+             	 var optAll = document.createElement("option");
+    			 optAll.value = "";
+    			 optAll.innerHTML = "전체";
+             	 target.appendChild(optAll);
             	 for(var i =0; i< data.length; i++){
             		var opt = document.createElement("option");
         			opt.value = data[i].sigungunm;
@@ -92,8 +112,26 @@
                  	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
                      success:function(data){
                     	 $('#sigunguselect').css("display","inline");
-			             for(var i =0; i< data.length; i++){
-                    		$(".content_craw2").append("<tr><th>"+data[i].facltnm+"</th></tr>");    
+                    	 $("#totalcount").append(data.count[0].count)
+                    	 if(data.length % 6 == 0){
+                    		 $("#totalcountsix").append(parseInt((data.count[0].count)/6))
+			                    if(page < parseInt((data.count[0].count)/6)) {
+				         		$("#nextbtn").attr("onclick","nextbtn()");
+				         		}
+			                    else if(page == parseInt((data.count[0].count)/6)) {
+			    	         		$("#nextbtn").removeAttr("onclick");
+			    	         	}
+                    	 } else {
+                      		$("#totalcountsix").append(parseInt((data.count[0].count)/6)+1)
+								if(page < parseInt((data.count[0].count)/6)+1) {
+				         			$("#nextbtn").attr("onclick","nextbtn()");
+				         		}
+								else if(page == parseInt((data.count[0].count)/6)+1) {
+            	         		$("#nextbtn").removeAttr("onclick");
+            	         	}
+                    	 }
+			             for(var i =0; i< data.camplist.length; i++){
+                    		$("#campsite").append(data.camplist[i].facltnm);    
                     	 }
                      }
                  })
@@ -102,23 +140,142 @@
      }
      
      function subcategoryChange(e) {
+    	 page = 1;
+    	 if(page == 1){
+      		$("#prebtn").removeAttr("onclick");
+      	}
     	 var dotarget = document.getElementById("doselect");
+    	 var sigungutarget = document.getElementById("sigunguselect");
+    	 $("#npage").empty();
+    	 $("#npage").append(page);
+    	 var nowpage = $("#npage").text();
     	 $.ajax({
              url :"search/sigungucamp",
              type : "get",
              data :{
             	 donm : dotarget.value,
-            	 category : e.value,
+            	 category : sigungutarget.value,
+            	 npage: parseInt(nowpage)-1
              },
          	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
              success:function(data){
-             	 $(".content_craw2").empty();
-             	 for(var i =0; i< data.length; i++){
-            		$(".content_craw2").append("<tr><th>"+data[i].facltnm +"</th></tr>");    
+            	 $("#campsite").empty();
+             	 $("#totalcountsix").empty();
+             	 $("#totalcount").empty();
+             	 $("#totalcount").append(data.count[0].count)
+             	 if(data.count[0].count % 6 == 0){
+             	 	$("#totalcountsix").append(parseInt((data.count[0].count)/6))
+             	 	if(page < parseInt((data.count[0].count)/6)) {
+	         	 		$("#nextbtn").attr("onclick","nextbtn()");
+             	 	}
+             	 	else if(page == parseInt((data.count[0].count)/6)) {
+    	         		$("#nextbtn").removeAttr("onclick");
+    	         	}
+             	 } else {
+             		$("#totalcountsix").append(parseInt((data.count[0].count)/6)+1)
+             		if(page < parseInt((data.count[0].count)/6+1)) {
+	         			$("#nextbtn").attr("onclick","nextbtn()");
+             		}
+             		else if(page == parseInt((data.count[0].count)/6)+1) {
+    	         		$("#nextbtn").removeAttr("onclick");
+    	         	}
+             	}
+             	 for(var i =0; i< data.camplist.length; i++){
+            		$("#campsite").append(data.camplist[i].facltnm);    
             	 }
              }
          })
      }     
+     function nextbtn() {
+    	var dotarget = document.getElementById("doselect");
+    	var sigungutarget = document.getElementById("sigunguselect");
+    	$("#npage").empty();
+    	$("#npage").append(page+1)
+    	page++;
+    	if(page > 1){
+    		$("#prebtn").attr("onclick","prebtn()");
+    	}
+    	
+    	$.ajax({
+         url :"search/sigungucamp",
+         type : "get",
+         data :{
+        	 donm : dotarget.value,
+        	 category : sigungutarget.value,
+        	 npage: page-1
+         },
+     	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
+         success:function(data){
+        	 $("#campsite").empty();
+         	 $("#totalcountsix").empty();
+         	 $("#totalcount").empty();
+         	 $("#totalcount").append(data.count[0].count)
+         	
+         	 if(data.count[0].count % 6 == 0){
+         	 	endpage = $("#totalcountsix").append(parseInt((data.count[0].count)/6))
+	         	if(page == parseInt((data.count[0].count)/6)) {
+	         		$("#nextbtn").removeAttr("onclick");
+	         	}
+         	  } 
+         	  else {
+         		endpage = $("#totalcountsix").append(parseInt((data.count[0].count)/6)+1)
+             	if(page == parseInt((data.count[0].count)/6)+1) {
+	         		$("#nextbtn").removeAttr("onclick");
+	         	}
+         	 }
+         	 for(var i =0; i< data.camplist.length; i++){
+         		if(data.camplist[i].firstimageurl != "no data") {
+        			$("#campsite").append("<img src="+data.camplist[i].firstimageurl+" width:300px height:300px>");    
+         		}
+         		else {
+         			$("#campsite").append("이미지가 없습니다.")
+         		}
+         	}
+           }
+     	})
+     	
+     }
+     
+     function prebtn() {
+     	var dotarget = document.getElementById("doselect");
+     	var sigungutarget = document.getElementById("sigunguselect");
+	  	$('#npage').empty();
+     	$('#npage').append(page-1);
+     	page--;
+    	if(page == 1){
+     		$("#prebtn").removeAttr("onclick");
+     	}
+    	$.ajax({
+          url :"search/sigungucamp",
+          type : "get",
+          data :{
+         	 donm : dotarget.value,
+         	 category : sigungutarget.value,
+         	 npage: page-1
+          },
+      	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
+          success:function(data){
+         	 $("#campsite").empty();
+          	 $("#totalcountsix").empty();
+          	 $("#totalcount").empty();
+          	 $("#totalcount").append(data.count[0].count)
+          	 if(data.count[0].count % 6 == 0){
+          	 	endpage = $("#totalcountsix").append(parseInt((data.count[0].count)/6))
+          		if(page < parseInt((data.count[0].count)/6)) {
+	         		$("#nextbtn").attr("onclick","nextbtn()");
+	         	}
+          	 } else {
+          		endpage = $("#totalcountsix").append(parseInt((data.count[0].count)/6)+1)
+             	if(page < parseInt((data.count[0].count)/6)+1) {
+	         		$("#nextbtn").attr("onclick","nextbtn()");
+	         	}
+          	 }
+          	 for(var i =0; i< data.camplist.length; i++){
+         		$("#campsite").append(data.camplist[i].facltnm);    
+         	 }
+          }
+      	})
+      } 
     
      
      

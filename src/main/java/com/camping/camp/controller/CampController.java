@@ -108,16 +108,17 @@ public class CampController {
 	
 	@RequestMapping(value = "search/sigungucamp")
 	@JsonProperty("category")
-	public @ResponseBody List<CampDto> getSigunguCamp(Model model, HttpServletRequest req,HttpServletResponse resp,@RequestParam HashMap<String, Object> ajaxdata) throws Exception {
-		List<CampDto> cam = null;
+	public @ResponseBody HashMap<String,Object> getSigunguCamp(Model model, HttpServletRequest req,HttpServletResponse resp,@RequestParam HashMap<String, Object> ajaxdata) throws Exception {
+		HashMap<String,Object> map = new HashMap<String,Object>();
 		System.out.println(ajaxdata);
 		try {
-			cam = campService.getSigunguCamp(ajaxdata);
+			map.put("count", campService.getSearchSigunguCount(ajaxdata));
+			map.put("camplist",campService.getSigunguCamp(ajaxdata));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return cam;
+		return map;
 	}
 
 
