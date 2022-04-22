@@ -6,7 +6,7 @@ window.onload = function() {
 function drawMap(target) {
     var width = 500; //지도의 넓이
     var height = 650; //지도의 높이
-    var initialScale = 5300; //확대시킬 값
+    var initialScale = 5280; //확대시킬 값
     var initialX = -11570; //초기 위치값 X
     var initialY = 3900; //초기 위치값 Y
     var labels;
@@ -20,7 +20,7 @@ function drawMap(target) {
         .zoom()
         .translate(projection.translate())
         .scale(projection.scale())
-        .scaleExtent([height, 800 * height])
+        .scaleExtent([height, 500 * height])
         .on('zoom', zoom);
 
     var svg = d3
@@ -72,7 +72,7 @@ function drawMap(target) {
 			             },
 			         	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
 			             success:function(data){
-			            	$("#campsite").empty();
+			            	$(".camprow").empty();
 			            	$("#totalcountsix").empty();
 			            	$("#totalcount").empty();
 			            	$('#doselect').val(d.properties.name).prop("selected", true);
@@ -80,8 +80,25 @@ function drawMap(target) {
 			            	document.getElementById("totalcount").innerHTML += (data.count[0].count);
 			            	document.getElementById("totalcountsix").innerHTML += (parseInt((data.count[0].count)/6)+1);
 							for(var i = 0; i< data.camplist.length; i++) {
-								document.getElementById("campsite").innerHTML += data.camplist[i].facltnm;
-							}
+								if(data.camplist[i].firstimageurl != "no data") {
+	                     			$(".camprow")
+	                      			.append("<div class='col-4 mb-3'>"+
+	                     	          "<div class='card text-dark bg-white'>"+
+	                     	            "<div class='card-header'>"+data.camplist[i].facltnm+"</div>"+
+	                     	            "<div class='card-body'>"+
+	                   	              	  "<img src="+data.camplist[i].firstimageurl+" style='width:200px; height:200px;'></img>"+
+	                     	              "<p class='card-text'>"+data.camplist[i].facltnm+" </div></div></div>")
+	                     			}
+	                      		else {
+	                      			$(".camprow")
+	                      			.append("<div class='col-4 mb-3'>"+
+	                     	          "<div class='card text-dark bg-white'>"+
+	                     	            "<div class='card-header'>"+data.camplist[i].facltnm+"</div>"+
+	                     	            "<div class='card-body'>"+
+	                   	              	  "<img src='/images/camp3.webp' style='width:200px; height:200px;'></img>"+
+	                   	              	"<p class='card-text'>"+data.camplist[i].facltnm+" </div></div></div>")
+	                   	        }
+                       		}
 							var target = document.getElementById("sigunguselect");
 					    	 $.ajax({
 					             url :"search/sigungucategory",

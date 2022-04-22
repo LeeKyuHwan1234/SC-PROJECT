@@ -15,13 +15,13 @@
          OR sigungunm LIKE CONCAT('%', #{encurl}, '%') OR addr1 LIKE CONCAT('%', #{encurl}, '%') OR addr2 LIKE CONCAT('%', #{encurl}, '%')
     </select>
     <select id="getSearchDo" resultType="CampDto" parameterType="CampDto">
-         SELECT firstimageurl,facltnm FROM openapi WHERE donm = #{encurl} LIMIT 6 OFFSET 0
+         SELECT firstimageurl,facltnm FROM openapi WHERE donm = #{donm} LIMIT 6 OFFSET 0
     </select>
     <select id="getSearchDoCount" resultType="CampDto" parameterType="CampDto">
        	SELECT COUNT(facltnm) as count FROM openapi WHERE donm = #{donm}
     </select>
     <select id="getSearchSigungu" resultType="CampDto" parameterType="CampDto">
-         SELECT firstimageurl,facltnm FROM openapi WHERE sigungunm #{encurl}
+         SELECT firstimageurl,facltnm FROM openapi WHERE sigungunm = #{category}
     </select>
     <select id="getSearchSigunguCount" resultType="CampDto" parameterType="CampDto">
        	SELECT COUNT(facltnm) as count FROM openapi WHERE donm = #{donm} 
@@ -35,17 +35,20 @@
          SELECT DISTINCT donm FROM openapi
     </select>
     <select id="getSigunguCategory" resultType="CampDto" parameterType="CampDto">
-      	 SELECT DISTINCT sigungunm FROM openapi WHERE donm = #{category}
+      	 SELECT DISTINCT sigungunm FROM openapi WHERE donm = #{encurl}
     </select>
     <select id="getSigunguCamp" resultType="CampDto" parameterType="HashMap">
-      	 SELECT firstimageurl,facltnm FROM openapi WHERE donm = #{donm} 
-      	  <choose>
-      	  	<when test='category == ""'>
+      	 SELECT firstimageurl,facltnm FROM openapi
+      	 <choose> 
+      	 	<when test="donm == '' and category == ''">
       	 		LIMIT 6 OFFSET CAST(#{npage} AS INTEGER) * 6
       	 	</when>
-      	 	<when test='category != ""'>
-      	 		and sigungunm = #{category} LIMIT 6 OFFSET CAST(#{npage} AS INTEGER) * 6
-    		</when>
+      	 	<when test='donm != "" or category == ""'>
+      	 		 WHERE donm = #{donm} LIMIT 6 OFFSET CAST(#{npage} AS INTEGER) * 6
+      	 	</when>
+	      	<when test='category != ""'>
+	      	   WHERE donm = #{donm} and sigungunm = #{category} LIMIT 6 OFFSET CAST(#{npage} AS INTEGER) * 6
+	    	</when>
       	 </choose>
       	 
      </select> 

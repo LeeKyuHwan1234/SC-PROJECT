@@ -1,0 +1,135 @@
+window.onload = function() {
+    drawMap('#container');
+};
+
+//지도 그리기
+function drawMap(target) {
+    var width = 400; //지도의 넓이
+    var height = 550; //지도의 높이
+    var initialScale = 5300; //확대시킬 값
+    var initialX = -11570; //초기 위치값 X
+    var initialY = 3900; //초기 위치값 Y
+    var labels;
+
+    var projection = d3.geo
+        .mercator()
+        .scale(initialScale)
+        .translate([initialX, initialY]);
+    var path = d3.geo.path().projection(projection);
+    var zoom = d3.behavior
+        .zoom()
+        .translate(projection.translate())
+        .scale(projection.scale())
+        .scaleExtent([height, 800 * height])
+        .on('zoom', zoom);
+
+    var svg = d3
+        .select(target)
+        .append('svg')
+        .attr('width', width + 'px')
+        .attr('height', height + 'px')
+        .attr('id', 'map')
+        .attr('class', 'map');
+
+    var states = svg
+        .append('g')
+        .attr('id', 'states')
+        .call(zoom);
+
+    states
+        .append('rect')
+        .attr('class', 'background')
+        .attr('width', width + 'px')
+        .attr('height', height + 'px');
+
+    //geoJson데이터를 파싱하여 지도그리기
+    d3.json('json/korea.json', function(json) {
+        states
+            .selectAll('path') //지역 설정
+            .data(json.features)
+            .enter()
+            .append('path')
+            .attr('d', path)
+            .attr('id', function(d) {
+                return 'path-' + d.properties.name_eng;
+            })
+           states
+			     .selectAll('path')
+			     .on('mouseover', function(d) {
+					 d3.select(this).style('fill','skyblue')
+					 document.getElementById("donm").innerHTML = d.properties.name;
+				 })
+        	     .on('mouseout', function() {
+			    	 d3.select(this).style('fill','gainsboro');
+			     })
+			     .on('click', function(d) {
+					    document.getElementById("donm").innerHTML = d.properties.name;
+					    $.ajax({
+			             url :"search/do",
+			             type : "get",
+			             data :{
+			            	 category : d.properties.name,
+			             },
+			         	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
+			             success:function(data){
+			            	$("#campsite").empty();
+			            	$("#totalcountsix").empty();
+			            	$("#totalcount").empty();
+			            	$('#doselect').val(d.properties.name).prop("selected", true);
+			            	$('#sigunguselect').css("display","inline");
+			            	document.getElementById("totalcount").innerHTML += (data.count[0].count);
+			            	document.getElementById("totalcountsix").innerHTML += (parseInt((data.count[0].count)/6)+1);
+							for(var i = 0; i< data.camplist.length; i++) {
+								document.getElementById("campsite").innerHTML += data.camplist[i].facltnm;
+							}
+							var target = document.getElementById("sigunguselect");
+					    	 $.ajax({
+					             url :"search/sigungucategory",
+					             type : "get",
+					             async:false,
+					             data :{
+					            	 category : d.properties.name,
+					             },
+					         	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
+					             success:function(data){
+					            	 $("#sigunguselect").empty();
+					            	 var optAll = document.createElement("option");
+					    			 optAll.value = "";
+					    			 optAll.innerHTML = "전체";
+					             	 $('#sigunguselect').append(optAll);
+					            	 for(var i =0; i<data.length; i++){
+										var option = $("<option>"+data[i].sigungunm+"</option>");
+					            		 $('#sigunguselect').append(option)
+					            	 }
+					        	 }
+					        })
+							
+					    }
+         			})
+				 })
+    });
+    //텍스트 위치 조절 - 하드코딩으로 위치 조절을 했습니다.
+  /*  function translateTolabel(d) {
+        var arr = path.centroid(d);
+        if (d.properties.code == 31) {
+            //서울 경기도 이름 겹쳐서 경기도 내리기
+            arr[1] +=
+                d3.event && d3.event.scale
+                    ? d3.event.scale / height + 20
+                    : initialScale / height + 20;
+        } else if (d.properties.code == 34) {
+            //충남은 조금 더 내리기
+            arr[1] +=
+                d3.event && d3.event.scale
+                    ? d3.event.scale / height + 10
+                    : initialScale / height + 10;
+        }
+        return 'translate(' + arr + ')';
+    }*/
+   /* function zoom() {
+        projection.translate(d3.event.translate).scale(d3.event.scale);
+        states.selectAll('path').attr('d', path);
+        labels.attr('transform', translateTolabel);
+    }*/
+    // 확대, 지도 이동 기능
+}
