@@ -20,6 +20,16 @@ public class CampServiceImpl implements CampService {
 		return cam;
 	}
 	
+	public List<CampDto> getTotalCamp(){
+		List<CampDto> cam = campDao.getTotalCamp();
+		return cam;
+	}
+	
+	public List<CampDto> getTotalCampCount(){
+		List<CampDto> cam = campDao.getTotalCampCount();
+		return cam;
+	}
+	
 	
 	public List<CampDto> getPlaceDetail(String id){
 		List<CampDto> cam = campDao.getPlaceDetail(id);
@@ -31,8 +41,8 @@ public class CampServiceImpl implements CampService {
 		return cam;
 	}
 
-	public List<CampDto> getSearchDo(String encurl) {
-		List<CampDto> cam = campDao.getSearchDo(encurl);
+	public List<CampDto> getSearchDo(HashMap<String, String> ajaxdata) {
+		List<CampDto> cam = campDao.getSearchDo(ajaxdata);
 		return cam;
 	}
 	
@@ -54,8 +64,8 @@ public class CampServiceImpl implements CampService {
 		List<CampDto> cam = campDao.getSigunguCamp(ajaxdata);
 		return cam;
 	}
-	public List<CampDto> getSearchDoCount(String encurl) {
-		List<CampDto> cam = campDao.getSearchDoCount(encurl);
+	public List<CampDto> getSearchDoCount(HashMap<String, String> ajaxdata) {
+		List<CampDto> cam = campDao.getSearchDoCount(ajaxdata);
 		return cam;
 	}
 	public List<CampDto> getSearchSigunguCount(HashMap<String, Object> ajaxdata) {

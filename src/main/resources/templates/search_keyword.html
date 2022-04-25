@@ -1,421 +1,437 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Agency - Start Bootstrap Theme</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/header.css" rel="stylesheet" />
-        <link rel="stylesheet" href="css/korea.css" />
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-		<script src="http://code.jquery.com/jquery-latest.js"></script>
-		<script type="text/javascript" src="js/d3.js"></script>
-		<script type="text/javascript" src="js/korea.js"></script>
-    </head>
-    <body id="page-top">
-     <!-- Navigation-->
-     <div id="wrap">
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-            <div class="container">
-                <a class="navbar-brand" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="..." /></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars ms-1"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- Masthead-->
-        <header class="masthead">
-            <div class="container">
-                <div class="masthead-subheading">Welcome To Our Studio!</div>
-                <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-                <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a> 
-            </div>
-        </header>
-     <!-- Portfolio Modals-->
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/header.js"></script>
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-    <div class="craw">
-  	 <h1>검색어로 찾기</h1>
-     <input type="text" id="craw_id" name="craw_id" placeholder="ID 입력" style="width:300px;"/>
-     <input type="button" id="craw_submit" name="craw_submit" value="조회"/>  
- </div>
- 
- <div class="content_craw">
- </div>
- <div><hr></div>
-<div>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Agency - Start Bootstrap Theme</title>
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Font Awesome icons (free version)-->
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
+	crossorigin="anonymous"></script>
+<!-- Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css" />
+<link
+	href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"
+	rel="stylesheet" type="text/css" />
+<link href="css/header.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/korea.css" />
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="js/d3.js"></script>
+<script type="text/javascript" src="js/korea.js"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body id="page-top">
+	<!-- Navigation-->
+	<div id="wrap">
 
-  	 <h1>지도로 찾기</h1>
-<div id="container"><div id="donm">
-</div>
-</div>
+		<nav class="navbar navbar-expand-lg navbar-dark fixed-top"
+			id="mainNav">
+			<div class="container-xxl">
+				<a class="navbar-brand" href="#page-top"><img
+					src="assets/img/navbar-logo.svg" alt="..." /></a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+					aria-controls="navbarResponsive" aria-expanded="false"
+					aria-label="Toggle navigation">
+					Menu <i class="fas fa-bars ms-1"></i>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+					<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+						<li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+						<li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+						<li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+						<li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+						<li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- Masthead-->
+		<header class="masthead">
+			<div class=".container">
+				<div class="masthead-subheading">Welcome To Our Studio!</div>
+				<div class="masthead-heading text-uppercase">
+					<input type="text" id="craw_id" name="craw_id" placeholder="ID 입력"
+						style="width: 500px;" /> <input type="button" id="craw_submit"
+						name="craw_submit" value="검색" />
+				</div>
+				<a class="btn btn-primary btn-xl text-uppercase" href="#container">지역으로 찾기</a>
+			</div>
+		</header>
+		<!-- Core theme JS-->
+		<script src="js/header.js"></script>
+		<div class="container-lg">
+			<div class="craw">
+			</div>
+			<div class="content_craw"></div>
+			<div>
+				<hr>
+			</div>
+			<div>
+				<div id="container">
+					<h2 style="text-align:center">우리나라 지도</h2>
+					<div id="donm"></div>
+				</div>
+			<span class="float-right" id="totalcount" th:text="${data.count[0].count}"></span><span class="float-right">전체 갯수 : &nbsp</span>
+			</div>
+			<div class="search">
+				<select onchange="categoryChange(this)" name="donm" id="doselect">
+					<option value="전국">전국</option>
+					<option th:each="datalist : ${data.cate}" th:text='${datalist.donm}'
+						th:value='${datalist.donm}'></option>
+				</select> 
+				<select onchange="subcategoryChange(this)" name="sigungunm"
+					id="sigunguselect">
+				</select>
+				<p class="pagination">
+					<a id="prebtn" onclick="prebtn()"><img src="images/left-arrow.png" style="width:30px;height:30px"/></a> <a id="npage">1</a> <a>/</a>
+					<a id="totalcountsix" th:text="(${data.count[0].count})/6"></a> <a id="nextbtn" onclick="nextbtn()"><img src="images/right-arrow.png" style="width:30px;height:30px"/></a>
+				</p>
+			</div>
+			<div class="container">
+				<div class="row camprow" th:if="${camplist.firstimageurl != 'data'}" >
+				<!-- 아닐때 -->
+					<div class='col-4 mb-3' th:each="camplist : ${data.camplist}" >
+						<div class='card text-dark bg-white'>
+							<div class='card-header' th:text="${camplist.facltnm}"></div>
+							<div class='card-body'>
+								<img src="th:text='${camplist.firstimageurl}'" style='width: 250px; height: 200px;'></img>
+							</div>
+						</div>
+					</div>
+				<!-- 맞을 때 -->
+				<div class="row camprow" th:less="${camplist.firstimageurl != 'data'}" >
+					<div class='col-4 mb-3' th:each="camplist : ${data.camplist}" >
+						<div class='card text-dark bg-white'>
+							<div class='card-header' th:text="${camplist.facltnm}"></div>
+							<div class='card-body'>
+								<img src='/images/camp3.webp' style='width: 250px; height: 200px;'></img>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<input type="hidden" id="npagex" name="npagex">
+			<div id="gongback" style="height: 1000px"></div>
+		</div>
+	</div>
+	<!-- Footer-->
+	<footer class="footer fixed-bottom py-2">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-4 text-lg-start">Copyright &copy; Your
+					Website 2022</div>
+				<div class="col-lg-4 my-3 my-lg-0">
+					<a class="btn btn-dark btn-social mx-2" href="#!"
+						aria-label="Twitter"><i class="fab fa-twitter"></i></a> <a
+						class="btn btn-dark btn-social mx-2" href="#!"
+						aria-label="Facebook"><i class="fab fa-facebook-f"></i></a> <a
+						class="btn btn-dark btn-social mx-2" href="#!"
+						aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+				</div>
+				<div class="col-lg-4 text-lg-end">
+					<a class="link-white text-decoration-none me-3" href="#!">Privacy
+						Policy</a> <a class="link-white text-decoration-none" href="#!">Terms
+						of Use</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script type="text/javascript">
+		var page = 1;
+		if (page == 1) {
+			$("#prebtn").removeAttr("onclick");
+		}
+		$("#craw_submit").click(function() {
+			$.ajax({
+				url : "search/keyword",
+				type : "get",
+				data : {
+					keyword : $("#craw_id").val(),
+				},
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+				success : function(data) {
+					$(".content_craw").empty();
+					for (var i = 0; i < data.length; i++) {
+						$(".content_craw").append("<tr><th>" + data[i].facltnm + "</th></tr>");
+					}
+				}
+			})
+		})
 
+		function categoryChange(e) {
+			page = 1;
+			var target = document.getElementById("sigunguselect");
+			$("#npage").empty();
+			$("#npage").append(page);
+			$.ajax({
+				url : "search/sigungucategory",
+				type : "get",
+				async : false,
+				data : {
+					category : e.value,
+				},
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+				success : function(data) {
+					$(".camprow").empty();
+					$("#sigunguselect").empty();
+					$("#totalcountsix").empty();
+					$("#totalcount").empty();
+					if (page == 1) {
+						$("#prebtn").removeAttr("onclick");
+					}
+					if(e.value != '전국') {
+						var optAll = document.createElement("option");
+						optAll.value = "";
+						optAll.innerHTML = "전체";
+						target.appendChild(optAll);
+					}
+					else if(e.value == '전국') {
+						$('#sigunguselect').css("display", "");
+					}
+					var nowpage = $("#npage").text();
+					for (var i = 0; i < data.length; i++) {
+						var opt = document.createElement("option");
+						opt.value = data[i].sigungunm;
+						opt.innerHTML = data[i].sigungunm;
+						target.appendChild(opt);
+					}
+					$.ajax({
+						url : "search/do",
+						type : "get",
+						data : {
+							category : e.value,
+							npage : parseInt(nowpage) - 1
+						},
+						async : false,
+						contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+						success : function(data) {
+							if(e.value != '전국') {
+								$('#sigunguselect').css("display", "inline");
+							}
+							else if (e.value == '전국') {
+								$('#sigunguselect').css("display", "");
+							}
+							$("#totalcount").append(data.count[0].count)
+							if (data.count[0].count % 6 == 0) {
+								$("#totalcountsix").append(parseInt((data.count[0].count) / 6))
+								if (page < parseInt((data.count[0].count) / 6)) {
+									$("#nextbtn").attr("onclick", "nextbtn()");
+								} else if (page == parseInt((data.count[0].count) / 6)) {
+									$("#nextbtn").removeAttr("onclick");
+								}
+							} else {
+								$("#totalcountsix").append(parseInt((data.count[0].count) / 6) + 1)
+								if (page < parseInt((data.count[0].count) / 6) + 1) {
+									$("#nextbtn").attr("onclick", "nextbtn()");
+								} else if (page == parseInt((data.count[0].count) / 6) + 1) {
+									$("#nextbtn").removeAttr("onclick");
+								}
+							}
+							for (var i = 0; i < data.camplist.length; i++) {
+								if (data.camplist[i].firstimageurl != "no data") {
+									$(".camprow").append(
+											"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white'>"
+													+ "<div class='card-header'>" + data.camplist[i].facltnm + "</div>"
+													+ "<div class='card-body'>"
+													+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
+													+ "<p class='card-text'>" + data.camplist[i].facltnm + " </div></div></div>")
+								} else {
+									$(".camprow").append(
+											"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white'>"
+													+ "<div class='card-header'>" + data.camplist[i].facltnm + "</div>"
+													+ "<div class='card-body'>"
+													+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+													+ "<p class='card-text'>" + data.camplist[i].facltnm + " </div></div></div>")
+								}
+							}
+						}
+					})
+				}
+			})
+		}
 
-<div id="totalcount"></div>
-</div>
-<div class="search">
- 	<select onchange="categoryChange(this)" name="donm" id="doselect">
-	    <option value="전국">전국</option>
-	    <option th:each="datalist : ${data}" th:text='${datalist.donm}' th:value='${datalist.donm}'></option>
-	</select>
-	<select onchange="subcategoryChange(this)" name="sigungunm" id="sigunguselect">
-	    <option value=""></option>
-	</select>
-</div>
-<div class="pagination">
-  <a id="prebtn" onclick="prebtn()">&laquo;</a>
-  <a id="npage" >1</a>
-  <a>/</a>
-  <a id="totalcountsix"></a>
-  <a id="nextbtn"onclick="nextbtn()">&raquo;</a>
- </div>
+		
+		function subcategoryChange(e) {
+			page = 1;
+			if (page == 1) {
+				$("#prebtn").removeAttr("onclick");
+			}
+			var dotarget = document.getElementById("doselect");
+			var sigungutarget = document.getElementById("sigunguselect");
+			$("#npage").empty();
+			$("#npage").append(page);
+			var nowpage = $("#npage").text();
+			$.ajax({
+				url : "search/sigungucamp",
+				type : "get",
+				data : {
+					donm : dotarget.value,
+					category : sigungutarget.value,
+					npage : parseInt(nowpage) - 1
+				},
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+				success : function(data) {
+					$(".camprow").empty();
+					$("#totalcountsix").empty();
+					$("#totalcount").empty();
 
-<div class="container">
-   <div class="row camprow">
-   </div>
-</div>
-<input type="hidden" id="npagex" name="npagex">
-<div id="gongback" style="height:100px"></div>
- </div>
-  <!-- Footer--> 
-       <footer class="footer fixed-bottom py-4">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2022</div>
-                <div class="col-lg-4 my-3 my-lg-0">
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-                <div class="col-lg-4 text-lg-end">
-                    <a class="link-white text-decoration-none me-3" href="#!">Privacy Policy</a>
-                    <a class="link-white text-decoration-none" href="#!">Terms of Use</a>
-                </div>
-            </div>
-        </div>
-    </footer>
- <script type="text/javascript">
- 	var page = 1;
- 	if(page == 1){
- 		$("#prebtn").removeAttr("onclick");
- 	}	
- 	$("#craw_submit").click(function(){
-         $.ajax({
-             url :"search/keyword",
-             type : "get",
-             data :{
-            	 keyword : $("#craw_id").val(),
-             },
-         	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
-             success:function(data){
-            	$(".content_craw").empty();
-                for(var i =0; i< data.length; i++){
-             		$(".content_craw").append("<tr><th>"+data[i].facltnm +"</th></tr>");    
-                }
-             }
-         })
-     })
-     
-     function categoryChange(e) {
-    	page = 1; 
- 		var target = document.getElementById("sigunguselect");
-    	 $("#npage").empty();
-   	 	 $("#npage").append(page);
-    	 $.ajax({
-             url :"search/sigungucategory",
-             type : "get",
-             async:false,
-             data :{
-            	 category : e.value,
-             },
-         	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
-             success:function(data){
-            	 $(".camprow").empty();
-             	 $("#sigunguselect").empty();
-             	 $("#totalcountsix").empty();
-             	 $("#totalcount").empty();
-             	 if(page == 1){
-             		$("#prebtn").removeAttr("onclick");
-             	 }
-             	 var optAll = document.createElement("option");
-    			 optAll.value = "";
-    			 optAll.innerHTML = "전체";
-             	 target.appendChild(optAll);
-            	 for(var i =0; i< data.length; i++){
-            		var opt = document.createElement("option");
-        			opt.value = data[i].sigungunm;
-        			opt.innerHTML = data[i].sigungunm;
-        			target.appendChild(opt);
-        		 }
-            	 $.ajax({
-                     url :"search/do",
-                     type : "get",
-                     data :{
-                    	 category : e.value
-                     },
-                     async:false,
-                 	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
-                     success:function(data){
-                    	 $('#sigunguselect').css("display","inline");
-                    	 $("#totalcount").append(data.count[0].count)
-                    	 if(data.length % 6 == 0){
-                    		 $("#totalcountsix").append(parseInt((data.count[0].count)/6))
-			                    if(page < parseInt((data.count[0].count)/6)) {
-				         		$("#nextbtn").attr("onclick","nextbtn()");
-				         		}
-			                    else if(page == parseInt((data.count[0].count)/6)) {
-			    	         		$("#nextbtn").removeAttr("onclick");
-			    	         	}
-                    	 } else {
-                      		$("#totalcountsix").append(parseInt((data.count[0].count)/6)+1)
-								if(page < parseInt((data.count[0].count)/6)+1) {
-				         			$("#nextbtn").attr("onclick","nextbtn()");
-				         		}
-								else if(page == parseInt((data.count[0].count)/6)+1) {
-            	         		$("#nextbtn").removeAttr("onclick");
-            	         	}
-                    	 }
-                    	 for(var i =0; i< data.camplist.length; i++){
-                      		if(data.camplist[i].firstimageurl != "no data") {
-                     			$(".camprow")
-                     			.append("<div class='col-4 mb-3'>"+
-                     	          "<div class='card text-dark bg-white'>"+
-                     	            "<div class='card-header'>"+data.camplist[i].facltnm+"</div>"+
-                     	            "<div class='card-body'>"+
-                   	              	  "<img src="+data.camplist[i].firstimageurl+" style='width:200px; height:200px;'></img>"+
-                     	              "<p class='card-text'>"+data.camplist[i].facltnm+" </div></div></div>")
-                     		}
-                      		else {
-                      			$(".camprow")
-                      			.append("<div class='col-4 mb-3'>"+
-                     	          "<div class='card text-dark bg-white'>"+
-                     	            "<div class='card-header'>"+data.camplist[i].facltnm+"</div>"+
-                     	            "<div class='card-body'>"+
-                   	              	  "<img src='/images/camp3.webp' style='width:200px; height:200px;'></img>"+
-                   	              	"<p class='card-text'>"+data.camplist[i].facltnm+" </div></div></div>")
-                   	        }
-                       	}
-                     }
-                 })
-             }
-         })
-     }
-     
-     function subcategoryChange(e) {
-    	 page = 1;
-    	 if(page == 1){
-      		$("#prebtn").removeAttr("onclick");
-      	}
-    	 var dotarget = document.getElementById("doselect");
-    	 var sigungutarget = document.getElementById("sigunguselect");
-    	 $("#npage").empty();
-    	 $("#npage").append(page);
-    	 var nowpage = $("#npage").text();
-    	 $.ajax({
-             url :"search/sigungucamp",
-             type : "get",
-             data :{
-            	 donm : dotarget.value,
-            	 category : sigungutarget.value,
-            	 npage: parseInt(nowpage)-1
-             },
-         	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
-             success:function(data){
-            	 $(".camprow").empty();
-             	 $("#totalcountsix").empty();
-             	 $("#totalcount").empty();
-             	 $("#totalcount").append(data.count[0].count)
-             	 if(data.count[0].count % 6 == 0){
-             	 	$("#totalcountsix").append(parseInt((data.count[0].count)/6))
-             	 	if(page < parseInt((data.count[0].count)/6)) {
-	         	 		$("#nextbtn").attr("onclick","nextbtn()");
-             	 	}
-             	 	else if(page == parseInt((data.count[0].count)/6)) {
-    	         		$("#nextbtn").removeAttr("onclick");
-    	         	}
-             	 } else {
-             		$("#totalcountsix").append(parseInt((data.count[0].count)/6)+1)
-             		if(page < parseInt((data.count[0].count)/6+1)) {
-	         			$("#nextbtn").attr("onclick","nextbtn()");
-             		}
-             		else if(page == parseInt((data.count[0].count)/6)+1) {
-    	         		$("#nextbtn").removeAttr("onclick");
-    	         	}
-             	}
-             	 for(var i =0; i< data.camplist.length; i++){
-             		if(data.camplist[i].firstimageurl != "no data") {
-            			$(".camprow")
-            			.append("<div class='col-4 mb-3'>"+
-            	          "<div class='card text-dark bg-white'>"+
-            	            "<div class='card-header'>"+data.camplist[i].facltnm+"</div>"+
-            	            "<div class='card-body'>"+
-          	              	  "<img src="+data.camplist[i].firstimageurl+" style='width:200px; height:200px;'></img>"+
-            	              "<p class='card-text'>"+data.camplist[i].facltnm+" </div></div></div>")
-            		}
-             		else {
-             			$(".camprow")
-             			.append("<div class='col-4 mb-3'>"+
-            	          "<div class='card text-dark bg-white'>"+
-            	            "<div class='card-header'>"+data.camplist[i].facltnm+"</div>"+
-            	            "<div class='card-body'>"+
-          	              	  "<img src='/images/camp3.webp' style='width:200px; height:200px;'></img>"+
-          	              	"<p class='card-text'>"+data.camplist[i].facltnm+" </div></div></div>")
-            	 	}
-             	 }
-             }
-         })
-     }     
-     function nextbtn() {
-    	var dotarget = document.getElementById("doselect");
-    	var sigungutarget = document.getElementById("sigunguselect");
-    	$("#npage").empty();
-    	$("#npage").append(page+1)
-    	page++;
-    	if(page > 1){
-    		$("#prebtn").attr("onclick","prebtn()");
-    	}
-    	
-    	$.ajax({
-         url :"search/sigungucamp",
-         type : "get",
-         data :{
-        	 donm : dotarget.value,
-        	 category : sigungutarget.value,
-        	 npage: page-1
-         },
-     	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
-         success:function(data){
-        	 $(".camprow").empty();
-         	 $("#totalcountsix").empty();
-         	 $("#totalcount").empty();
-         	 $("#totalcount").append(data.count[0].count)
-         	
-         	 if(data.count[0].count % 6 == 0){
-         	 	endpage = $("#totalcountsix").append(parseInt((data.count[0].count)/6))
-	         	if(page == parseInt((data.count[0].count)/6)) {
-	         		$("#nextbtn").removeAttr("onclick");
-	         	}
-         	  } 
-         	  else {
-         		endpage = $("#totalcountsix").append(parseInt((data.count[0].count)/6)+1)
-             	if(page == parseInt((data.count[0].count)/6)+1) {
-	         		$("#nextbtn").removeAttr("onclick");
-	         	}
-         	 }
-         	 for(var i =0; i< data.camplist.length; i++){
-         		if(data.camplist[i].firstimageurl != "no data") {
-        			$(".camprow")
-        			.append("<div class='col-4 mb-3'>"+
-        	          "<div class='card text-dark bg-white'>"+
-        	            "<div class='card-header'>"+data.camplist[i].facltnm+"</div>"+
-        	            "<div class='card-body'>"+
-      	              	  "<img src="+data.camplist[i].firstimageurl+" style='width:200px; height:200px;'></img>"+
-        	              "<p class='card-text'>"+data.camplist[i].facltnm+" </div></div></div>")
-        		}
-         		else {
-         			$(".camprow")
-         			.append("<div class='col-4 mb-3'>"+
-        	          "<div class='card text-dark bg-white'>"+
-        	            "<div class='card-header'>"+data.camplist[i].facltnm+"</div>"+
-        	            "<div class='card-body'>"+
-      	              	  "<img src='/images/camp3.webp' style='width:200px; height:200px;'></img>"+
-      	              	"<p class='card-text'>"+data.camplist[i].facltnm+" </div></div></div>")
-      	        }
-          	}
-         	}
-     	})
-     	
-     }
-     
-     function prebtn() {
-     	var dotarget = document.getElementById("doselect");
-     	var sigungutarget = document.getElementById("sigunguselect");
-	  	$('#npage').empty();
-     	$('#npage').append(page-1);
-     	page--;
-    	if(page == 1){
-     		$("#prebtn").removeAttr("onclick");
-     	}
-    	$.ajax({
-          url :"search/sigungucamp",
-          type : "get",
-          data :{
-         	 donm : dotarget.value,
-         	 category : sigungutarget.value,
-         	 npage: page-1
-          },
-      	 contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
-          success:function(data){
-         	 $(".camprow").empty();
-          	 $("#totalcountsix").empty();
-          	 $("#totalcount").empty();
-          	 $("#totalcount").append(data.count[0].count)
-          	 if(data.count[0].count % 6 == 0){
-          	 	endpage = $("#totalcountsix").append(parseInt((data.count[0].count)/6))
-          		if(page < parseInt((data.count[0].count)/6)) {
-	         		$("#nextbtn").attr("onclick","nextbtn()");
-	         	}
-          	 } else {
-          		endpage = $("#totalcountsix").append(parseInt((data.count[0].count)/6)+1)
-             	if(page < parseInt((data.count[0].count)/6)+1) {
-	         		$("#nextbtn").attr("onclick","nextbtn()");
-	         	}
-          	 }
-          	for(var i =0; i< data.camplist.length; i++){
-         		if(data.camplist[i].firstimageurl != "no data") {
-        			$(".camprow")
-        			.append("<div class='col-4 mb-3'>"+
-        	          "<div class='card text-dark bg-white'>"+
-        	            "<div class='card-header'>"+data.camplist[i].facltnm+"</div>"+
-        	            "<div class='card-body'>"+
-      	              	  "<img src="+data.camplist[i].firstimageurl+" style='width:200px; height:200px;'></img>"+
-        	              "<p class='card-text'>"+data.camplist[i].facltnm+" </div></div></div>")
-        		}
-         		else {
-         			$(".camprow")
-         			.append("<div class='col-4 mb-3'>"+
-        	          "<div class='card text-black bg-white'>"+
-        	            "<div class='card-header'>"+data.camplist[i].facltnm+"</div>"+
-        	            "<div class='card-body'>"+
-      	              	  "<img src='/images/camp3.webp' style='width:200px; height:200px;'></img>"+
-      	              	"<p class='card-text'>"+data.camplist[i].facltnm+" </div></div></div>")
-      	        }
-          	}
-          }
-      	})
-      } 
-    
-     
-     
-     
- </script>
+					$("#totalcount").append(data.count[0].count)
+					if (data.count[0].count % 6 == 0) {
+						$("#totalcountsix").append(parseInt((data.count[0].count) / 6))
+						if (page < parseInt((data.count[0].count) / 6)) {
+							$("#nextbtn").attr("onclick", "nextbtn()");
+						} else if (page == parseInt((data.count[0].count) / 6)) {
+							$("#nextbtn").removeAttr("onclick");
+						}
+					} else {
+						$("#totalcountsix").append(parseInt((data.count[0].count) / 6) + 1)
+						if (page < parseInt((data.count[0].count) / 6 + 1)) {
+							$("#nextbtn").attr("onclick", "nextbtn()");
+						} else if (page == parseInt((data.count[0].count) / 6) + 1) {
+							$("#nextbtn").removeAttr("onclick");
+						}
+					}
+					for (var i = 0; i < data.camplist.length; i++) {
+						if (data.camplist[i].firstimageurl != "no data") {
+							$(".camprow").append(
+									"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white'>" + "<div class='card-header'>"
+											+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
+											+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
+											+ "<p class='card-text'>" + data.camplist[i].facltnm + " </div></div></div>")
+						} else {
+							$(".camprow").append(
+									"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white'>" + "<div class='card-header'>"
+											+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
+											+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+											+ "<p class='card-text'>" + data.camplist[i].facltnm + " </div></div></div>")
+						}
+					}
+				}
+			})
+		}
+		function nextbtn() {
+			var dotarget = document.getElementById("doselect");
+			var sigungutarget = document.getElementById("sigunguselect");
+			$("#npage").empty();
+			$("#npage").append(page + 1)
+			page++;
+			if (page > 1) {
+				$("#prebtn").attr("onclick", "prebtn()");
+			}
+
+			$.ajax({
+				url : "search/sigungucamp",
+				type : "get",
+				data : {
+					donm : dotarget.value,
+					category : sigungutarget.value,
+					npage : page - 1
+				},
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+				success : function(data) {
+					$(".camprow").empty();
+					$("#totalcountsix").empty();
+					$("#totalcount").empty();
+					$("#totalcount").append(data.count[0].count)
+
+					if (data.count[0].count % 6 == 0) {
+						endpage = $("#totalcountsix").append(parseInt((data.count[0].count) / 6))
+						if (page == parseInt((data.count[0].count) / 6)) {
+							$("#nextbtn").removeAttr("onclick");
+						}
+					} else {
+						endpage = $("#totalcountsix").append(parseInt((data.count[0].count) / 6) + 1)
+						if (page == parseInt((data.count[0].count) / 6) + 1) {
+							$("#nextbtn").removeAttr("onclick");
+						}
+					}
+					for (var i = 0; i < data.camplist.length; i++) {
+						if (data.camplist[i].firstimageurl != "no data") {
+							$(".camprow").append(
+									"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white'>" + "<div class='card-header'>"
+											+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
+											+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
+											+ "<p class='card-text'>" + data.camplist[i].facltnm + " </div></div></div>")
+						} else {
+							$(".camprow").append(
+									"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white'>" + "<div class='card-header'>"
+											+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
+											+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+											+ "<p class='card-text'>" + data.camplist[i].facltnm + " </div></div></div>")
+						}
+					}
+				}
+			})
+
+		}
+
+		function prebtn() {
+			var dotarget = document.getElementById("doselect");
+			var sigungutarget = document.getElementById("sigunguselect");
+			$('#npage').empty();
+			$('#npage').append(page - 1);
+			page--;
+			if (page == 1) {
+				$("#prebtn").removeAttr("onclick");
+			}
+			$.ajax({
+				url : "search/sigungucamp",
+				type : "get",
+				data : {
+					donm : dotarget.value,
+					category : sigungutarget.value,
+					npage : page - 1
+				},
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+				success : function(data) {
+					$(".camprow").empty();
+					$("#totalcountsix").empty();
+					$("#totalcount").empty();
+					$("#totalcount").append(data.count[0].count)
+					if (data.count[0].count % 6 == 0) {
+						endpage = $("#totalcountsix").append(parseInt((data.count[0].count) / 6))
+						if (page < parseInt((data.count[0].count) / 6)) {
+							$("#nextbtn").attr("onclick", "nextbtn()");
+						}
+					} else {
+						endpage = $("#totalcountsix").append(parseInt((data.count[0].count) / 6) + 1)
+						if (page < parseInt((data.count[0].count) / 6) + 1) {
+							$("#nextbtn").attr("onclick", "nextbtn()");
+						}
+					}
+					for (var i = 0; i < data.camplist.length; i++) {
+						if (data.camplist[i].firstimageurl != "no data") {
+							$(".camprow").append(
+									"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white'>" + "<div class='card-header'>"
+											+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
+											+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
+											+ "<p class='card-text'>" + data.camplist[i].facltnm + " </div></div></div>")
+						} else {
+							$(".camprow").append(
+									"<div class='col-4 mb-3'>" + "<div class='card text-black bg-white'>" + "<div class='card-header'>"
+											+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
+											+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+											+ "<p class='card-text'>" + data.camplist[i].facltnm + " </div></div></div>")
+						}
+					}
+				}
+			})
+		}
+	</script>
 </body>
 </html>
+
+
+
+

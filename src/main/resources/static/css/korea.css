@@ -13,14 +13,10 @@
   font-size: 22px;
 }
 
-#sigunguselect {
-	display:none;
-}
 #container {
-	width: 400px;
 	height: 650px;
 	float: left;
-	margin: 15px 35px;
+	margin: 15px 55px 55px 55px;
 	fill: white;
 }
 #states path {
@@ -50,7 +46,25 @@
 	font-size: 10px;
 	fill: black;
 }
-
 .card-columns {
     column-count: 3;
  }
+ 
+ #doselect {
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+	-moz-appearance: none; 
+	appearance: none;
+	width:90px;
+	text-align-last: center;
+	text-align: center;
+ }
+  #sigunguselect {
+  	display:none;
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+	-moz-appearance: none; 
+	appearance: none;
+	width:90px;
+	text-align-last: center;
+	text-align: center;
+ }
+ 

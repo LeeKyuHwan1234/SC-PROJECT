@@ -8,7 +8,7 @@ function drawMap(target) {
     var height = 650; //지도의 높이
     var initialScale = 5280; //확대시킬 값
     var initialX = -11570; //초기 위치값 X
-    var initialY = 3900; //초기 위치값 Y
+    var initialY = 3860; //초기 위치값 Y
     var labels;
 
     var projection = d3.geo
@@ -86,7 +86,7 @@ function drawMap(target) {
 	                     	          "<div class='card text-dark bg-white'>"+
 	                     	            "<div class='card-header'>"+data.camplist[i].facltnm+"</div>"+
 	                     	            "<div class='card-body'>"+
-	                   	              	  "<img src="+data.camplist[i].firstimageurl+" style='width:200px; height:200px;'></img>"+
+	                   	              	  "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"+
 	                     	              "<p class='card-text'>"+data.camplist[i].facltnm+" </div></div></div>")
 	                     			}
 	                      		else {
@@ -95,7 +95,7 @@ function drawMap(target) {
 	                     	          "<div class='card text-dark bg-white'>"+
 	                     	            "<div class='card-header'>"+data.camplist[i].facltnm+"</div>"+
 	                     	            "<div class='card-body'>"+
-	                   	              	  "<img src='/images/camp3.webp' style='width:200px; height:200px;'></img>"+
+	                   	              	  "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"+
 	                   	              	"<p class='card-text'>"+data.camplist[i].facltnm+" </div></div></div>")
 	                   	        }
                        		}

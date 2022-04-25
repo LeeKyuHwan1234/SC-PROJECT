@@ -37,15 +37,19 @@ public class CampController {
 	
 	@RequestMapping(value = "openapi")
 	public String getOpenApi(Model model) {
-		List<CampDto> cam = campService.getOpenApi();
-		model.addAttribute("data",cam);
+		HashMap<String, Object> map = new HashMap<String,Object>(); 
+		map.put("cate", campService.getOpenApi());
+		model.addAttribute("data",map);
 		return "index";
 	}
 	
 	@RequestMapping(value = "search")
 	public String getSearch(Model model) {
-		List<CampDto> cam = campService.getDoCategory();
-		model.addAttribute("data",cam);
+		HashMap<String, Object> map = new HashMap<String,Object>(); 
+		map.put("cate", campService.getDoCategory());
+		map.put("camplist",campService.getTotalCamp());
+		map.put("count",campService.getTotalCampCount());
+		model.addAttribute("data",map);
 		return "search_keyword";
 	}
 	
@@ -65,12 +69,13 @@ public class CampController {
 	
 	@RequestMapping(value = "search/do")
 	@JsonProperty("category")
-	public @ResponseBody HashMap<String,Object> getSearchDo(Model model, HttpServletRequest req,HttpServletResponse resp,Criteria cri ,@RequestParam String category) throws Exception {
+	public @ResponseBody HashMap<String,Object> getSearchDo(Model model, HttpServletRequest req,HttpServletResponse resp,Criteria cri ,@RequestParam String category,@RequestParam HashMap<String,String> ajaxdata) throws Exception {
 		HashMap<String,Object> map = new HashMap<String,Object>();
 	   try {
 			String encurl = URLDecoder.decode(category, "UTF-8");
-			map.put("camplist",campService.getSearchDo(encurl));
-			map.put("count",campService.getSearchDoCount(encurl));
+			System.out.print(ajaxdata);
+			map.put("camplist",campService.getSearchDo(ajaxdata));
+			map.put("count",campService.getSearchDoCount(ajaxdata));
 			map.put("campcategory", campService.getSigunguCategory(encurl));
 	   } catch (Exception e) {
 			// TODO Auto-generated catch block
