@@ -18,26 +18,24 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"
 	rel="stylesheet" type="text/css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Water+Brush&display=swap" rel="stylesheet">
 <link href="css/header.css" rel="stylesheet" />
 <link rel="stylesheet" href="css/korea.css" />
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="js/d3.js"></script>
 <script type="text/javascript" src="js/korea.js"></script>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 </head>
 <body id="page-top">
 	<!-- Navigation-->
 	<div id="wrap">
-
 		<nav class="navbar navbar-expand-lg navbar-dark fixed-top"
 			id="mainNav">
 			<div class="container-xxl">
-				<a class="navbar-brand" href="#page-top"><img
-					src="assets/img/navbar-logo.svg" alt="..." /></a>
+				<a class="navbar-brand"><img
+					src="/images/camper.png" alt="..." /></a>
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
 					aria-controls="navbarResponsive" aria-expanded="false"
@@ -57,378 +55,390 @@
 		</nav>
 		<!-- Masthead-->
 		<header class="masthead">
-			<div class=".container">
-				<div class="masthead-subheading">Welcome To Our Studio!</div>
-				<div class="masthead-heading text-uppercase">
-					<input type="text" id="craw_id" name="craw_id" placeholder="ID 입력"
-						style="width: 500px;" /> <input type="button" id="craw_submit"
-						name="craw_submit" value="검색" />
-				</div>
-				<a class="btn btn-primary btn-xl text-uppercase" href="#container">지역으로 찾기</a>
+			<div class="container">
+				<div class="masthead-subheading">Search For Camping Site!</div>
+				<form action="/openapi" method="get" name="searchform">
+					<div class="masthead-heading text-uppercase">
+						<input type="text" id="craw_id" name="craw_id" placeholder="검색어 입력" onkeypress="JavaScript:press(this.form)"
+						style="font-size:30px; margin:0; background-color:lightgray;"/>
+					</div>
+				</form>
 			</div>
 		</header>
 		<!-- Core theme JS-->
 		<script src="js/header.js"></script>
 		<div class="container-lg">
-			<div class="craw">
-			</div>
-			<div class="content_craw"></div>
-			<div>
-				<hr>
 			</div>
 			<div>
 				<div id="container">
-					<h2 style="text-align:center">우리나라 지도</h2>
+					<h2 style="text-align: center">우리나라 지도</h2>
 					<div id="donm"></div>
 				</div>
-			<span class="float-right" id="totalcount" th:text="${data.count[0].count}"></span><span class="float-right">전체 갯수 : &nbsp</span>
+				<span class="float-right">전체 갯수 : &nbsp</span>
+				<span class="float-right" id="totalcount"
+					th:text="${data.count[0].count}"></span>
+				
 			</div>
+			<span class="pagination">
+					<a id="prebtn" onclick="prebtn()"><img
+						src="images/left-arrow.png" style="width: 30px; height: 30px" /></a> <a
+						id="npage">1</a> <a>/</a> <a id="totalcountsix"
+						th:text="(${data.count[0].count})/9"></a> <a id="nextbtn"
+						onclick="nextbtn()"><img src="images/right-arrow.png"
+						style="width: 30px; height: 30px" /></a>
+				</span>
 			<div class="search">
 				<select onchange="categoryChange(this)" name="donm" id="doselect">
 					<option value="전국">전국</option>
-					<option th:each="datalist : ${data.cate}" th:text='${datalist.donm}'
-						th:value='${datalist.donm}'></option>
-				</select> 
-				<select onchange="subcategoryChange(this)" name="sigungunm"
+					<option th:each="datalist : ${data.cate}"
+						th:text='${datalist.donm}' th:value='${datalist.donm}'></option>
+				</select> <select onchange="subcategoryChange(this)" name="sigungunm"
 					id="sigunguselect">
 				</select>
-				<p class="pagination">
-					<a id="prebtn" onclick="prebtn()"><img src="images/left-arrow.png" style="width:30px;height:30px"/></a> <a id="npage">1</a> <a>/</a>
-					<a id="totalcountsix" th:text="(${data.count[0].count})/6"></a> <a id="nextbtn" onclick="nextbtn()"><img src="images/right-arrow.png" style="width:30px;height:30px"/></a>
-				</p>
+				
 			</div>
 			<div class="container">
-				<div class="row camprow" th:if="${camplist.firstimageurl != 'data'}" >
-				<!-- 아닐때 -->
-					<div class='col-4 mb-3' th:each="camplist : ${data.camplist}" >
-						<div class='card text-dark bg-white'>
+				<div class="row camprow">
+					<div class='col-sm-3 mb-4' th:each="camplist : ${data.camplist}">
+						<div class='card text-dark bg-white' th:onclick="'location.href=\''+@{/place?contentid=}+ @{${camplist.contentid}} + '\''">
 							<div class='card-header' th:text="${camplist.facltnm}"></div>
-							<div class='card-body'>
-								<img src="th:text='${camplist.firstimageurl}'" style='width: 250px; height: 200px;'></img>
+					<!-- 있을 때 -->
+							<div class='card-body' th:if="${camplist.firstimageurl} != 'no data'">
+								<img th:src="${camplist.firstimageurl}"
+									style='width: 260px; height: 200px;'></img>
+							</div>
+					<!-- 없을 때 -->		
+							<div class='card-body' th:unless="${camplist.firstimageurl} != 'no data'">
+								<img src='/images/camp3.webp'
+									style='width: 260px; height: 200px;'></img>
 							</div>
 						</div>
 					</div>
-				<!-- 맞을 때 -->
-				<div class="row camprow" th:less="${camplist.firstimageurl != 'data'}" >
-					<div class='col-4 mb-3' th:each="camplist : ${data.camplist}" >
-						<div class='card text-dark bg-white'>
-							<div class='card-header' th:text="${camplist.facltnm}"></div>
-							<div class='card-body'>
-								<img src='/images/camp3.webp' style='width: 250px; height: 200px;'></img>
-							</div>
-						</div>
+
+				</div>
+
+				<input type="hidden" id="npagex" name="npagex">
+				<div id="gongback" style="height: 1000px"></div>
+			</div>
+		</div>
+		<!-- Footer-->
+		<footer class="footer fixed-bottom py-2">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="col-lg-4 text-lg-start">Copyright &copy; Your
+						Website 2022</div>
+					<div class="col-lg-4 my-3 my-lg-0">
+						<a class="btn btn-dark btn-social mx-2" href="#!"
+							aria-label="Twitter"><i class="fab fa-twitter"></i></a> <a
+							class="btn btn-dark btn-social mx-2" href="#!"
+							aria-label="Facebook"><i class="fab fa-facebook-f"></i></a> <a
+							class="btn btn-dark btn-social mx-2" href="#!"
+							aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+					</div>
+					<div class="col-lg-4 text-lg-end">
+						<a class="link-white text-decoration-none me-3" href="#!">Privacy
+							Policy</a> <a class="link-white text-decoration-none" href="#!">Terms
+							of Use</a>
 					</div>
 				</div>
 			</div>
-			
-			<input type="hidden" id="npagex" name="npagex">
-			<div id="gongback" style="height: 1000px"></div>
-		</div>
-	</div>
-	<!-- Footer-->
-	<footer class="footer fixed-bottom py-2">
-		<div class="container">
-			<div class="row align-items-center">
-				<div class="col-lg-4 text-lg-start">Copyright &copy; Your
-					Website 2022</div>
-				<div class="col-lg-4 my-3 my-lg-0">
-					<a class="btn btn-dark btn-social mx-2" href="#!"
-						aria-label="Twitter"><i class="fab fa-twitter"></i></a> <a
-						class="btn btn-dark btn-social mx-2" href="#!"
-						aria-label="Facebook"><i class="fab fa-facebook-f"></i></a> <a
-						class="btn btn-dark btn-social mx-2" href="#!"
-						aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-				</div>
-				<div class="col-lg-4 text-lg-end">
-					<a class="link-white text-decoration-none me-3" href="#!">Privacy
-						Policy</a> <a class="link-white text-decoration-none" href="#!">Terms
-						of Use</a>
-				</div>
-			</div>
-		</div>
-	</footer>
-	<script type="text/javascript">
+		</footer>
+		<script type="text/javascript">
+		function press(f){
+			if(f.keyCode == 13){ //javascript에서는 13이 enter키를 의미함 
+				searchform.submit(); //formname에 사용자가 지정한 form의 name입력 
+			}
+		}
 		var page = 1;
-		if (page == 1) {
-			$("#prebtn").removeAttr("onclick");
-		}
-		$("#craw_submit").click(function() {
-			$.ajax({
-				url : "search/keyword",
-				type : "get",
-				data : {
-					keyword : $("#craw_id").val(),
-				},
-				contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
-				success : function(data) {
-					$(".content_craw").empty();
-					for (var i = 0; i < data.length; i++) {
-						$(".content_craw").append("<tr><th>" + data[i].facltnm + "</th></tr>");
-					}
-				}
-			})
-		})
-
-		function categoryChange(e) {
-			page = 1;
-			var target = document.getElementById("sigunguselect");
-			$("#npage").empty();
-			$("#npage").append(page);
-			$.ajax({
-				url : "search/sigungucategory",
-				type : "get",
-				async : false,
-				data : {
-					category : e.value,
-				},
-				contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
-				success : function(data) {
-					$(".camprow").empty();
-					$("#sigunguselect").empty();
-					$("#totalcountsix").empty();
-					$("#totalcount").empty();
-					if (page == 1) {
-						$("#prebtn").removeAttr("onclick");
-					}
-					if(e.value != '전국') {
-						var optAll = document.createElement("option");
-						optAll.value = "";
-						optAll.innerHTML = "전체";
-						target.appendChild(optAll);
-					}
-					else if(e.value == '전국') {
-						$('#sigunguselect').css("display", "");
-					}
-					var nowpage = $("#npage").text();
-					for (var i = 0; i < data.length; i++) {
-						var opt = document.createElement("option");
-						opt.value = data[i].sigungunm;
-						opt.innerHTML = data[i].sigungunm;
-						target.appendChild(opt);
-					}
-					$.ajax({
-						url : "search/do",
-						type : "get",
-						data : {
-							category : e.value,
-							npage : parseInt(nowpage) - 1
-						},
-						async : false,
-						contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
-						success : function(data) {
-							if(e.value != '전국') {
-								$('#sigunguselect').css("display", "inline");
-							}
-							else if (e.value == '전국') {
-								$('#sigunguselect').css("display", "");
-							}
-							$("#totalcount").append(data.count[0].count)
-							if (data.count[0].count % 6 == 0) {
-								$("#totalcountsix").append(parseInt((data.count[0].count) / 6))
-								if (page < parseInt((data.count[0].count) / 6)) {
-									$("#nextbtn").attr("onclick", "nextbtn()");
-								} else if (page == parseInt((data.count[0].count) / 6)) {
-									$("#nextbtn").removeAttr("onclick");
-								}
-							} else {
-								$("#totalcountsix").append(parseInt((data.count[0].count) / 6) + 1)
-								if (page < parseInt((data.count[0].count) / 6) + 1) {
-									$("#nextbtn").attr("onclick", "nextbtn()");
-								} else if (page == parseInt((data.count[0].count) / 6) + 1) {
-									$("#nextbtn").removeAttr("onclick");
-								}
-							}
-							for (var i = 0; i < data.camplist.length; i++) {
-								if (data.camplist[i].firstimageurl != "no data") {
-									$(".camprow").append(
-											"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white'>"
-													+ "<div class='card-header'>" + data.camplist[i].facltnm + "</div>"
-													+ "<div class='card-body'>"
-													+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
-													+ "<p class='card-text'>" + data.camplist[i].facltnm + " </div></div></div>")
-								} else {
-									$(".camprow").append(
-											"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white'>"
-													+ "<div class='card-header'>" + data.camplist[i].facltnm + "</div>"
-													+ "<div class='card-body'>"
-													+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
-													+ "<p class='card-text'>" + data.camplist[i].facltnm + " </div></div></div>")
-								}
-							}
-						}
-					})
-				}
-			})
-		}
-
+			if (page == 1) {
+				$("#prebtn").removeAttr("onclick");
+			}
 		
-		function subcategoryChange(e) {
-			page = 1;
-			if (page == 1) {
-				$("#prebtn").removeAttr("onclick");
+			/* 	$("#craw_submit").click(function() {
+				$.ajax({
+					url : "search/keyword",
+					type : "get",
+					data : {
+						keyword : $("#craw_id").val(),
+					},
+					contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+					success : function(data) {
+						$(".content_craw").empty();
+						for (var i = 0; i < data.length; i++) {
+							$(".content_craw").append("<tr><th>" + data[i].facltnm + "</th></tr>");
+						}
+					}
+				})
+			}) */
+
+			function categoryChange(e) {
+				page = 1;
+				var target = document.getElementById("sigunguselect");
+				$("#npage").empty();
+				$("#npage").append(page);
+				$.ajax({
+					url : "search/sigungucategory",
+					type : "get",
+					async : false,
+					data : {
+						category : e.value,
+					},
+					contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+					success : function(data) {
+						$(".camprow").empty();
+						$("#sigunguselect").empty();
+						$("#totalcountsix").empty();
+						$("#totalcount").empty();
+						if (page == 1) {
+							$("#prebtn").removeAttr("onclick");
+						}
+						if (e.value != '전국') {
+							var optAll = document.createElement("option");
+							optAll.value = "";
+							optAll.innerHTML = "전체";
+							target.appendChild(optAll);
+						} else if (e.value == '전국') {
+							$('#sigunguselect').css("display", "");
+						}
+						var nowpage = $("#npage").text();
+						for (var i = 0; i < data.length; i++) {
+							var opt = document.createElement("option");
+							opt.value = data[i].sigungunm;
+							opt.innerHTML = data[i].sigungunm;
+							target.appendChild(opt);
+						}
+						
+						$.ajax({
+							url : "search/do",
+							type : "get",
+							data : {
+								category : e.value,
+								npage : parseInt(nowpage) - 1
+							},
+							async : false,
+							contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+							success : function(data) {
+								if (e.value != '전국') {
+									$('#sigunguselect').css("display", "inline");
+								} else if (e.value == '전국') {
+									$('#sigunguselect').css("display", "");
+								}
+								$("#totalcount").append(data.count[0].count)
+								if (data.count[0].count % 9 == 0) {
+									$("#totalcountsix").append(parseInt((data.count[0].count) / 9))
+									if (page < parseInt((data.count[0].count) / 9)) {
+										$("#nextbtn").attr("onclick", "nextbtn()");
+									} else if (page == parseInt((data.count[0].count) / 9)) {
+										$("#nextbtn").removeAttr("onclick");
+									}
+								} else {
+									$("#totalcountsix").append(parseInt((data.count[0].count) / 9) + 1)
+									if (page < parseInt((data.count[0].count) / 9) + 1) {
+										$("#nextbtn").attr("onclick", "nextbtn()");
+									} else if (page == parseInt((data.count[0].count) / 9) + 1) {
+										$("#nextbtn").removeAttr("onclick");
+									}
+								}
+								for (var i = 0; i < data.camplist.length; i++) {
+									if (data.camplist[i].firstimageurl != "no data") {
+										$(".camprow").append(
+														  "<div class='col-4 mb-3'>" 
+														+ "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" 
+														+ "<div class='card-header'>" + data.camplist[i].facltnm + "</div>"
+														+ "<div class='card-body'>"
+														+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
+														+ "<input type='hidden' id='contentx' value="+data.camplist[i].contentid+">"
+														+ "</div></div>")
+									} else {
+										$(".camprow").append(
+												"<div class='col-4 mb-3'>" 
+														+ "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>"
+														+ "<div class='card-header'>" + data.camplist[i].facltnm + "</div>"
+														+ "<div class='card-body'>"
+														+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+														+ "</div></div>")
+														
+									}
+								}
+								
+							}
+						})
+					}
+				})
 			}
-			var dotarget = document.getElementById("doselect");
-			var sigungutarget = document.getElementById("sigunguselect");
-			$("#npage").empty();
-			$("#npage").append(page);
-			var nowpage = $("#npage").text();
-			$.ajax({
-				url : "search/sigungucamp",
-				type : "get",
-				data : {
-					donm : dotarget.value,
-					category : sigungutarget.value,
-					npage : parseInt(nowpage) - 1
-				},
-				contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
-				success : function(data) {
-					$(".camprow").empty();
-					$("#totalcountsix").empty();
-					$("#totalcount").empty();
 
-					$("#totalcount").append(data.count[0].count)
-					if (data.count[0].count % 6 == 0) {
-						$("#totalcountsix").append(parseInt((data.count[0].count) / 6))
-						if (page < parseInt((data.count[0].count) / 6)) {
-							$("#nextbtn").attr("onclick", "nextbtn()");
-						} else if (page == parseInt((data.count[0].count) / 6)) {
-							$("#nextbtn").removeAttr("onclick");
-						}
-					} else {
-						$("#totalcountsix").append(parseInt((data.count[0].count) / 6) + 1)
-						if (page < parseInt((data.count[0].count) / 6 + 1)) {
-							$("#nextbtn").attr("onclick", "nextbtn()");
-						} else if (page == parseInt((data.count[0].count) / 6) + 1) {
-							$("#nextbtn").removeAttr("onclick");
-						}
-					}
-					for (var i = 0; i < data.camplist.length; i++) {
-						if (data.camplist[i].firstimageurl != "no data") {
-							$(".camprow").append(
-									"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white'>" + "<div class='card-header'>"
-											+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
-											+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
-											+ "<p class='card-text'>" + data.camplist[i].facltnm + " </div></div></div>")
-						} else {
-							$(".camprow").append(
-									"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white'>" + "<div class='card-header'>"
-											+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
-											+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
-											+ "<p class='card-text'>" + data.camplist[i].facltnm + " </div></div></div>")
-						}
-					}
+			function subcategoryChange(e) {
+				page = 1;
+				if (page == 1) {
+					$("#prebtn").removeAttr("onclick");
 				}
-			})
-		}
-		function nextbtn() {
-			var dotarget = document.getElementById("doselect");
-			var sigungutarget = document.getElementById("sigunguselect");
-			$("#npage").empty();
-			$("#npage").append(page + 1)
-			page++;
-			if (page > 1) {
-				$("#prebtn").attr("onclick", "prebtn()");
+				var dotarget = document.getElementById("doselect");
+				var sigungutarget = document.getElementById("sigunguselect");
+				$("#npage").empty();
+				$("#npage").append(page);
+				var nowpage = $("#npage").text();
+				$.ajax({
+					url : "search/sigungucamp",
+					type : "get",
+					data : {
+						donm : dotarget.value,
+						category : sigungutarget.value,
+						npage : parseInt(nowpage) - 1
+					},
+					contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+					success : function(data) {
+						$(".camprow").empty();
+						$("#totalcountsix").empty();
+						$("#totalcount").empty();
+						$("#totalcount").append(data.count[0].count)
+						if (data.count[0].count % 9 == 0) {
+							$("#totalcountsix").append(parseInt((data.count[0].count) / 9))
+							if (page < parseInt((data.count[0].count) / 9)) {
+								$("#nextbtn").attr("onclick", "nextbtn()");
+							} else if (page == parseInt((data.count[0].count) / 9)) {
+								$("#nextbtn").removeAttr("onclick");
+							}
+						} else {
+							$("#totalcountsix").append(parseInt((data.count[0].count) / 9) + 1)
+							if (page < parseInt((data.count[0].count) / 9 + 1)) {
+								$("#nextbtn").attr("onclick", "nextbtn()");
+							} else if (page == parseInt((data.count[0].count) / 9) + 1) {
+								$("#nextbtn").removeAttr("onclick");
+							}
+						}
+						for (var i = 0; i < data.camplist.length; i++) {
+							if (data.camplist[i].firstimageurl != "no data") {
+								$(".camprow").append(
+										"<div class='col-4 mb-3'>" 
+										+ "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>"
+										 + "<div class='card-header'>"
+												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
+												+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
+												+ "</div></div>")
+												$(document).on("click","#test",function(){
+											    	alert('a');
+											   });
+							} else {
+								$(".camprow").append(
+										"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>"
+										 + "<div class='card-header'>"
+												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
+												+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+												+ "</div></div>")
+							}
+						}
+					}
+				})
+			}
+			function nextbtn() {
+				var dotarget = document.getElementById("doselect");
+				var sigungutarget = document.getElementById("sigunguselect");
+				$("#npage").empty();
+				$("#npage").append(page + 1)
+				page++;
+				if (page > 1) {
+					$("#prebtn").attr("onclick", "prebtn()");
+				}
+
+				$.ajax({
+					url : "search/sigungucamp",
+					type : "get",
+					data : {
+						donm : dotarget.value,
+						category : sigungutarget.value,
+						npage : page - 1
+					},
+					contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+					success : function(data) {
+						$(".camprow").empty();
+						$("#totalcountsix").empty();
+						$("#totalcount").empty();
+						$("#totalcount").append(data.count[0].count)
+
+						if (data.count[0].count % 9 == 0) {
+							endpage = $("#totalcountsix").append(parseInt((data.count[0].count) / 9))
+							if (page == parseInt((data.count[0].count) / 9)) {
+								$("#nextbtn").removeAttr("onclick");
+							}
+						} else {
+							endpage = $("#totalcountsix").append(parseInt((data.count[0].count) / 9) + 1)
+							if (page == parseInt((data.count[0].count) / 9) + 1) {
+								$("#nextbtn").removeAttr("onclick");
+							}
+						}
+						for (var i = 0; i < data.camplist.length; i++) {
+							if (data.camplist[i].firstimageurl != "no data") {
+								$(".camprow").append(
+										"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" + "<div class='card-header'>"
+												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
+												+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
+												+"<div></div>")
+							} else {
+								$(".camprow").append(
+										"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" + "<div class='card-header'>"
+												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
+												+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+												+ "</div></div>")
+							}
+						}
+					}
+				})
+
 			}
 
-			$.ajax({
-				url : "search/sigungucamp",
-				type : "get",
-				data : {
-					donm : dotarget.value,
-					category : sigungutarget.value,
-					npage : page - 1
-				},
-				contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
-				success : function(data) {
-					$(".camprow").empty();
-					$("#totalcountsix").empty();
-					$("#totalcount").empty();
-					$("#totalcount").append(data.count[0].count)
-
-					if (data.count[0].count % 6 == 0) {
-						endpage = $("#totalcountsix").append(parseInt((data.count[0].count) / 6))
-						if (page == parseInt((data.count[0].count) / 6)) {
-							$("#nextbtn").removeAttr("onclick");
-						}
-					} else {
-						endpage = $("#totalcountsix").append(parseInt((data.count[0].count) / 6) + 1)
-						if (page == parseInt((data.count[0].count) / 6) + 1) {
-							$("#nextbtn").removeAttr("onclick");
-						}
-					}
-					for (var i = 0; i < data.camplist.length; i++) {
-						if (data.camplist[i].firstimageurl != "no data") {
-							$(".camprow").append(
-									"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white'>" + "<div class='card-header'>"
-											+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
-											+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
-											+ "<p class='card-text'>" + data.camplist[i].facltnm + " </div></div></div>")
-						} else {
-							$(".camprow").append(
-									"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white'>" + "<div class='card-header'>"
-											+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
-											+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
-											+ "<p class='card-text'>" + data.camplist[i].facltnm + " </div></div></div>")
-						}
-					}
+			function prebtn() {
+				var dotarget = document.getElementById("doselect");
+				var sigungutarget = document.getElementById("sigunguselect");
+				$('#npage').empty();
+				$('#npage').append(page - 1);
+				page--;
+				if (page == 1) {
+					$("#prebtn").removeAttr("onclick");
 				}
-			})
-
-		}
-
-		function prebtn() {
-			var dotarget = document.getElementById("doselect");
-			var sigungutarget = document.getElementById("sigunguselect");
-			$('#npage').empty();
-			$('#npage').append(page - 1);
-			page--;
-			if (page == 1) {
-				$("#prebtn").removeAttr("onclick");
+				$.ajax({
+					url : "search/sigungucamp",
+					type : "get",
+					data : {
+						donm : dotarget.value,
+						category : sigungutarget.value,
+						npage : page - 1
+					},
+					contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+					success : function(data) {
+						$(".camprow").empty();
+						$("#totalcountsix").empty();
+						$("#totalcount").empty();
+						$("#totalcount").append(data.count[0].count)
+						if (data.count[0].count % 9 == 0) {
+							endpage = $("#totalcountsix").append(parseInt((data.count[0].count) / 9))
+							if (page < parseInt((data.count[0].count) / 9)) {
+								$("#nextbtn").attr("onclick", "nextbtn()");
+							}
+						} else {
+							endpage = $("#totalcountsix").append(parseInt((data.count[0].count) / 9) + 1)
+							if (page < parseInt((data.count[0].count) / 9) + 1) {
+								$("#nextbtn").attr("onclick", "nextbtn()");
+							}
+						}
+						for (var i = 0; i < data.camplist.length; i++) {
+							if (data.camplist[i].firstimageurl != "no data") {
+								$(".camprow").append(
+										"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" + "<div class='card-header'>"
+												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
+												+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
+												+ "</div></div>")
+							} else {
+								$(".camprow").append(
+										"<div class='col-4 mb-3'>" + "<div class='card text-black bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" + "<div class='card-header'>"
+												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
+												+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+												+ "</div></div>")
+							}
+						}
+					}
+				})
 			}
-			$.ajax({
-				url : "search/sigungucamp",
-				type : "get",
-				data : {
-					donm : dotarget.value,
-					category : sigungutarget.value,
-					npage : page - 1
-				},
-				contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
-				success : function(data) {
-					$(".camprow").empty();
-					$("#totalcountsix").empty();
-					$("#totalcount").empty();
-					$("#totalcount").append(data.count[0].count)
-					if (data.count[0].count % 6 == 0) {
-						endpage = $("#totalcountsix").append(parseInt((data.count[0].count) / 6))
-						if (page < parseInt((data.count[0].count) / 6)) {
-							$("#nextbtn").attr("onclick", "nextbtn()");
-						}
-					} else {
-						endpage = $("#totalcountsix").append(parseInt((data.count[0].count) / 6) + 1)
-						if (page < parseInt((data.count[0].count) / 6) + 1) {
-							$("#nextbtn").attr("onclick", "nextbtn()");
-						}
-					}
-					for (var i = 0; i < data.camplist.length; i++) {
-						if (data.camplist[i].firstimageurl != "no data") {
-							$(".camprow").append(
-									"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white'>" + "<div class='card-header'>"
-											+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
-											+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
-											+ "<p class='card-text'>" + data.camplist[i].facltnm + " </div></div></div>")
-						} else {
-							$(".camprow").append(
-									"<div class='col-4 mb-3'>" + "<div class='card text-black bg-white'>" + "<div class='card-header'>"
-											+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
-											+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
-											+ "<p class='card-text'>" + data.camplist[i].facltnm + " </div></div></div>")
-						}
-					}
-				}
-			})
-		}
-	</script>
+		</script>
 </body>
 </html>
 

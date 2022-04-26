@@ -61,9 +61,13 @@ function drawMap(target) {
 				 })
         	     .on('mouseout', function() {
 			    	 d3.select(this).style('fill','gainsboro');
+			    	 document.getElementById("donm").innerHTML = "";
 			     })
 			     .on('click', function(d) {
+						page = 1;
 					    document.getElementById("donm").innerHTML = d.properties.name;
+					    $("#npage").empty();
+					    $("#npage").append(page);
 					    $.ajax({
 			             url :"search/do",
 			             type : "get",
@@ -78,25 +82,25 @@ function drawMap(target) {
 			            	$('#doselect').val(d.properties.name).prop("selected", true);
 			            	$('#sigunguselect').css("display","inline");
 			            	document.getElementById("totalcount").innerHTML += (data.count[0].count);
-			            	document.getElementById("totalcountsix").innerHTML += (parseInt((data.count[0].count)/6)+1);
+			            	document.getElementById("totalcountsix").innerHTML += (parseInt((data.count[0].count)/9)+1);
 							for(var i = 0; i< data.camplist.length; i++) {
 								if(data.camplist[i].firstimageurl != "no data") {
 	                     			$(".camprow")
 	                      			.append("<div class='col-4 mb-3'>"+
-	                     	          "<div class='card text-dark bg-white'>"+
+	                     	          "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>"+
 	                     	            "<div class='card-header'>"+data.camplist[i].facltnm+"</div>"+
 	                     	            "<div class='card-body'>"+
 	                   	              	  "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"+
-	                     	              "<p class='card-text'>"+data.camplist[i].facltnm+" </div></div></div>")
+	                     	              "</div></div>")
 	                     			}
 	                      		else {
 	                      			$(".camprow")
 	                      			.append("<div class='col-4 mb-3'>"+
-	                     	          "<div class='card text-dark bg-white'>"+
+	                     	          "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>"+
 	                     	            "<div class='card-header'>"+data.camplist[i].facltnm+"</div>"+
 	                     	            "<div class='card-body'>"+
 	                   	              	  "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"+
-	                   	              	"<p class='card-text'>"+data.camplist[i].facltnm+" </div></div></div>")
+	                   	              	" </div></div></div>")
 	                   	        }
                        		}
 							var target = document.getElementById("sigunguselect");

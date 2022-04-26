@@ -31,8 +31,8 @@ public class CampServiceImpl implements CampService {
 	}
 	
 	
-	public List<CampDto> getPlaceDetail(String id){
-		List<CampDto> cam = campDao.getPlaceDetail(id);
+	public List<CampDto> getPlaceDetail(String encurl){
+		List<CampDto> cam = campDao.getPlaceDetail(encurl);
 		return cam;
 	}
 	

@@ -8,20 +8,20 @@
          SELECT contentid, facltnm, addr1 FROM gocampingapi ORDER BY contentid DESC LIMIT 15
  	</select>
  	<select id="getPlaceDetail" resultType="CampDto" parameterType="CampDto">
-         SELECT * FROM gocampingapi WHERE kakaoplaceid = #{id} ORDER BY contentid DESC LIMIT 15
+         SELECT * FROM gocampingapi WHERE contentid = #{encurl}
  	</select>
  	<select id="getSearchCamp" resultType="CampDto" parameterType="CampDto">
          SELECT facltnm FROM gocampingapi WHERE facltnm LIKE CONCAT('%', #{encurl}, '%') OR donm LIKE CONCAT('%', #{encurl}, '%')
          OR sigungunm LIKE CONCAT('%', #{encurl}, '%') OR addr1 LIKE CONCAT('%', #{encurl}, '%') OR addr2 LIKE CONCAT('%', #{encurl}, '%')
     </select>
     <select id="getSearchDo" resultType="CampDto" parameterType="HashMap">
-         SELECT firstimageurl,facltnm FROM gocampingapi 
+         SELECT contentid,firstimageurl,facltnm FROM gocampingapi 
          <choose> 
       	 	<when test="category != '전국'">
-      	 		 WHERE donm = #{category} LIMIT 6 OFFSET CAST(#{npage} AS INTEGER) * 6
+      	 		 WHERE donm = #{category} LIMIT 9 OFFSET CAST(#{npage} AS INTEGER) * 9
       	 	</when>
       	 	<when test="category == '전국'">
-      	 		LIMIT 6 OFFSET CAST(#{npage} AS INTEGER) * 6
+      	 		LIMIT 9 OFFSET CAST(#{npage} AS INTEGER) * 9
       	 	</when>
       	 </choose>
     </select>
@@ -34,7 +34,7 @@
       	</choose>
     </select>
     <select id="getSearchSigungu" resultType="CampDto" parameterType="CampDto">
-         SELECT firstimageurl,facltnm FROM gocampingapi WHERE sigungunm = #{category}
+         SELECT contentid,firstimageurl,facltnm FROM gocampingapi WHERE sigungunm = #{category}
     </select>
     <select id="getSearchSigunguCount" resultType="CampDto" parameterType="HashMap">
        	SELECT COUNT(facltnm) as count FROM gocampingapi  
@@ -56,21 +56,21 @@
       	 SELECT DISTINCT sigungunm FROM gocampingapi WHERE donm = #{encurl}
     </select>
     <select id="getSigunguCamp" resultType="CampDto" parameterType="HashMap">
-      	 SELECT firstimageurl,facltnm FROM gocampingapi
+      	 SELECT contentid, firstimageurl,facltnm FROM gocampingapi
       	 <choose> 
       	 	<when test="donm == '전국' and category == ''">
-      	 		LIMIT 6 OFFSET CAST(#{npage} AS INTEGER) * 6
+      	 		LIMIT 9 OFFSET CAST(#{npage} AS INTEGER) * 9
       	 	</when>
       	 	<when test='donm != "" and category == ""'>
-      	 		 WHERE donm = #{donm} LIMIT 6 OFFSET CAST(#{npage} AS INTEGER) * 6
+      	 		 WHERE donm = #{donm} LIMIT 9 OFFSET CAST(#{npage} AS INTEGER) * 9
       	 	</when>
 	      	<when test='category != ""'>
-	      	   WHERE donm = #{donm} and sigungunm = #{category} LIMIT 6 OFFSET CAST(#{npage} AS INTEGER) * 6
+	      	   WHERE donm = #{donm} and sigungunm = #{category} LIMIT 9 OFFSET CAST(#{npage} AS INTEGER) * 9
 	    	</when>
       	 </choose>
      </select> 
      <select id="getTotalCamp" resultType="CampDto">
-     	SELECT firstimageurl, facltnm FROM gocampingapi LIMIT 6 OFFSET 0
+     	SELECT contentid,firstimageurl, facltnm FROM gocampingapi LIMIT 9 OFFSET 0
      </select>
      <select id="getTotalCampCount" resultType="CampDto">
      	SELECT COUNT(facltnm) as count FROM gocampingapi

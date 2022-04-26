@@ -14,10 +14,12 @@
 }
 
 #container {
-	height: 650px;
-	float: left;
-	margin: 15px 55px 55px 55px;
-	fill: white;
+	height: 800px;
+    float: left;
+    margin: 15px 55px 55px 55px;
+    fill: white;
+    border: solid 1px;
+    padding: 30px;
 }
 #states path {
 	fill: gainsboro;
@@ -47,7 +49,7 @@
 	fill: black;
 }
 .card-columns {
-    column-count: 3;
+    column-count: 2;
  }
  
  #doselect {

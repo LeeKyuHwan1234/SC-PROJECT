@@ -12,7 +12,7 @@ import com.camping.camp.dto.CampDto;
 public interface CampDao {
 	List<CampDto> getManyTodoList();
 	List<CampDto> getOpenApi();
-	List<CampDto> getPlaceDetail(String id);
+	List<CampDto> getPlaceDetail(String encurl);
 	List<CampDto> getSearchCamp(String encurl);
 	List<CampDto> getSearchDo(HashMap<String, String> ajaxdata);
 	List<CampDto> getSearchSigungu(String encurl);
@@ -23,5 +23,6 @@ public interface CampDao {
 	List<CampDto> getSearchSigunguCount(HashMap<String, Object> ajaxdata);
 	List<CampDto> getTotalCamp();
 	List<CampDto> getTotalCampCount();
+	
 	
 }

@@ -7,7 +7,7 @@ import com.camping.camp.dto.CampDto;
 
 public interface CampService {
 	List<CampDto> getOpenApi();
-	List<CampDto> getPlaceDetail(String id);
+	List<CampDto> getPlaceDetail(String encurl);
 	List<CampDto> getSearchCamp(String encurl);
 	List<CampDto> getSearchDo(HashMap<String, String> ajaxdata);
 	List<CampDto> getSearchSigungu(String encurl);
