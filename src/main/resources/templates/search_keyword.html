@@ -6,7 +6,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Agency - Start Bootstrap Theme</title>
+<title>캠핑사이트 - Camper</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Font Awesome icons (free version)-->
@@ -19,7 +19,8 @@
 	href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"
 	rel="stylesheet" type="text/css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Water+Brush&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Water+Brush&family=Raleway&family=Cute+Font&display=swap" rel="stylesheet">
 <link href="css/header.css" rel="stylesheet" />
 <link rel="stylesheet" href="css/korea.css" />
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -33,7 +34,7 @@
 	<div id="wrap">
 		<nav class="navbar navbar-expand-lg navbar-dark fixed-top"
 			id="mainNav">
-			<div class="container-xxl">
+			<div class="container navcontainer">
 				<a class="navbar-brand"><img
 					src="/images/camper.png" alt="..." /></a>
 				<button class="navbar-toggler" type="button"
@@ -44,11 +45,10 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 					<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-						<li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-						<li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-						<li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-						<li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
-						<li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+						<li class="nav-item"><a class="nav-link" href="#container">Map</a></li>
+						<li class="nav-item"><a class="nav-link" href="#portfolio">Board</a></li>
+						<li class="nav-item"><a class="nav-link" href="#about">Review</a></li>
+						<li class="nav-item"><a class="nav-link" href="#team">Login</a></li>
 					</ul>
 				</div>
 			</div>
@@ -56,38 +56,29 @@
 		<!-- Masthead-->
 		<header class="masthead">
 			<div class="container">
-				<div class="masthead-subheading">Search For Camping Site!</div>
+				<div class="masthead-subheading">Where should  we  go  this  time?</div>
 				<form action="/openapi" method="get" name="searchform">
 					<div class="masthead-heading text-uppercase">
-						<input type="text" id="craw_id" name="craw_id" placeholder="검색어 입력" onkeypress="JavaScript:press(this.form)"
-						style="font-size:30px; margin:0; background-color:lightgray;"/>
+						<input type="text" id="craw_id" name="craw_id" placeholder="Search Here" onkeypress="JavaScript:press(this.form)"
+						style="font-size:30px; margin:0; background-color:lightcyan;"/>
 					</div>
+					<p style="font-size:50px; margin:0; font-family: 'Jua', sans-serif;">Press the Enter Key</p>
 				</form>
 			</div>
 		</header>
 		<!-- Core theme JS-->
 		<script src="js/header.js"></script>
-		<div class="container-lg">
-			</div>
+		<div class="container-lg mapcontainer">
 			<div>
 				<div id="container">
 					<h2 style="text-align: center">우리나라 지도</h2>
-					<div id="donm"></div>
-				</div>
-				<span class="float-right">전체 갯수 : &nbsp</span>
-				<span class="float-right" id="totalcount"
-					th:text="${data.count[0].count}"></span>
-				
+				<div id="donm"></div>
 			</div>
-			<span class="pagination">
-					<a id="prebtn" onclick="prebtn()"><img
-						src="images/left-arrow.png" style="width: 30px; height: 30px" /></a> <a
-						id="npage">1</a> <a>/</a> <a id="totalcountsix"
-						th:text="(${data.count[0].count})/9"></a> <a id="nextbtn"
-						onclick="nextbtn()"><img src="images/right-arrow.png"
-						style="width: 30px; height: 30px" /></a>
-				</span>
-			<div class="search">
+		</div>
+		<div style="width:95%;height:30px;">
+			<span class="float-end" id="totalcount">전체 개수 : [[${data.count[0].count}]] </span>
+		</div>
+		<div class="search" style="width:96%;">
 				<select onchange="categoryChange(this)" name="donm" id="doselect">
 					<option value="전국">전국</option>
 					<option th:each="datalist : ${data.cate}"
@@ -96,50 +87,53 @@
 					id="sigunguselect">
 				</select>
 				
+				<span class="pagination float-end ">
+			<a id="prebtn" onclick="prebtn()">
+			<img src="images/left-arrow.png" style="width: 30px; height: 30px" /></a>
+			<a id="npage">1</a> <a>/</a> <a id="totalcountsix"
+				th:text="(${data.count[0].count})/9"></a> <a id="nextbtn"
+				onclick="nextbtn()"><img src="images/right-arrow.png"
+				style="width: 30px; height: 30px" /></a>
+			</span>
+				
 			</div>
 			<div class="container">
-				<div class="row camprow">
-					<div class='col-sm-3 mb-4' th:each="camplist : ${data.camplist}">
+				<div class="row camprow mt-5">
+					<div class='col-4 mb-4' th:each="camplist : ${data.camplist}">
 						<div class='card text-dark bg-white' th:onclick="'location.href=\''+@{/place?contentid=}+ @{${camplist.contentid}} + '\''">
 							<div class='card-header' th:text="${camplist.facltnm}"></div>
 					<!-- 있을 때 -->
 							<div class='card-body' th:if="${camplist.firstimageurl} != 'no data'">
-								<img th:src="${camplist.firstimageurl}"
-									style='width: 260px; height: 200px;'></img>
+								<img th:src="${camplist.firstimageurl}" style='width: 260px; height: 200px;'></img>
+							<p th:text="${camplist.addr1}"></p>
 							</div>
 					<!-- 없을 때 -->		
 							<div class='card-body' th:unless="${camplist.firstimageurl} != 'no data'">
-								<img src='/images/camp3.webp'
-									style='width: 260px; height: 200px;'></img>
+								<img src='/images/camp3.webp' style='width: 260px; height: 200px;'></img>
+								<p th:text="${camplist.addr1}"></p>
 							</div>
+						
 						</div>
 					</div>
 
 				</div>
 
 				<input type="hidden" id="npagex" name="npagex">
-				<div id="gongback" style="height: 1000px"></div>
+				<div id="gongback" style="height: 1200px"></div>
 			</div>
 		</div>
+		
+			</div>
 		<!-- Footer-->
 		<footer class="footer fixed-bottom py-2">
 			<div class="container">
 				<div class="row align-items-center">
-					<div class="col-lg-4 text-lg-start">Copyright &copy; Your
-						Website 2022</div>
-					<div class="col-lg-4 my-3 my-lg-0">
-						<a class="btn btn-dark btn-social mx-2" href="#!"
-							aria-label="Twitter"><i class="fab fa-twitter"></i></a> <a
-							class="btn btn-dark btn-social mx-2" href="#!"
-							aria-label="Facebook"><i class="fab fa-facebook-f"></i></a> <a
-							class="btn btn-dark btn-social mx-2" href="#!"
-							aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-					</div>
-					<div class="col-lg-4 text-lg-end">
-						<a class="link-white text-decoration-none me-3" href="#!">Privacy
-							Policy</a> <a class="link-white text-decoration-none" href="#!">Terms
-							of Use</a>
-					</div>
+					<div class="col-lg-4 text-lg-start"></div>
+						<div class="col-lg-4 my-3 my-lg-0">
+							<a class="navbar-brand"><img src="/images/camper.png" alt="..." /></a>
+						</div>
+						<p>Copyright &copy; Your Website 2022</p>
+					<div class="col-lg-4 text-lg-end"></div>
 				</div>
 			</div>
 		</footer>
@@ -223,7 +217,7 @@
 								} else if (e.value == '전국') {
 									$('#sigunguselect').css("display", "");
 								}
-								$("#totalcount").append(data.count[0].count)
+								$("#totalcount").append("전체 개수 : "+data.count[0].count)
 								if (data.count[0].count % 9 == 0) {
 									$("#totalcountsix").append(parseInt((data.count[0].count) / 9))
 									if (page < parseInt((data.count[0].count) / 9)) {
@@ -242,20 +236,21 @@
 								for (var i = 0; i < data.camplist.length; i++) {
 									if (data.camplist[i].firstimageurl != "no data") {
 										$(".camprow").append(
-														  "<div class='col-4 mb-3'>" 
+														  "<div class='col-4 mb-4'>" 
 														+ "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" 
 														+ "<div class='card-header'>" + data.camplist[i].facltnm + "</div>"
 														+ "<div class='card-body'>"
 														+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
-														+ "<input type='hidden' id='contentx' value="+data.camplist[i].contentid+">"
+														+"<p>"+data.camplist[i].addr1+"</p>"
 														+ "</div></div>")
 									} else {
 										$(".camprow").append(
-												"<div class='col-4 mb-3'>" 
+												"<div class='col-4 mb-4'>" 
 														+ "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>"
 														+ "<div class='card-header'>" + data.camplist[i].facltnm + "</div>"
 														+ "<div class='card-body'>"
 														+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+														+"<p>"+data.camplist[i].addr1+"</p>"
 														+ "</div></div>")
 														
 									}
@@ -290,7 +285,7 @@
 						$(".camprow").empty();
 						$("#totalcountsix").empty();
 						$("#totalcount").empty();
-						$("#totalcount").append(data.count[0].count)
+						$("#totalcount").append("전체 개수 : "+data.count[0].count)
 						if (data.count[0].count % 9 == 0) {
 							$("#totalcountsix").append(parseInt((data.count[0].count) / 9))
 							if (page < parseInt((data.count[0].count) / 9)) {
@@ -309,21 +304,20 @@
 						for (var i = 0; i < data.camplist.length; i++) {
 							if (data.camplist[i].firstimageurl != "no data") {
 								$(".camprow").append(
-										"<div class='col-4 mb-3'>" 
+										"<div class='col-4 mb-4'>" 
 										+ "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>"
 										 + "<div class='card-header'>"
 												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
 												+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
+												+"<p>"+data.camplist[i].addr1+"</p>"
 												+ "</div></div>")
-												$(document).on("click","#test",function(){
-											    	alert('a');
-											   });
 							} else {
 								$(".camprow").append(
-										"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>"
+										"<div class='col-4 mb-4'>" + "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>"
 										 + "<div class='card-header'>"
 												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
 												+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+												+"<p>"+data.camplist[i].addr1+"</p>"
 												+ "</div></div>")
 							}
 						}
@@ -353,7 +347,7 @@
 						$(".camprow").empty();
 						$("#totalcountsix").empty();
 						$("#totalcount").empty();
-						$("#totalcount").append(data.count[0].count)
+						$("#totalcount").append("전체 개수 : "+data.count[0].count)
 
 						if (data.count[0].count % 9 == 0) {
 							endpage = $("#totalcountsix").append(parseInt((data.count[0].count) / 9))
@@ -369,15 +363,17 @@
 						for (var i = 0; i < data.camplist.length; i++) {
 							if (data.camplist[i].firstimageurl != "no data") {
 								$(".camprow").append(
-										"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" + "<div class='card-header'>"
+										"<div class='col-4 mb-4'>" + "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" + "<div class='card-header'>"
 												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
 												+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
+												+"<p>"+data.camplist[i].addr1+"</p>"
 												+"<div></div>")
 							} else {
 								$(".camprow").append(
-										"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" + "<div class='card-header'>"
+										"<div class='col-4 mb-4'>" + "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" + "<div class='card-header'>"
 												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
 												+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+												+"<p>"+data.camplist[i].addr1+"</p>"
 												+ "</div></div>")
 							}
 						}
@@ -408,7 +404,7 @@
 						$(".camprow").empty();
 						$("#totalcountsix").empty();
 						$("#totalcount").empty();
-						$("#totalcount").append(data.count[0].count)
+						$("#totalcount").append("전체 개수 : "+data.count[0].count)
 						if (data.count[0].count % 9 == 0) {
 							endpage = $("#totalcountsix").append(parseInt((data.count[0].count) / 9))
 							if (page < parseInt((data.count[0].count) / 9)) {
@@ -423,13 +419,13 @@
 						for (var i = 0; i < data.camplist.length; i++) {
 							if (data.camplist[i].firstimageurl != "no data") {
 								$(".camprow").append(
-										"<div class='col-4 mb-3'>" + "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" + "<div class='card-header'>"
+										"<div class='col-4 mb-4'>" + "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" + "<div class='card-header'>"
 												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
 												+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
 												+ "</div></div>")
 							} else {
 								$(".camprow").append(
-										"<div class='col-4 mb-3'>" + "<div class='card text-black bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" + "<div class='card-header'>"
+										"<div class='col-4 mb-4'>" + "<div class='card text-black bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" + "<div class='card-header'>"
 												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
 												+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
 												+ "</div></div>")

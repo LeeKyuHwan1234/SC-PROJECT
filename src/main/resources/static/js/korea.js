@@ -5,10 +5,10 @@ window.onload = function() {
 //지도 그리기
 function drawMap(target) {
     var width = 500; //지도의 넓이
-    var height = 650; //지도의 높이
+    var height = 750; //지도의 높이
     var initialScale = 5280; //확대시킬 값
     var initialX = -11570; //초기 위치값 X
-    var initialY = 3860; //초기 위치값 Y
+    var initialY = 3950; //초기 위치값 Y
     var labels;
 
     var projection = d3.geo
@@ -81,26 +81,28 @@ function drawMap(target) {
 			            	$("#totalcount").empty();
 			            	$('#doselect').val(d.properties.name).prop("selected", true);
 			            	$('#sigunguselect').css("display","inline");
-			            	document.getElementById("totalcount").innerHTML += (data.count[0].count);
+			            	document.getElementById("totalcount").innerHTML += ("전체 개수 : "+data.count[0].count);
 			            	document.getElementById("totalcountsix").innerHTML += (parseInt((data.count[0].count)/9)+1);
 							for(var i = 0; i< data.camplist.length; i++) {
 								if(data.camplist[i].firstimageurl != "no data") {
 	                     			$(".camprow")
-	                      			.append("<div class='col-4 mb-3'>"+
+	                      			.append("<div class='col-4 mb-4'>"+
 	                     	          "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>"+
 	                     	            "<div class='card-header'>"+data.camplist[i].facltnm+"</div>"+
 	                     	            "<div class='card-body'>"+
 	                   	              	  "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"+
+	                     	              "<p>"+data.camplist[i].addr1+"</p>"+
 	                     	              "</div></div>")
 	                     			}
 	                      		else {
 	                      			$(".camprow")
-	                      			.append("<div class='col-4 mb-3'>"+
+	                      			.append("<div class='col-4 mb-4'>"+
 	                     	          "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>"+
 	                     	            "<div class='card-header'>"+data.camplist[i].facltnm+"</div>"+
 	                     	            "<div class='card-body'>"+
 	                   	              	  "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"+
-	                   	              	" </div></div></div>")
+	                   	              	"<p>"+data.camplist[i].addr1+"</p>"+
+	                   	              	"</div></div></div>")
 	                   	        }
                        		}
 							var target = document.getElementById("sigunguselect");

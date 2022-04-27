@@ -5,7 +5,7 @@
 
 <mapper namespace="com.camping.camp.dao.CampDao">
 	<select id="getOpenApi" resultType="CampDto">
-         SELECT contentid, facltnm, addr1 FROM gocampingapi ORDER BY contentid DESC LIMIT 15
+         SELECT addr1,contentid, facltnm, addr1 FROM gocampingapi ORDER BY contentid DESC LIMIT 15
  	</select>
  	<select id="getPlaceDetail" resultType="CampDto" parameterType="CampDto">
          SELECT * FROM gocampingapi WHERE contentid = #{encurl}
@@ -15,7 +15,7 @@
          OR sigungunm LIKE CONCAT('%', #{encurl}, '%') OR addr1 LIKE CONCAT('%', #{encurl}, '%') OR addr2 LIKE CONCAT('%', #{encurl}, '%')
     </select>
     <select id="getSearchDo" resultType="CampDto" parameterType="HashMap">
-         SELECT contentid,firstimageurl,facltnm FROM gocampingapi 
+         SELECT addr1,contentid,firstimageurl,facltnm FROM gocampingapi 
          <choose> 
       	 	<when test="category != '전국'">
       	 		 WHERE donm = #{category} LIMIT 9 OFFSET CAST(#{npage} AS INTEGER) * 9
@@ -34,7 +34,7 @@
       	</choose>
     </select>
     <select id="getSearchSigungu" resultType="CampDto" parameterType="CampDto">
-         SELECT contentid,firstimageurl,facltnm FROM gocampingapi WHERE sigungunm = #{category}
+         SELECT addr1,contentid,firstimageurl,facltnm FROM gocampingapi WHERE sigungunm = #{category}
     </select>
     <select id="getSearchSigunguCount" resultType="CampDto" parameterType="HashMap">
        	SELECT COUNT(facltnm) as count FROM gocampingapi  
@@ -56,7 +56,7 @@
       	 SELECT DISTINCT sigungunm FROM gocampingapi WHERE donm = #{encurl}
     </select>
     <select id="getSigunguCamp" resultType="CampDto" parameterType="HashMap">
-      	 SELECT contentid, firstimageurl,facltnm FROM gocampingapi
+      	 SELECT addr1,contentid,firstimageurl,facltnm FROM gocampingapi
       	 <choose> 
       	 	<when test="donm == '전국' and category == ''">
       	 		LIMIT 9 OFFSET CAST(#{npage} AS INTEGER) * 9
@@ -70,7 +70,7 @@
       	 </choose>
      </select> 
      <select id="getTotalCamp" resultType="CampDto">
-     	SELECT contentid,firstimageurl, facltnm FROM gocampingapi LIMIT 9 OFFSET 0
+     	SELECT addr1,contentid,firstimageurl,facltnm FROM gocampingapi LIMIT 9 OFFSET 0
      </select>
      <select id="getTotalCampCount" resultType="CampDto">
      	SELECT COUNT(facltnm) as count FROM gocampingapi
