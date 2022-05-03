@@ -36,8 +36,8 @@ public class CampServiceImpl implements CampService {
 		return cam;
 	}
 	
-	public List<CampDto> getSearchCamp(String encurl) {
-		List<CampDto> cam = campDao.getSearchCamp(encurl);
+	public List<CampDto> getSearchCamp(HashMap<String, Object> ajaxdata) {
+		List<CampDto> cam = campDao.getSearchCamp(ajaxdata);
 		return cam;
 	}
 

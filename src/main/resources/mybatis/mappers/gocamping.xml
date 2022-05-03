@@ -8,11 +8,11 @@
          SELECT addr1,contentid, facltnm, addr1 FROM gocampingapi ORDER BY contentid DESC LIMIT 15
  	</select>
  	<select id="getPlaceDetail" resultType="CampDto" parameterType="CampDto">
-         SELECT * FROM gocampingapi WHERE contentid = #{encurl}
+         SELECT contentid,facltnm, addr1, firstimageurl,mapx, mapy FROM gocampingapi WHERE contentid = #{encurl}
  	</select>
  	<select id="getSearchCamp" resultType="CampDto" parameterType="CampDto">
-         SELECT facltnm FROM gocampingapi WHERE facltnm LIKE CONCAT('%', #{encurl}, '%') OR donm LIKE CONCAT('%', #{encurl}, '%')
-         OR sigungunm LIKE CONCAT('%', #{encurl}, '%') OR addr1 LIKE CONCAT('%', #{encurl}, '%') OR addr2 LIKE CONCAT('%', #{encurl}, '%')
+         SELECT contentid,facltnm, addr1,addr2, firstimageurl, mapx, mapy, tel FROM gocampingapi WHERE facltnm LIKE CONCAT('%', #{keyword}, '%') OR donm LIKE CONCAT('%', #{keyword}, '%')
+         OR sigungunm LIKE CONCAT('%', #{keyword}, '%') OR addr1 LIKE CONCAT('%', #{keyword}, '%') OR addr2 LIKE CONCAT('%', #{keyword}, '%')
     </select>
     <select id="getSearchDo" resultType="CampDto" parameterType="HashMap">
          SELECT addr1,contentid,firstimageurl,facltnm FROM gocampingapi 
@@ -73,7 +73,7 @@
      	SELECT addr1,contentid,firstimageurl,facltnm FROM gocampingapi LIMIT 9 OFFSET 0
      </select>
      <select id="getTotalCampCount" resultType="CampDto">
-     	SELECT COUNT(facltnm) as count FROM gocampingapi
+     	SELECT COUNT(facltnm) as count, (COUNT(facltnm)/9) as countsix FROM gocampingapi
      </select>
  </mapper>
 

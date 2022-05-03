@@ -5,8 +5,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<span th:each="datalist : ${data}">
-		<span th:text="${datalist.facltnm}"></span>
-	</span>
+	<p th:text="${data[0].facltnm}"></p>
+	<p th:text="${data[0].addr1}"></p>
+	<p th:if="${data[0].firstimageurl} != 'no data'">
+		<img th:src="${data[0].firstimageurl}" style="width:800px; height:800px;"></img>
+	</p>
+	<p th:unless="${data[0].firstimageurl} != 'no data'">
+		<img src="/images/camp3.webp" style="width:800px; height:800px;"></img>
+	</p>
 </body>
 </html>

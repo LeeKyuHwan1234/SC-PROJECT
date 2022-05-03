@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class CampDto {
 	private String count;
+	private String countsix;
 	private String encurl;
 	private String keyword;
 	private String contentid;

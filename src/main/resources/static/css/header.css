@@ -15,11 +15,10 @@
  #totalcount {
  	border:solid 2px;
  	border-radius: 5px;
- 	padding:1px;
+ 	padding:10px;
+ 	margin-left:30px;
  }
  
- #totalcountname {
- }
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -683,6 +682,7 @@ progress {
     margin: 130px 55px 55px 55px;
     fill: white;
     border: solid 1px;
+    border-radius:10%;
     padding: 30px;
 }
 #donm {

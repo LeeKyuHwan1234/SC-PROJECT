@@ -35,12 +35,15 @@ public class CampController {
 	@Autowired
 	CampService campService;
 	
-	@RequestMapping(value = "openapi")
+	@RequestMapping(value = "camp")
 	@JsonProperty("keyword")
-	public String getSearchKeyword(Model model, HttpServletRequest req,HttpServletResponse resp,@RequestParam("craw_id") String keyword) throws Exception {
+	public String getCamp(Model model, HttpServletRequest req,HttpServletResponse resp,@RequestParam("searchKeyword") String keyword) throws Exception {
+			System.out.println(keyword);
 			String encurl = URLDecoder.decode(keyword, "UTF-8");
-			model.addAttribute("data",campService.getSearchCamp(encurl)); 
-			return "index";
+			HashMap<String, Object> map = new HashMap<String,Object>();
+			map.put("keyword", encurl);
+			model.addAttribute("data",map);
+			return "camp";
 	}
 	
 	@RequestMapping(value = "place")
@@ -63,6 +66,15 @@ public class CampController {
 	
 	
 	//--------------------------------------------------- api -----------------------------------------------------
+	
+	
+	@RequestMapping(value = "search/display")
+	@JsonProperty("keyword")
+	public @ResponseBody HashMap<String,Object> getSearchKeyword(HttpServletRequest req,HttpServletResponse resp,@RequestParam HashMap<String,Object> ajaxdata) throws Exception {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("data",campService.getSearchCamp(ajaxdata)); 
+		return map;
+	}
 	
 	@RequestMapping(value = "search/do")
 	@JsonProperty("category")

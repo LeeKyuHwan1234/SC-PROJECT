@@ -7,7 +7,7 @@ function drawMap(target) {
     var width = 500; //지도의 넓이
     var height = 750; //지도의 높이
     var initialScale = 5280; //확대시킬 값
-    var initialX = -11570; //초기 위치값 X
+    var initialX = -11520; //초기 위치값 X
     var initialY = 3950; //초기 위치값 Y
     var labels;
 
@@ -92,6 +92,7 @@ function drawMap(target) {
 	                     	            "<div class='card-body'>"+
 	                   	              	  "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"+
 	                     	              "<p>"+data.camplist[i].addr1+"</p>"+
+	                     	              "<span>★★★☆☆</span>&nbsp<span style='margin-left:20px'>ㅁㅁㅁㅁㅁ 원</span>"+
 	                     	              "</div></div>")
 	                     			}
 	                      		else {
@@ -102,6 +103,7 @@ function drawMap(target) {
 	                     	            "<div class='card-body'>"+
 	                   	              	  "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"+
 	                   	              	"<p>"+data.camplist[i].addr1+"</p>"+
+	                     	              "<span>★★★☆☆</span>&nbsp<span style='margin-left:20px'>ㅁㅁㅁㅁㅁ 원</span>"+
 	                   	              	"</div></div></div>")
 	                   	        }
                        		}
