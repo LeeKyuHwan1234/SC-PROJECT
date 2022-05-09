@@ -21,21 +21,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Water+Brush&family=Raleway&family=Cute+Font&display=swap" rel="stylesheet">
-<link href="css/header.css" rel="stylesheet" />
-<link rel="stylesheet" href="css/korea.css" />
+
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript" src="js/d3.js"></script>
-<script type="text/javascript" src="js/korea.js"></script>
+<link href="css/sk_detail.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/korea.css" />
 
 </head>
 <body id="page-top">
 	<!-- Navigation-->
 	<div id="wrap">
-		<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: black;"
+		<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #333333;"
 			id="mainNav">
 			<div class="container navcontainer">
-				<a class="navbar-brand"><img
+				<a class="navbar-brand" href="/search"><img
 					src="/images/camper.png" alt="..." /></a>
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
@@ -53,7 +52,96 @@
 				</div>
 			</div>
 		</nav>
-		<!-- Footer-->
+	</div>
+		<div class="container">
+			<div class="camp_bg" style="height:500px;" th:text="${data[0].facltnm}">
+			</div>
+	        <div class="sub_layout layout">
+					<article>
+						<header class="camp_top_info">
+							<h2 class="skip" style="height:10px;"></h2>
+							<div class="camp_info_box">
+								<div class="img_b" th:if="${data[0].firstimageurl} != 'no data'">
+									<img class="img_c" th:src="${data[0].firstimageurl}"></img>
+								</div>
+								<div class="img_b" th:unless="${data[0].firstimageurl} != 'no data'">
+									<img  class="img_c"src="/images/camp3.webp"></img>
+								</div>
+								<!--//S:table-->
+								<div class="cont_tb">
+									<table class="table">
+										<colgroup>
+											<col style="width: 30%;">
+											<col style="width: 70%;">
+										</colgroup>
+										<tbody>
+											<tr>
+													<th scope="col">주소</th>
+													<td th:text="${data[0].addr1}"> </td>
+												</tr>
+											<tr class="camp_call_pcVer">
+													<th scope="col">전화번호</th>
+													<td th:text="${data[0].tel}"></td>
+												</tr>
+											<tr>
+													<th scope="col">운영 상태</th>
+													<td th:text="${data[0].managesttus}"></td>
+												</tr>
+											<tr>
+													<th scope="col">캠핑장 유형</th>
+													<td th:text="${data[0].induty}"></td>
+												</tr>
+											<tr>
+													<th scope="col">운영기간</th>
+													<td th:text="${data[0].operpdcl}"></td>
+												</tr>
+											<tr>
+													<th scope="col">운영일</th>
+													<td th:text="${data[0].operdecl}"></td>
+												</tr>
+											<tr>
+													<th scope="col">홈페이지</th>
+													<td><a th:text="${data[0].homepage}" th:href="${data[0].homepage}"></a></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="campOption" style="height:300px; background-color:#f9f9f9">
+									<i class="fa-solid fa-bolt" style="width:50px; height:50px;"></i>
+									<i class="fa-solid fa-wifi" style="width:50px; height:50px;"></i>
+									<i class="fa-solid fa-store" style="width:50px; height:50px;"></i>
+									<i class="fa-solid fa-faucet" style="width:50px; height:50px;"></i>
+									<img src="../images/dog.ico" style="width:50px; height:50px;"></img>
+									<img src="../images/sport.png" style="width:50px; height:50px;"></img>
+									<img src="../images/swimming pool.png" style="width:50px; height:50px;"></img>
+									<img src="../images/trail.png" style="width:50px; height:50px;"></img>
+									<img src="../images/noriter.png" style="width:50px; height:50px;"></img>
+									<img src="../images/playground.png" style="width:50px; height:50px;"></img>
+									<img src="../images/market.png" style="width:50px; height:50px;"></img>
+									<img src="../images/firewood.png" style="width:50px; height:50px;"></img>
+									<img src="../images/conveniencestore.png" style="width:50px; height:50px;"></img>
+									
+								</div>
+						</header>
+					</article>
+				</div>
+			<hr style="height:5px;">
+			<h1 style="margin-top:30px;"> 갤러리</h1>
+			</div>
+			<div class="grid-container container" style="height:600px;">
+				<h1></h1>	
+				<div class="item1"></div>
+			  	<div class="item2"></div>
+			  	<div class="item3"></div>  
+			  	<div class="item4"></div>
+			  	<div class="item5"></div>
+			</div>
+			<div class="container" style="height:600px;">
+				<hr style="height:5px;">
+				<h1 style="margin-top:30px;">리뷰</h1>
+			</div>
+    	<!-- Footer-->
 		<footer class="footer fixed-bottom py-2">
 			<div class="container">
 				<div class="row align-items-center">
@@ -80,13 +168,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<p th:text="${data[0].facltnm}"></p>
-	<p th:text="${data[0].addr1}"></p>
-	<p th:if="${data[0].firstimageurl} != 'no data'">
-		<img th:src="${data[0].firstimageurl}" style="width:800px; height:800px;"></img>
-	</p>
-	<p th:unless="${data[0].firstimageurl} != 'no data'">
-		<img src="/images/camp3.webp" style="width:800px; height:800px;"></img>
-	</p>
+	
 </body>
 </html> -->
