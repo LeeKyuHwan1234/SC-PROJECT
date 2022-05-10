@@ -107,21 +107,64 @@
 										</table>
 									</div>
 								</div>
-								<div class="campOption" style="height:300px; background-color:#f9f9f9">
-									<i class="fa-solid fa-bolt" style="width:50px; height:50px;"></i>
-									<i class="fa-solid fa-wifi" style="width:50px; height:50px;"></i>
-									<i class="fa-solid fa-store" style="width:50px; height:50px;"></i>
-									<i class="fa-solid fa-faucet" style="width:50px; height:50px;"></i>
-									<img src="../images/dog.ico" style="width:50px; height:50px;"></img>
-									<img src="../images/sport.png" style="width:50px; height:50px;"></img>
-									<img src="../images/swimming pool.png" style="width:50px; height:50px;"></img>
-									<img src="../images/trail.png" style="width:50px; height:50px;"></img>
-									<img src="../images/noriter.png" style="width:50px; height:50px;"></img>
-									<img src="../images/playground.png" style="width:50px; height:50px;"></img>
-									<img src="../images/market.png" style="width:50px; height:50px;"></img>
-									<img src="../images/firewood.png" style="width:50px; height:50px;"></img>
-									<img src="../images/conveniencestore.png" style="width:50px; height:50px;"></img>
+								<div class="intro" style="height:auto; background-color:#f9f9f9">
+									<p th:if="${data[0].intro} != 'no data'" th:text="${data[0].intro}"></p>
+									<p th:unless="${data[0].intro} != 'no data'" style='text-align:center;'></p>
+								</div>
+								<div class="campOption" style="height:auto; background-color:#f9f9f9" >
+									<div style="width:100%;height:30px;"></div>
+									<!-- 해당 값을 포함하고 있는지 확인 후 값이 있다면 해당 아이콘 출력 (contains 함수)-->
+									<img th:if="${#strings.contains({data[0].sbrscl},'전기')}" class="campOptionicon" src="../images/bolt.png" style="width:50px; height:50px;"></img>
+									<img th:if="${#strings.contains({data[0].sbrscl},'무선인터넷')}" class="campOptionicon" src="../images/wifi.png" style="width:50px; height:50px;"></img>
+									<img th:if="${#strings.contains({data[0].sbrscl},'장작판매')}" class="campOptionicon" src="../images/firewood.png" style="width:50px; height:50px;"></img>
+									<img th:if="${#strings.contains({data[0].sbrscl},'온수')}" class="campOptionicon" src="../images/water.png" style="width:50px; height:50px;"></img>
+									<img th:if="${#strings.contains({data[0].sbrscl},'트렘폴린')}" class="campOptionicon" src="../images/trampoline.png" style="width:50px; height:50px;"></img>
+									<img th:if="${#strings.contains({data[0].sbrscl},'물놀이장')}" class="campOptionicon" src="../images/swimming pool.png" style="width:50px; height:50px;"></img>
+									<img th:if="${#strings.contains({data[0].sbrscl},'운동시설')}" class="campOptionicon" src="../images/sport.png" style="width:50px; height:50px;"></img>
+									<img th:if="${#strings.contains({data[0].sbrscl},'마트.편의점')}" class="campOptionicon" src="../images/market.png" style="width:50px; height:50px;"></img>
+									<img th:if="${#strings.contains({data[0].sbrscl},'산책로')}" class="campOptionicon" src="../images/trail.png" style="width:50px; height:50px;"></img>
+									<img th:if="${#strings.contains({data[0].sbrscl},'놀이터')}" class="campOptionicon" src="../images/noriter.png" style="width:50px; height:50px;"></img>
+									<img th:if="${#strings.contains({data[0].sbrscl},'운동장')}" class="campOptionicon" src="../images/playground.png" style="width:50px; height:50px;"></img>
 									
+									
+									<!--  해당 값을 포함하고 있는지 확인 후 값이 있다면 해당 아이콘 출력 (split 함수)
+									<th:block th:each="image : ${#strings.setSplit(, ',')}" th:switch="${image}">
+									<img th:case="[산책로" class="campOptionicon" src="../images/trail.png" style="width:50px; height:50px;"></img>
+									<img th:case="산책로" class="campOptionicon" src="../images/trail.png" style="width:50px; height:50px;"></img>
+									<img th:case="산책로]" class="campOptionicon" src="../images/trail.png" style="width:50px; height:50px;"></img>
+									<img th:case="[놀이터" class="campOptionicon" src="../images/noriter.png" style="width:50px; height:50px;"></img>
+									<img th:case="놀이터" class="campOptionicon" src="../images/noriter.png" style="width:50px; height:50px;"></img>
+									<img th:case="놀이터]" class="campOptionicon" src="../images/noriter.png" style="width:50px; height:50px;"></img>
+									<img th:case="[운동장" class="campOptionicon" src="../images/playground.png" style="width:50px; height:50px;"></img>
+									<img th:case="운동장" class="campOptionicon" src="../images/playground.png" style="width:50px; height:50px;"></img>
+									<img th:case="운동장]" class="campOptionicon" src="../images/playground.png" style="width:50px; height:50px;"></img>
+									<img th:case="[마트.편의점" class="campOptionicon" src="../images/market.png" style="width:50px; height:50px;"></img>
+									<img th:case="마트.편의점" class="campOptionicon" src="../images/market.png" style="width:50px; height:50px;"></img>
+									<img th:case="마트.편의점]" class="campOptionicon" src="../images/market.png" style="width:50px; height:50px;"></img>
+									<img th:case="[물놀이장" class="campOptionicon" src="../images/swimming pool.png" style="width:50px; height:50px;"></img>
+									<img th:case="물놀이장" class="campOptionicon" src="../images/swimming pool.png" style="width:50px; height:50px;"></img>
+									<img th:case="물놀이장]" class="campOptionicon" src="../images/swimming pool.png" style="width:50px; height:50px;"></img>
+									<img th:case="[장작판매" class="campOptionicon" src="../images/firewood.png" style="width:50px; height:50px;"></img>
+									<img th:case="장작판매" class="campOptionicon" src="../images/firewood.png" style="width:50px; height:50px;"></img>
+									<img th:case="장작판매]" class="campOptionicon" src="../images/firewood.png" style="width:50px; height:50px;"></img>
+									<img th:case="[트렘폴린" class="campOptionicon" src="../images/trampoline.png" style="width:50px; height:50px;"></img>
+									<img th:case="트렘폴린" class="campOptionicon" src="../images/trampoline.png" style="width:50px; height:50px;"></img>
+									<img th:case="트렘폴린]" class="campOptionicon" src="../images/trampoline.png" style="width:50px; height:50px;"></img>
+									<img th:case="[운동시설" class="campOptionicon" src="../images/sport.png" style="width:50px; height:50px;"></img>
+									<img th:case="운동시설" class="campOptionicon" src="../images/sport.png" style="width:50px; height:50px;"></img>
+									<img th:case="운동시설]" class="campOptionicon" src="../images/sport.png" style="width:50px; height:50px;"></img>
+									<img th:case="[전기" class="campOptionicon" src="../images/bolt.png" style="width:50px; height:50px;"></img>
+									<img th:case="전기" class="campOptionicon" src="../images/bolt.png" style="width:50px; height:50px;"></img>
+									<img th:case="전기]" class="campOptionicon" src="../images/bolt.png" style="width:50px; height:50px;"></img>
+									<img th:case="[온수" class="campOptionicon" src="../images/water.png" style="width:50px; height:50px;"></img>
+									<img th:case="온수" class="campOptionicon" src="../images/water.png" style="width:50px; height:50px;"></img>
+									<img th:case="온수]" class="campOptionicon" src="../images/water.png" style="width:50px; height:50px;"></img>
+									<img th:case="[무선인터넷" class="campOptionicon" src="../images/wifi.png" style="width:50px; height:50px;"></img>
+									<img th:case="무선인터넷" class="campOptionicon" src="../images/wifi.png" style="width:50px; height:50px;"></img>
+									<img th:case="무선인터넷]" class="campOptionicon" src="../images/wifi.png" style="width:50px; height:50px;"></img> -->
+									
+									<!-- <img class ="campOptionicon" src="../images/dog.ico" style="width:50px; height:50px;"></img> -->
+									</th:block>
 								</div>
 						</header>
 					</article>

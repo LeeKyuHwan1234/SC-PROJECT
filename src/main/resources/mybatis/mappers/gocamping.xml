@@ -8,7 +8,7 @@
          SELECT addr1,contentid, facltnm, addr1 FROM gocampingapi ORDER BY contentid DESC LIMIT 15
  	</select>
  	<select id="getPlaceDetail" resultType="CampDto" parameterType="CampDto">
-         SELECT contentid,facltnm, addr1, firstimageurl,mapx, mapy, tel, induty, managesttus, operpdcl, operdecl, homepage FROM gocampingapi WHERE contentid = #{encurl} ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC;
+         SELECT contentid,facltnm, addr1, firstimageurl,mapx, mapy, tel, induty, managesttus, operpdcl, operdecl, homepage, intro, sbrscl FROM gocampingapi WHERE contentid = #{encurl} ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC;
  	</select>
  	<select id="getSearchCamp" resultType="CampDto" parameterType="CampDto">
          SELECT contentid,facltnm, addr1,addr2, firstimageurl, mapx, mapy, tel FROM gocampingapi WHERE facltnm LIKE CONCAT('%', #{keyword}, '%') OR donm LIKE CONCAT('%', #{keyword}, '%')

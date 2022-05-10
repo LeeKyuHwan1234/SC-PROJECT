@@ -310,6 +310,10 @@ svg {
   vertical-align: middle;
 }
 
+.campOption img,svg {
+	margin-inline : 30px;
+} 
+
 table {
   caption-side: bottom;
   border-collapse: collapse;

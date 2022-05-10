@@ -29,6 +29,18 @@ import com.camping.camp.vo.Criteria;
 import com.camping.camp.vo.PageVO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller 
 public class CampController {
 	
@@ -63,6 +75,27 @@ public class CampController {
 		model.addAttribute("data",map);
 		return "search_keyword";
 	}
+	
+	
+	@RequestMapping(value = "craw")
+	public String getCraw(Model model) throws Exception {
+			HashMap<String, Object> map = new HashMap<String,Object>();
+			
+			String address = "https://www.gocamping.or.kr/bsite/camp/info/read.do?c_no=3394";
+			Document rawData = Jsoup.connect(address).timeout(5000).get();
+			System.out.println(rawData);
+			Elements blogOption = rawData.select("#gallery > div.ug-tiles-wrapper.ug-tiletype-columns.ug-tiles-rest-mode.ug-tiles-transit");
+			System.out.println(blogOption);
+			String a = "";
+			for (Element option : blogOption) {
+				a = option.select("a").attr("href");
+				System.out.println("123 : "+a);
+			}
+			model.addAttribute("data",a);
+			return "campdetail";
+	}
+	
+	
 	
 	
 	//--------------------------------------------------- api -----------------------------------------------------
