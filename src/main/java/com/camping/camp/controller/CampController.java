@@ -50,7 +50,6 @@ public class CampController {
 	@RequestMapping(value = "camp")
 	@JsonProperty("keyword")
 	public String getCamp(Model model, HttpServletRequest req,HttpServletResponse resp,@RequestParam("searchKeyword") String keyword) throws Exception {
-			System.out.println(keyword);
 			String encurl = URLDecoder.decode(keyword, "UTF-8");
 			HashMap<String, Object> map = new HashMap<String,Object>();
 			map.put("keyword", encurl);
@@ -62,7 +61,22 @@ public class CampController {
 	@JsonProperty("keyword")
 	public String getPlaceDetail(Model model, HttpServletRequest req,HttpServletResponse resp,@RequestParam("contentid") String contentid) throws Exception {
 			String encurl = URLDecoder.decode(contentid, "UTF-8");
+			String address = "https://www.gocamping.or.kr/bsite/camp/info/read.do?c_no="+contentid;
+			Document rawData = Jsoup.connect(address).timeout(5000).get();
+			Elements blogOption = rawData.select("div.box_photo > #gallery > a ");
+			String a = "";
+			ArrayList<String> arrList = new ArrayList<String>();
+			for (Element option : blogOption) {
+				a = option.select("img").attr("src");
+				arrList.add(a);
+			}
+			if (arrList.isEmpty()) {
+				model.addAttribute("gall","xxxxx");
+			} else {
+				model.addAttribute("gall",arrList);
+			}
 			model.addAttribute("data",campService.getPlaceDetail(encurl)); 
+			System.out.println(model);
 			return "search_keyword_detail";
 	}
 	
@@ -75,27 +89,6 @@ public class CampController {
 		model.addAttribute("data",map);
 		return "search_keyword";
 	}
-	
-	
-	@RequestMapping(value = "craw")
-	public String getCraw(Model model) throws Exception {
-			HashMap<String, Object> map = new HashMap<String,Object>();
-			
-			String address = "https://www.gocamping.or.kr/bsite/camp/info/read.do?c_no=3394";
-			Document rawData = Jsoup.connect(address).timeout(5000).get();
-			System.out.println(rawData);
-			Elements blogOption = rawData.select("#gallery > div.ug-tiles-wrapper.ug-tiletype-columns.ug-tiles-rest-mode.ug-tiles-transit");
-			System.out.println(blogOption);
-			String a = "";
-			for (Element option : blogOption) {
-				a = option.select("a").attr("href");
-				System.out.println("123 : "+a);
-			}
-			model.addAttribute("data",a);
-			return "campdetail";
-	}
-	
-	
 	
 	
 	//--------------------------------------------------- api -----------------------------------------------------

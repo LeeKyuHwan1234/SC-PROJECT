@@ -59,7 +59,7 @@
       	 SELECT addr1,contentid,firstimageurl,facltnm FROM gocampingapi
       	 <choose> 
       	 	<when test="donm == '전국' and category == ''">
-      	 		WHERE ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC LIMIT 9 OFFSET CAST(#{npage} AS INTEGER) * 9
+      	 		ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC LIMIT 9 OFFSET CAST(#{npage} AS INTEGER) * 9
       	 	</when>
       	 	<when test='donm != "" and category == ""'>
       	 		 WHERE donm = #{donm} ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC LIMIT 9 OFFSET CAST(#{npage} AS INTEGER) * 9

@@ -21,7 +21,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Water+Brush&family=Raleway&family=Cute+Font&display=swap" rel="stylesheet">
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link href="css/sk_detail.css" rel="stylesheet" />
@@ -169,17 +170,17 @@
 						</header>
 					</article>
 				</div>
-			<hr style="height:5px;">
-			<h1 style="margin-top:30px;"> 갤러리</h1>
+			<hr th:if="${gall[0] != 'x'}" style="height:5px;">
+			<h1 th:if="${gall[0] != 'x'}" style="margin-top:30px;"> 갤러리</h1>
 			</div>
-			<div class="grid-container container" style="height:600px;">
+			<div class="grid-container container" th:if="${gall[0] != 'x'}" style="height:600px;">
 				<h1></h1>	
-				<div class="item1"></div>
-			  	<div class="item2"></div>
-			  	<div class="item3"></div>  
-			  	<div class="item4"></div>
-			  	<div class="item5"></div>
-			</div>
+				<div class="item1" data-bs-toggle="modal" data-bs-target="#campmodal"  th:if="${gall[0] != 'x'}"  th:data-img="${gall[0]}" th:style="|background-image:url(${gall[0]})|"></div>
+				<div class="item2" data-bs-toggle="modal" data-bs-target="#campmodal" th:if="${gall[1] != 'x'}"  th:data-img="${gall[1]}" th:style="|background-image:url(${gall[1]})|"></div>
+				<div class="item3" data-bs-toggle="modal" data-bs-target="#campmodal" th:if="${gall[2] != 'x'}"  th:data-img="${gall[2]}" th:style="|background-image:url(${gall[2]})|"></div>
+				<div class="item4" data-bs-toggle="modal" data-bs-target="#campmodal" th:if="${gall[3] != 'x'}"  th:data-img="${gall[3]}" th:style="|background-image:url(${gall[3]})|"></div>
+				<div class="item5" th:if="${gall[4] != 'x'}"  th:style="|background-image:url(${gall[4]})|"><div th:if="${#lists.size(gall)} > 5" data-bs-toggle="modal" data-bs-target="#campmodal" class="more_btn" th:text="|+${#lists.size(gall)}|"></div></div>
+			 </div>
 			<div class="container" style="height:600px;">
 				<hr style="height:5px;">
 				<h1 style="margin-top:30px;">리뷰</h1>
@@ -197,20 +198,43 @@
 				</div>
 			</div>
 		</footer>
+
+	<!--  Modal -->
+	<div th:each="url,index : ${gall}" class="modal fade" id="campmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="modal-title"></h2>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body" align="center">
+					<div>
+							<button type="button" href="#campmodal2"  data-bs-target="#campmodal2" th:data-img="${gall[1]}" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn-next1"></button>
+								<img src="/images/member/noimg.jpg" alt="없음" id="imgmodal"
+									class="fs-5" width="100%" height="auto">
+									<span th:text="${index.index}"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 </body>
+<script>
+	$('#campmodal').on('show.bs.modal', function(event) {
+		var button = $(event.relatedTarget);
+		var name = button.data('img');
+		document.getElementById('imgmodal').src = name;
+	});
+	
+	$('.btn-next1').on('show.bs.modal', function(event) {
+		var button = $(event.relatedTarget);
+		var name = button.data('img');
+		document.getElementById('imgmodal').src = name;
+	});
+</script>
 </html>
 
 
 
-
-<!-- 
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	
-</body>
-</html> -->

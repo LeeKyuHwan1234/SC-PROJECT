@@ -16,12 +16,12 @@
  <script type="text/javascript">
      $("#craw_submit").click(function(){
          $.ajax({
-             url :"/craw/select2",
+             url :"/craw",
              data :{
-                 user_id : $("#craw_id").val(),
+                 contentid : $("#craw_id").val(),
              },
              dataType : "json",
-             type : "post",
+             type : "get",
              success:function(data){
                 console.log(data);
              }
