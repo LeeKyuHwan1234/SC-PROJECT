@@ -175,15 +175,17 @@ integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroa
 			</div>
 			<div class="grid-container container" th:if="${gall[0] != 'x'}" style="height:600px;">
 				<h1></h1>	
-				<div class="item1" data-bs-toggle="modal" data-bs-target="#campmodal"  th:if="${gall[0] != 'x'}"  th:data-img="${gall[0]}" th:style="|background-image:url(${gall[0]})|"></div>
-				<div class="item2" data-bs-toggle="modal" data-bs-target="#campmodal" th:if="${gall[1] != 'x'}"  th:data-img="${gall[1]}" th:style="|background-image:url(${gall[1]})|"></div>
-				<div class="item3" data-bs-toggle="modal" data-bs-target="#campmodal" th:if="${gall[2] != 'x'}"  th:data-img="${gall[2]}" th:style="|background-image:url(${gall[2]})|"></div>
-				<div class="item4" data-bs-toggle="modal" data-bs-target="#campmodal" th:if="${gall[3] != 'x'}"  th:data-img="${gall[3]}" th:style="|background-image:url(${gall[3]})|"></div>
-				<div class="item5" th:if="${gall[4] != 'x'}"  th:style="|background-image:url(${gall[4]})|"><div th:if="${#lists.size(gall)} > 5" data-bs-toggle="modal" data-bs-target="#campmodal" class="more_btn" th:text="|+${#lists.size(gall)}|"></div></div>
+				<div class="item1 modal-gall" data-bs-toggle="modal" data-bs-target="#campmodal0"  th:if="${gall[0] != 'x'}"  th:data-img="${gall[0]}" th:value="${gall[0]}" th:style="|background-image:url(${gall[0]})|"></div>
+				<div class="item2 modal-gall" data-bs-toggle="modal" data-bs-target="#campmodal1" th:if="${gall[1] != 'x'}"  th:data-img="${gall[1]}" th:value="${gall[1]}" th:style="|background-image:url(${gall[1]})|"></div>
+				<div class="item3 modal-gall" data-bs-toggle="modal" data-bs-target="#campmodal2" th:if="${gall[2] != 'x'}"  th:data-img="${gall[2]}" th:value="${gall[2]}" th:style="|background-image:url(${gall[2]})|"></div>
+				<div class="item4 modal-gall" data-bs-toggle="modal" data-bs-target="#campmodal3" th:if="${gall[3] != 'x'}"  th:data-img="${gall[3]}" th:value="${gall[3]}" th:style="|background-image:url(${gall[3]})|"></div>
+				<div class="item5 modal-gall" th:if="${gall[4] != 'x'}"  th:style="|background-image:url(${gall[4]})|"><div th:if="${#lists.size(gall)} > 5" data-bs-toggle="modal" data-bs-target="#campmodal5" class="more_btn" th:text="|+${#lists.size(gall)-4}|"></div></div>
 			 </div>
 			<div class="container" style="height:600px;">
 				<hr style="height:5px;">
-				<h1 style="margin-top:30px;">리뷰</h1>
+				<h2 style="margin-top:30px;" th:text="리뷰">
+					
+				</h2>
 			</div>
     	<!-- Footer-->
 		<footer class="footer fixed-bottom py-2">
@@ -200,21 +202,23 @@ integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroa
 		</footer>
 
 	<!--  Modal -->
-	<div th:each="url,index : ${gall}" class="modal fade" id="campmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div th:each="url,i : ${gall}" class="modal fade" th:id="${'campmodal'+i.index}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" th:with="mncnt = ${i.index - 1}, plcnt = ${i.index +1}, size1 = ${i.size-1}">
 		<div class="modal-dialog modal-dialog-centered modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h2 class="modal-title"></h2>
+				
+					<h2 class="modal-title curidx" id="curidx"  th:value="${i.index}" th:text="${i.index}"></h2>
+					<h2>/</h2>
+					<h2 class="modal-title" id="data" th:text="${i.size}"></h2>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body" align="center">
-					<div>
-							<button type="button" href="#campmodal2"  data-bs-target="#campmodal2" th:data-img="${gall[1]}" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn-next1"></button>
-								<img src="/images/member/noimg.jpg" alt="없음" id="imgmodal"
-									class="fs-5" width="100%" height="auto">
-									<span th:text="${index.index}"></span>
-					</div>
+				<div>
+					<button th:if ="${mncnt >= 0}" type="button" th:href="${'#campmodal' + {mncnt}}"  th:data-bs-target="${'#campmodal'+ {mncnt}}" th:data-img="${gall[mncnt]}" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn-pre"></button>
+					<button th:if ="${plcnt != i.size }"type="button" th:href="${'#campmodal'+{plcnt}}"  th:data-bs-target="${'#campmodal'+{plcnt}}" th:data-img="${gall[plcnt]}" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn-next1"></button>
+					<img src="" alt="없음" th:id="${'imgmodal'+i.index}" class="fs-5" width="90%" height="auto">
+				</div>	
 				</div>
 			</div>
 		</div>
@@ -222,18 +226,39 @@ integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroa
 	
 </body>
 <script>
-	$('#campmodal').on('show.bs.modal', function(event) {
-		var button = $(event.relatedTarget);
-		var name = button.data('img');
-		document.getElementById('imgmodal').src = name;
-	});
+	var asd =  $("#data").text();
+	var id = $("#curidx").text();
+	 $('.modal-gall').on('click', (e)=> {
+
+			var id = $("#curidx").text();
+		var button = $(e.target.dataset);
+		var name = button[0].img
+
+		console.log(id)
+		$("#imgmodal"+id).attr('src', name);
+	})
 	
-	$('.btn-next1').on('show.bs.modal', function(event) {
-		var button = $(event.relatedTarget);
-		var name = button.data('img');
-		document.getElementById('imgmodal').src = name;
+	$('.btn-pre').on('click', function(event) {
+			var button = $(event.currentTarget.dataset);
+			var name = button[0].img; 
+			console.log(name)
+			console.log(id)
+			id--;
+			$("#imgmodal"+id).attr('src', name);
+		});
+	
+	
+	 $('.btn-next1').on('click', function(event) {
+		var button = $(event.currentTarget.dataset);
+		var name = button[0].img; 
+		console.log(name)
+		console.log(id)
+		id++;
+		$("#imgmodal"+id).attr('src', name);
 	});
-</script>
+ 
+ 
+ </script>
 </html>
 
 
