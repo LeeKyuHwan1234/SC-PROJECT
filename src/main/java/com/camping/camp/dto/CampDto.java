@@ -1,7 +1,5 @@
 package com.camping.camp.dto;
 
-import com.camping.camp.vo.PageVO;
-
 import lombok.Data;
 
 @Data

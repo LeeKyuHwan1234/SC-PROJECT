@@ -1550,7 +1550,7 @@
       } else if (_config.interval && _config.ride) {
         data.pause();
         data.cycle();
-      }
+      };
     }
 
     static jQueryInterface(config) {
@@ -1564,7 +1564,7 @@
 
       if (!target || !target.classList.contains(CLASS_NAME_CAROUSEL)) {
         return;
-      }
+      };
 
       const config = { ...Manipulator.getDataAttributes(target),
         ...Manipulator.getDataAttributes(this)

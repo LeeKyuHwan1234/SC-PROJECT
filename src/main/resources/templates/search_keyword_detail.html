@@ -20,9 +20,13 @@
 	rel="stylesheet" type="text/css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Water+Brush&family=Raleway&family=Cute+Font&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+<link
+	href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Water+Brush&family=Raleway&family=Cute+Font&display=swap"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+	crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link href="css/sk_detail.css" rel="stylesheet" />
@@ -32,8 +36,8 @@ integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroa
 <body id="page-top">
 	<!-- Navigation-->
 	<div id="wrap">
-		<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #333333;"
-			id="mainNav">
+		<nav class="navbar navbar-expand-lg navbar-dark fixed-top"
+			style="background-color: #333333;" id="mainNav">
 			<div class="container navcontainer">
 				<a class="navbar-brand" href="/search"><img
 					src="/images/camper.png" alt="..." /></a>
@@ -45,122 +49,234 @@ integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroa
 				</button>
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 					<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-						<li class="nav-item"><a class="nav-link" href="#container">지도로 검색</a></li>
+						<li class="nav-item"><a class="nav-link" href="#container">지도로
+								검색</a></li>
 						<li class="nav-item"><a class="nav-link" href="#team">로그인</a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
 	</div>
-		<div class="container">
-			<div class="camp_bg" style="height:500px;" th:text="${data[0].facltnm}">
-			</div>
-	        <div class="sub_layout layout">
-					<article>
-						<header class="camp_top_info">
-							<h2 class="skip" style="height:10px;"></h2>
-							<div class="camp_info_box">
-								<div class="img_b" th:if="${data[0].firstimageurl} != 'no data'">
-									<img class="img_c" th:src="${data[0].firstimageurl}"></img>
-								</div>
-								<div class="img_b" th:unless="${data[0].firstimageurl} != 'no data'">
-									<img  class="img_c"src="/images/camp3.webp"></img>
-								</div>
-								<!--//S:table-->
-								<div class="cont_tb">
-									<table class="table">
-										<colgroup>
-											<col style="width: 30%;">
-											<col style="width: 70%;">
-										</colgroup>
-										<tbody>
-											<tr>
-													<th scope="col">주소</th>
-													<td th:text="${data[0].addr1}"> </td>
-												</tr>
-											<tr class="camp_call_pcVer">
-													<th scope="col">전화번호</th>
-													<td th:text="${data[0].tel}"></td>
-												</tr>
-											<tr>
-													<th scope="col">운영 상태</th>
-													<td th:text="${data[0].managesttus}"></td>
-												</tr>
-											<tr>
-													<th scope="col">캠핑장 유형</th>
-													<td th:text="${data[0].induty}"></td>
-												</tr>
-											<tr>
-													<th scope="col">운영기간</th>
-													<td th:text="${data[0].operpdcl}"></td>
-												</tr>
-											<tr>
-													<th scope="col">운영일</th>
-													<td th:text="${data[0].operdecl}"></td>
-												</tr>
-											<tr>
-													<th scope="col">홈페이지</th>
-													<td><a th:text="${data[0].homepage}" th:href="${data[0].homepage}"></a></td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-								<div class="intro" style="height:auto; background-color:#f9f9f9">
-									<p th:if="${data[0].intro} != 'no data'" th:text="${data[0].intro}"></p>
-									<p th:unless="${data[0].intro} != 'no data'" style='text-align:center;'></p>
-								</div>
-								<div class="campOption" style="height:auto; background-color:#f9f9f9" >
-									<div style="width:100%;height:30px;"></div>
-									<!-- 해당 값을 포함하고 있는지 확인 후 값이 있다면 해당 아이콘 출력 (contains 함수)-->
-									<div class="iconDiv"><img th:if="${#strings.contains({data[0].sbrscl},'전기')}" class="campOptionicon" src="../images/bolt.png" alt="전기"style="width:50px; height:50px;"/><p th:if="${#strings.contains({data[0].sbrscl},'전기')}">전기</p></div>
-									<div class="iconDiv"><img th:if="${#strings.contains({data[0].sbrscl},'무선인터넷')}" class="campOptionicon" src="../images/wifi.png" style="width:50px; height:50px;"/><p th:if="${#strings.contains({data[0].sbrscl},'무선인터넷')}">무선인터넷</p></div>
-									<div class="iconDiv"><img th:if="${#strings.contains({data[0].sbrscl},'장작판매')}" class="campOptionicon" src="../images/firewood.png" style="width:50px; height:50px;"/><p th:if="${#strings.contains({data[0].sbrscl},'장작판매')}">장작판매</p></div>
-									<div class="iconDiv"><img th:if="${#strings.contains({data[0].sbrscl},'온수')}" class="campOptionicon" src="../images/water.png" style="width:50px; height:50px;"/><p th:if="${#strings.contains({data[0].sbrscl},'온수')}">온수</p></div>
-									<div class="iconDiv"><img th:if="${#strings.contains({data[0].sbrscl},'트렘폴린')}" class="campOptionicon" src="../images/trampoline.png" style="width:50px; height:50px;"/><p th:if="${#strings.contains({data[0].sbrscl},'트렘폴린')}">트램펄린</p></div>
-									<div class="iconDiv"><img th:if="${#strings.contains({data[0].sbrscl},'물놀이장')}" class="campOptionicon" src="../images/swimming pool.png" style="width:50px; height:50px;"/><p th:if="${#strings.contains({data[0].sbrscl},'물놀이장')}">물놀이장</p></div>
-									<div class="iconDiv"><img th:if="${#strings.contains({data[0].sbrscl},'운동시설')}" class="campOptionicon" src="../images/sport.png" style="width:50px; height:50px;"/><p th:if="${#strings.contains({data[0].sbrscl},'운동시설')}">운동시설</p></div>
-									<div class="iconDiv"><img th:if="${#strings.contains({data[0].sbrscl},'마트.편의점')}" class="campOptionicon" src="../images/market.png" style="width:50px; height:50px;"/><p th:if="${#strings.contains({data[0].sbrscl},'마트.편의점')}">마트.편의점</p></div>
-									<div class="iconDiv"><img th:if="${#strings.contains({data[0].sbrscl},'산책로')}" class="campOptionicon" src="../images/trail.png" style="width:50px; height:50px;"/><p th:if="${#strings.contains({data[0].sbrscl},'산책로')}">산책로</p></div>
-									<div class="iconDiv"><img th:if="${#strings.contains({data[0].sbrscl},'놀이터')}" class="campOptionicon" src="../images/noriter.png" style="width:50px; height:50px;"/><p th:if="${#strings.contains({data[0].sbrscl},'놀이터')}">놀이터</p></div>
-									<div class="iconDiv"><img th:if="${#strings.contains({data[0].sbrscl},'운동장')}" class="campOptionicon" src="../images/playground.png" style="width:50px; height:50px;"/><p th:if="${#strings.contains({data[0].sbrscl},'운동장')}">운동장</p></div>
-									</div>
-						</header>
-					</article>
-				</div>
-			<hr th:if="${gall[0] != 'x'}" style="height:5px;">
-			<h1 th:if="${gall[0] != 'x'}" style="margin-top:30px;"> 갤러리</h1>
-			</div>
-			<div class="grid-container container" th:if="${gall[0] != 'x'}" style="height:600px;">
-				<h1></h1>	
-				<div class="item1 modal-gall" data-index="0" data-bs-toggle="modal" data-bs-target="#campmodal"  th:if="${gall[0] != 'x'}"  th:data-img="${gall[0]}" th:value="${gall[0]}" th:style="|background-image:url(${gall[0]})|"></div>
-				<div class="item2 modal-gall" data-index="1" data-bs-toggle="modal" data-bs-target="#campmodal" th:if="${gall[1] != 'x'}"  th:data-img="${gall[1]}" th:value="${gall[1]}" th:style="|background-image:url(${gall[1]})|"></div>
-				<div class="item3 modal-gall" data-index="2" data-bs-toggle="modal" data-bs-target="#campmodal" th:if="${gall[2] != 'x'}"  th:data-img="${gall[2]}" th:value="${gall[2]}" th:style="|background-image:url(${gall[2]})|"></div>
-				<div class="item4 modal-gall" data-index="3" data-bs-toggle="modal" data-bs-target="#campmodal" th:if="${gall[3] != 'x'}"  th:data-img="${gall[3]}" th:value="${gall[3]}" th:style="|background-image:url(${gall[3]})|"></div>
-				<div class="item5 modal-gall" th:if="${gall[4] != 'x'}"  th:style="|background-image:url(${gall[4]})|"><div th:if="${#lists.size(gall)} > 5" data-bs-toggle="modal" data-bs-target="#campmodal"  data-index="4" th:data-img="${gall[4]}" class="more_btn" th:text="|+${#lists.size(gall)-4}|"></div></div>
-			 </div>
-			<div class="container" style="height:600px;">
-				<hr style="height:5px;">
-				<h2 style="margin-top:30px;" th:text="리뷰">
-					
-				</h2>
-			</div>
-    	<!-- Footer-->
-		<footer class="footer fixed-bottom py-2">
-			<div class="container">
-				<div class="row align-items-center">
-					<div class="col-lg-4 text-lg-start"></div>
-						<div class="col-lg-4 my-3 my-lg-0">
-							<a class="navbar-brand"><img src="/images/camper.png" alt="..." /></a>
+	<div class="container">
+		<div class="camp_bg" style="height: 500px;"
+			th:text="${data[0].facltnm}"></div>
+		<div class="sub_layout layout">
+			<article>
+				<header class="camp_top_info">
+					<h2 class="skip" style="height: 10px;"></h2>
+					<div class="camp_info_box">
+						<div class="img_b" th:if="${data[0].firstimageurl} != 'no data'">
+							<img class="img_c" th:src="${data[0].firstimageurl}"></img>
 						</div>
-						<p>Copyright &copy; Your Website 2022 🤔</p>
-					<div class="col-lg-4 text-lg-end"></div>
-				</div>
+						<div class="img_b"
+							th:unless="${data[0].firstimageurl} != 'no data'">
+							<img class="img_c" src="/images/camp3.webp"></img>
+						</div>
+						<!--//S:table-->
+						<div class="cont_tb">
+							<table class="table">
+								<colgroup>
+									<col style="width: 30%;">
+									<col style="width: 70%;">
+								</colgroup>
+								<tbody>
+									<tr>
+										<th scope="col">주소</th>
+										<td th:text="${data[0].addr1}"></td>
+									</tr>
+									<tr class="camp_call_pcVer">
+										<th scope="col">전화번호</th>
+										<td th:text="${data[0].tel}"></td>
+									</tr>
+									<tr>
+										<th scope="col">운영 상태</th>
+										<td th:text="${data[0].managesttus}"></td>
+									</tr>
+									<tr>
+										<th scope="col">캠핑장 유형</th>
+										<td th:text="${data[0].induty}"></td>
+									</tr>
+									<tr>
+										<th scope="col">운영기간</th>
+										<td th:text="${data[0].operpdcl}"></td>
+									</tr>
+									<tr>
+										<th scope="col">운영일</th>
+										<td th:text="${data[0].operdecl}"></td>
+									</tr>
+									<tr>
+										<th scope="col">홈페이지</th>
+										<td><a th:text="${data[0].homepage}"
+											th:href="${data[0].homepage}"></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="intro" style="height: auto; background-color: #f9f9f9">
+						<p th:if="${data[0].intro} != 'no data'"
+							th:text="${data[0].intro}"></p>
+						<p th:unless="${data[0].intro} != 'no data'"
+							style='text-align: center;'></p>
+					</div>
+					<div class="campOption"
+						style="height: auto; background-color: #f9f9f9">
+						<div style="width: 100%; height: 30px;"></div>
+						<!-- 해당 값을 포함하고 있는지 확인 후 값이 있다면 해당 아이콘 출력 (contains 함수)-->
+						<div class="iconDiv">
+							<img th:if="${#strings.contains({data[0].sbrscl},'전기')}"
+								class="campOptionicon" src="../images/bolt.png" alt="전기"
+								style="width: 50px; height: 50px;" />
+							<p th:if="${#strings.contains({data[0].sbrscl},'전기')}">전기</p>
+						</div>
+						<div class="iconDiv">
+							<img th:if="${#strings.contains({data[0].sbrscl},'무선인터넷')}"
+								class="campOptionicon" src="../images/wifi.png"
+								style="width: 50px; height: 50px;" />
+							<p th:if="${#strings.contains({data[0].sbrscl},'무선인터넷')}">무선인터넷</p>
+						</div>
+						<div class="iconDiv">
+							<img th:if="${#strings.contains({data[0].sbrscl},'장작판매')}"
+								class="campOptionicon" src="../images/firewood.png"
+								style="width: 50px; height: 50px;" />
+							<p th:if="${#strings.contains({data[0].sbrscl},'장작판매')}">장작판매</p>
+						</div>
+						<div class="iconDiv">
+							<img th:if="${#strings.contains({data[0].sbrscl},'온수')}"
+								class="campOptionicon" src="../images/water.png"
+								style="width: 50px; height: 50px;" />
+							<p th:if="${#strings.contains({data[0].sbrscl},'온수')}">온수</p>
+						</div>
+						<div class="iconDiv">
+							<img th:if="${#strings.contains({data[0].sbrscl},'트렘폴린')}"
+								class="campOptionicon" src="../images/trampoline.png"
+								style="width: 50px; height: 50px;" />
+							<p th:if="${#strings.contains({data[0].sbrscl},'트렘폴린')}">트램펄린</p>
+						</div>
+						<div class="iconDiv">
+							<img th:if="${#strings.contains({data[0].sbrscl},'물놀이장')}"
+								class="campOptionicon" src="../images/swimming pool.png"
+								style="width: 50px; height: 50px;" />
+							<p th:if="${#strings.contains({data[0].sbrscl},'물놀이장')}">물놀이장</p>
+						</div>
+						<div class="iconDiv">
+							<img th:if="${#strings.contains({data[0].sbrscl},'운동시설')}"
+								class="campOptionicon" src="../images/sport.png"
+								style="width: 50px; height: 50px;" />
+							<p th:if="${#strings.contains({data[0].sbrscl},'운동시설')}">운동시설</p>
+						</div>
+						<div class="iconDiv">
+							<img th:if="${#strings.contains({data[0].sbrscl},'마트.편의점')}"
+								class="campOptionicon" src="../images/market.png"
+								style="width: 50px; height: 50px;" />
+							<p th:if="${#strings.contains({data[0].sbrscl},'마트.편의점')}">마트.편의점</p>
+						</div>
+						<div class="iconDiv">
+							<img th:if="${#strings.contains({data[0].sbrscl},'산책로')}"
+								class="campOptionicon" src="../images/trail.png"
+								style="width: 50px; height: 50px;" />
+							<p th:if="${#strings.contains({data[0].sbrscl},'산책로')}">산책로</p>
+						</div>
+						<div class="iconDiv">
+							<img th:if="${#strings.contains({data[0].sbrscl},'놀이터')}"
+								class="campOptionicon" src="../images/noriter.png"
+								style="width: 50px; height: 50px;" />
+							<p th:if="${#strings.contains({data[0].sbrscl},'놀이터')}">놀이터</p>
+						</div>
+						<div class="iconDiv">
+							<img th:if="${#strings.contains({data[0].sbrscl},'운동장')}"
+								class="campOptionicon" src="../images/playground.png"
+								style="width: 50px; height: 50px;" />
+							<p th:if="${#strings.contains({data[0].sbrscl},'운동장')}">운동장</p>
+						</div>
+						<div class="iconDiv">
+							<img th:if="${data[0].animalcmgcl}"
+								class="campOptionicon" src="../images/animal.png"
+								style="width: 50px; height: 50px;" />
+							<p th:if="${data[0].animalcmgcl}" th:text="${data[0].animalcmgcl}"></p>
+						</div>
+					</div>
+				</header>
+			</article>
+		</div>
+		<hr th:if="${gall[0] != 'x'}" style="height: 5px;">
+		<h1 th:if="${gall[0] != 'x'}" style="margin-top: 30px;">갤러리</h1>
+	</div>
+	<div class="grid-container container" th:if="${gall[0] != 'x'}"
+		style="height: 600px;">
+		<h1></h1>
+		<div class="item1 modal-gall" data-index="0" data-bs-toggle="modal"
+			data-bs-target="#campmodal" th:if="${gall[0] != 'x'}"
+			th:data-img="${gall[0]}" th:value="${gall[0]}"
+			th:style="|background-image:url(${gall[0]})|"></div>
+		<div class="item2 modal-gall" data-index="1" data-bs-toggle="modal"
+			data-bs-target="#campmodal" th:if="${gall[1] != 'x'}"
+			th:data-img="${gall[1]}" th:value="${gall[1]}"
+			th:style="|background-image:url(${gall[1]})|"></div>
+		<div class="item3 modal-gall" data-index="2" data-bs-toggle="modal"
+			data-bs-target="#campmodal" th:if="${gall[2] != 'x'}"
+			th:data-img="${gall[2]}" th:value="${gall[2]}"
+			th:style="|background-image:url(${gall[2]})|"></div>
+		<div class="item4 modal-gall" data-index="3" data-bs-toggle="modal"
+			data-bs-target="#campmodal" th:if="${gall[3] != 'x'}"
+			th:data-img="${gall[3]}" th:value="${gall[3]}"
+			th:style="|background-image:url(${gall[3]})|"></div>
+		<div class="item5 modal-gall" th:if="${gall[4] != 'x'}"
+			th:style="|background-image:url(${gall[4]})|">
+			<div th:if="${#lists.size(gall)} > 5" data-bs-toggle="modal"
+				data-bs-target="#campmodal" data-index="4" th:data-img="${gall[4]}"
+				class="more_btn" th:text="|+${#lists.size(gall)-4}|"></div>
+		</div>
+	</div>
+		<hr style="height: 5px;">
+		<div class="container weathercon">
+			<div style=" padding: 85px 30px 30px 50px;border:2px solid;">
+			<div class="inblock">
+			<!-- 날씨 아이콘 -->
+			<img style="margin-top: 30px; width:150px;height:150px;" th:src="|../images/weathericon/${weather.weather[0].icon}.png|"></img>
+			<!-- 도시 이름 -->
+			<h2 style="margin-top: 30px;" th:text="|${data[0].donm} ${data[0].sigungunm}|"></h2>
 			</div>
-		</footer>
+			<div class="inblock" style="margin-left:30px;">
+			<!--  날씨 매개변수 그룹 (비, 바람 등) 
+			<h2 style="margin-top: 30px;" th:text="${weather.weather[0].main}"></h2> -->
+			<!-- 날씨  -->
+			<h2 style="margin-top: 30px;" th:text="${weather.weather[0].description}"></h2>
+			<div style="display : inline-flex;">
+				<!-- 풍속 -->
+				<h2 style="margin-top: 30px;" th:text="|${weather.wind.speed}m/s|"></h2>
+				<!-- 풍향 -->
+				<h2 style="margin-top: 30px; margin-left: 30px;" th:text="${weather.wind.deg}"></h2>
+			</div>
+			<!-- 온도 -->
+			<h2 style="margin-top: 30px;" th:text="|${#numbers.formatInteger((weather.main.temp- 273.15),2, 'COMMA')}°C|"></h2>
+		</div>
+		</div>
+		<div style="height:500px; border:2px solid;">
+			Hello
+		</div>
+	</div>
+	<div class="container" style="height: 600px;">
+		<hr style="height: 5px;">
+		<h2 style="margin-top: 30px;" th:text="리뷰"></h2>
+	</div>
+	<!-- Footer-->
+	<footer class="footer fixed-bottom py-2">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-4 text-lg-start"></div>
+				<div class="col-lg-4 my-3 my-lg-0">
+					<a class="navbar-brand"><img src="/images/camper.png" alt="..." /></a>
+				</div>
+				<p>Copyright &copy; Your Website 2022 🤔</p>
+				<div class="col-lg-4 text-lg-end"></div>
+			</div>
+		</div>
+	</footer>
 
 	<!--  Modal -->
-	<div class="modal fade"  id="campmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="campmodal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -168,30 +284,32 @@ integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroa
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body" align="center">
-				<div>
-					<button type="button"  data-bs-toggle="modal" data-bs-target="#campmodal" id="btn-pre" class="btn-pre"><img id="btn-preimg"src="../images/left-arrow-gray.png" style="width:30px; height:30px;float:left"  alt=""></button>
-					<img id="imgmodal" src="" alt="없음" class="fs-5" width="80%" height="auto">
-					<button type="button"  data-bs-toggle="modal" data-bs-target="#campmodal" id="btn-next1" class="btn-next1"><img id="btn-nextimg" src="../images/right-arrow-gray.png" style="width:30px; height:30px;float:right" alt=""></button>
-					<span class="modal-title curidx" id="curidx" ></span>
-					<span class="modal-title">/</span>
-					<span class="modal-title" id="maxidx"></span>
-				</div>	
+					<div>
+						<button type="button" data-bs-toggle="modal"
+							data-bs-target="#campmodal" id="btn-pre" class="btn-pre">
+							<img id="btn-preimg" src="../images/left-arrow-gray.png"
+								style="width: 30px; height: 30px; float: left" alt="">
+						</button>
+						<img id="imgmodal" src="" alt="없음" class="fs-5" width="80%"
+							height="auto">
+						<button type="button" data-bs-toggle="modal"
+							data-bs-target="#campmodal" id="btn-next1" class="btn-next1">
+							<img id="btn-nextimg" src="../images/right-arrow-gray.png"
+								style="width: 30px; height: 30px; float: right" alt="">
+						</button>
+						<span class="modal-title curidx" id="curidx"></span> <span
+							class="modal-title">/</span> <span class="modal-title"
+							id="maxidx"></span>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 </body>
-<script  th:inline="javascript">
-/* var images = [];
-
-var image = new Image();
-image.src = "";
-
-
-images.append(image); */
-var images = [[${gall}]];
-var maxidx = images.length
+<script th:inline="javascript">
+var images = ([[${gall}]])
+var maxidx = images.length;
 var id;
 </script>
 <script>
@@ -211,7 +329,7 @@ var id;
  			$('.btn-next1').attr('disabled', false);
  		 $("#btn-nextimg").attr("src", "/images/right-arrow-gray.png");
 		}
-		$("#imgmodal").attr('src', images[id]);
+ 		$("#imgmodal").attr('src', images[id]);
 		$('#curidx').text(Number(id)+Number(1))
 		$('#maxidx').text(maxidx)
 	})

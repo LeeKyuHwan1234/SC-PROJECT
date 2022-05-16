@@ -187,3 +187,11 @@
 	height:550px;
 	margin-top:50px;
 }
+
+.inblock {
+	display:inline-block;
+}
+.weathercon {
+	display:grid;
+	grid-template-columns: 1fr 2fr;
+}
