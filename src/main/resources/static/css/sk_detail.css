@@ -733,6 +733,9 @@ progress {
   .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
     max-width: 1420px;
   }
+  .navcontainer{
+  	max-width: 2020px;
+  }
 }
 .row {
   --bs-gutter-x: 1.5rem;

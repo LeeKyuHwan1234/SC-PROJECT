@@ -29,34 +29,12 @@
 	crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<link href="css/sk_detail.css" rel="stylesheet" />
-<link rel="stylesheet" href="css/korea.css" />
-
+<link href="/css/sk_detail.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/korea.css" />
 </head>
 <body id="page-top">
 	<!-- Navigation-->
-	<div id="wrap">
-		<nav class="navbar navbar-expand-lg navbar-dark fixed-top"
-			style="background-color: #333333;" id="mainNav">
-			<div class="container navcontainer">
-				<a class="navbar-brand" href="/search"><img
-					src="/images/camper.png" alt="..." /></a>
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
-					aria-controls="navbarResponsive" aria-expanded="false"
-					aria-label="Toggle navigation">
-					Menu <i class="fas fa-bars ms-1"></i>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarResponsive">
-					<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-						<li class="nav-item"><a class="nav-link" href="#container">지도로
-								검색</a></li>
-						<li class="nav-item"><a class="nav-link" href="#team">로그인</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</div>
+		<th:block th:replace="fragment/header :: headerFragment"></th:block>
 	<div class="container">
 		<div class="camp_bg" style="height: 500px;"
 			th:text="${data[0].facltnm}"></div>
@@ -261,18 +239,7 @@
 		<h2 style="margin-top: 30px;" th:text="리뷰"></h2>
 	</div>
 	<!-- Footer-->
-	<footer class="footer fixed-bottom py-2">
-		<div class="container">
-			<div class="row align-items-center">
-				<div class="col-lg-4 text-lg-start"></div>
-				<div class="col-lg-4 my-3 my-lg-0">
-					<a class="navbar-brand"><img src="/images/camper.png" alt="..." /></a>
-				</div>
-				<p>Copyright &copy; Your Website 2022 🤔</p>
-				<div class="col-lg-4 text-lg-end"></div>
-			</div>
-		</div>
-	</footer>
+	<th:block th:replace="fragment/footer :: footerFragment"></th:block>
 
 	<!--  Modal -->
 	<div class="modal fade" id="campmodal" tabindex="-1"

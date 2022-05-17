@@ -672,6 +672,8 @@ progress {
 
 .navcontainer {
 	height:100px;
+	margin-right: auto;
+  margin-left: auto;
 }
 
 
@@ -6591,6 +6593,13 @@ textarea.form-control-lg {
   z-index: 1030;
 }
 
+.fixed-top1 {
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
 .fixed-bottom {
   position: fixed;
   right: 0;
@@ -11403,8 +11412,8 @@ p {
 }
 
 #mainNav {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   background-color: #212529;
 }
 #mainNav .navbar-toggler {
@@ -11436,8 +11445,8 @@ p {
 
 @media (min-width: 992px) {
   #mainNav {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     border: none;
     background-color: transparent;
     transition: padding-top 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
@@ -11459,7 +11468,7 @@ p {
     font-size: 1.25em;
   }
   #mainNav.navbar-shrink .navbar-brand svg,
-#mainNav.navbar-shrink .navbar-brand img {
+	#mainNav.navbar-shrink .navbar-brand img {
     height: 1.5rem;
   }
   #mainNav .navbar-nav .nav-item {
@@ -11469,12 +11478,16 @@ p {
     margin-right: 0;
   }
 }
+.navcontainer {
+	height:100px;
+}
+
 header.masthead {
   padding-top: 10.5rem;
   padding-bottom: 6rem;
   text-align: center;
   color: #fff;
-  height:1300px;
+  height:1297px;
   background-image: url("../images/bg1.png");
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -11836,17 +11849,28 @@ section#contact form#contactForm :-ms-input-placeholder {
   color: #ced4da;
 }
 
-.footer {
-  border-width: 6px 0px 0px 0px ;
-  border-style: solid;
+ .footer {
   text-align: center;
   font-size: 0.9rem;
   font-family: 'Jua', sans-serif;
-  position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
   padding: 15px 0;
-  background-color:black;
+  background-color:#333333;
+  position: relative;
+  color:white;
+ }
+ 
+ .mainfooter {
+  text-align: center;
+  font-size: 0.9rem;
+  font-family: 'Jua', sans-serif;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 15px 0;
+  position:absoulte;
+  background-color:transparent;
   color:white;
  }

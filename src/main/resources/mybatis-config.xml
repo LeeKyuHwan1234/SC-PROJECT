@@ -6,5 +6,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 	<mappers>
 	   <mapper resource="mybatis/mappers/gocamping.xml"/>
+	   <mapper resource="mybatis/mappers/auth.xml"/>
 	</mappers>
 </configuration>

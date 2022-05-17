@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>캠핑사이트 - Camper</title>
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Font Awesome icons (free version)-->
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
+	crossorigin="anonymous"></script>
+<!-- Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css" />
+<link
+	href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"
+	rel="stylesheet" type="text/css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Water+Brush&family=Raleway&family=Cute+Font&display=swap" rel="stylesheet">
+<link href="css/header.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/korea.css" />
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="/js/d3.js"></script>
+<script type="text/javascript" src="/js/korea.js"></script>
+<link rel="stylesheet" href="/css/korea.css" />
+
+</head>
+<body id="page-top">
+	<!-- Navigation-->
+	<div id="wrap">
+		<th:block th:replace="fragment/header :: headerFragment"></th:block>
+	</div>
+		<!-- Masthead-->
+		
+		<!-- Core theme JS-->
+		<script src="js/header.js"></script>
+		<div class="container-lg mapcontainer">
+			<div>
+				<div id="container">
+					<h2 style="text-align: center">대한민국 지도</h2>
+				<div id="donm"></div>
+			</div>
+		</div>
+		<div style="width:95%;height:30px;">
+			</div>
+		<div class="search" style="width:96%;">
+				<select onchange="categoryChange(this)" name="donm" id="doselect">
+					<option value="전국">전국</option>
+					<option th:each="datalist : ${data.cate}"
+						th:text='${datalist.donm}' th:value='${datalist.donm}'></option>
+				</select> <select onchange="subcategoryChange(this)" name="sigungunm"
+					id="sigunguselect">
+				</select>
+				
+				
+				<span class="float-end" id="totalcount">전체 개수 : [[${data.count[0].count}]] </span>
+		
+				<span class="pagination float-end ">
+			<a id="prebtn" onclick="prebtn()">
+			<img src="images/left-arrow.png" style="width: 30px; height: 30px" /></a>
+			<a id="npage">1</a> <a>/</a> <a id="totalcountsix"
+				th:text="${data.count[0].countsix}+1"></a> <a id="nextbtn"
+				onclick="nextbtn()"><img src="images/right-arrow.png"
+				style="width: 30px; height: 30px" /></a>
+			</span>
+				
+			</div>
+			<div class="container">
+				<div class="row camprow mt-5">
+					<div class='col-4 mb-4' th:each="camplist : ${data.camplist}">
+						<div class='card text-dark bg-white' th:onclick="'location.href=\''+@{/place?contentid=}+ @{${camplist.contentid}} + '\''">
+							<div class='card-header' th:text="${camplist.facltnm}"></div>
+					<!-- 있을 때 -->
+							<div class='card-body' th:if="${camplist.firstimageurl} != 'no data'">
+								<img th:src="${camplist.firstimageurl}" style='width: 260px; height: 200px;'></img>
+							<p th:text="${camplist.addr1}"></p>
+							</div>
+					<!-- 없을 때 -->		
+							<div class='card-body' th:unless="${camplist.firstimageurl} != 'no data'">
+								<img src='/images/camp3.webp' style='width: 260px; height: 200px;'></img>
+								<p th:text="${camplist.addr1}"></p>
+							</div>
+						
+						</div>
+					</div>
+
+				</div>
+
+				<input type="hidden" id="npagex" name="npagex">
+				<div id="gongback" style="height: 1200px"></div>
+			</div>
+		</div>
+		
+		<!-- Footer-->
+		<th:block th:replace="fragment/footer :: footerFragment"></th:block>
+		<script type="text/javascript">
+		function press(f){
+			if(f.keyCode == 13){ //javascript에서는 13이 enter키를 의미함 
+				searchform.submit(); //formname에 사용자가 지정한 form의 name입력 
+			}
+		}
+		var page = 1;
+			if (page == 1) {
+				$("#prebtn").removeAttr("onclick");
+			}
+		
+			/* 	$("#craw_submit").click(function() {
+				$.ajax({
+					url : "search/keyword",
+					type : "get",
+					data : {
+						keyword : $("#craw_id").val(),
+					},
+					contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+					success : function(data) {
+						$(".content_craw").empty();
+						for (var i = 0; i < data.length; i++) {
+							$(".content_craw").append("<tr><th>" + data[i].facltnm + "</th></tr>");
+						}
+					}
+				})
+			}) */
+
+			function categoryChange(e) {
+				page = 1;
+				var target = document.getElementById("sigunguselect");
+				$("#npage").empty();
+				$("#npage").append(page);
+				$.ajax({
+					url : "search/sigungucategory",
+					type : "get",
+					async : false,
+					data : {
+						category : e.value,
+					},
+					contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+					success : function(data) {
+						$(".camprow").empty();
+						$("#sigunguselect").empty();
+						$("#totalcountsix").empty();
+						$("#totalcount").empty();
+						if (page == 1) {
+							$("#prebtn").removeAttr("onclick");
+						}
+						if (e.value != '전국') {
+							var optAll = document.createElement("option");
+							optAll.value = "";
+							optAll.innerHTML = "전체";
+							target.appendChild(optAll);
+						} else if (e.value == '전국') {
+							$('#sigunguselect').css("display", "");
+						}
+						var nowpage = $("#npage").text();
+						for (var i = 0; i < data.length; i++) {
+							var opt = document.createElement("option");
+							opt.value = data[i].sigungunm;
+							opt.innerHTML = data[i].sigungunm;
+							target.appendChild(opt);
+						}
+						
+						$.ajax({
+							url : "search/do",
+							type : "get",
+							data : {
+								category : e.value,
+								npage : parseInt(nowpage) - 1
+							},
+							async : false,
+							contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+							success : function(data) {
+								if (e.value != '전국') {
+									$('#sigunguselect').css("display", "inline");
+								} else if (e.value == '전국') {
+									$('#sigunguselect').css("display", "");
+								}
+								$("#totalcount").append("전체 개수 : "+data.count[0].count)
+								if (data.count[0].count % 9 == 0) {
+									$("#totalcountsix").append(parseInt((data.count[0].count) / 9))
+									if (page < parseInt((data.count[0].count) / 9)) {
+										$("#nextbtn").attr("onclick", "nextbtn()");
+									} else if (page == parseInt((data.count[0].count) / 9)) {
+										$("#nextbtn").removeAttr("onclick");
+									}
+								} else {
+									$("#totalcountsix").append(parseInt((data.count[0].count) / 9) + 1)
+									if (page < parseInt((data.count[0].count) / 9) + 1) {
+										$("#nextbtn").attr("onclick", "nextbtn()");
+									} else if (page == parseInt((data.count[0].count) / 9) + 1) {
+										$("#nextbtn").removeAttr("onclick");
+									}
+								}
+								for (var i = 0; i < data.camplist.length; i++) {
+									if (data.camplist[i].firstimageurl != "no data") {
+										$(".camprow").append(
+														  "<div class='col-4 mb-4'>" 
+														+ "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" 
+														+ "<div class='card-header'>" + data.camplist[i].facltnm + "</div>"
+														+ "<div class='card-body'>"
+														+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
+														+"<p>"+data.camplist[i].addr1+"</p>"
+														+"<span>★★★☆☆</span>&nbsp<span style='margin-left:20px'>ㅁㅁㅁㅁㅁ 원</span>"
+														+ "</div></div>")
+									} else {
+										$(".camprow").append(
+												"<div class='col-4 mb-4'>" 
+														+ "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>"
+														+ "<div class='card-header'>" + data.camplist[i].facltnm + "</div>"
+														+ "<div class='card-body'>"
+														+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+														+"<p>"+data.camplist[i].addr1+"</p>"
+														+"<span>★★★☆☆</span>&nbsp<span style='margin-left:20px'>ㅁㅁㅁㅁㅁ 원</span>"
+														+ "</div></div>")
+														
+									}
+								}
+								
+							}
+						})
+					}
+				})
+			}
+
+			function subcategoryChange(e) {
+				page = 1;
+				if (page == 1) {
+					$("#prebtn").removeAttr("onclick");
+				}
+				var dotarget = document.getElementById("doselect");
+				var sigungutarget = document.getElementById("sigunguselect");
+				$("#npage").empty();
+				$("#npage").append(page);
+				var nowpage = $("#npage").text();
+				$.ajax({
+					url : "search/sigungucamp",
+					type : "get",
+					data : {
+						donm : dotarget.value,
+						category : sigungutarget.value,
+						npage : parseInt(nowpage) - 1
+					},
+					contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+					success : function(data) {
+						$(".camprow").empty();
+						$("#totalcountsix").empty();
+						$("#totalcount").empty();
+						$("#totalcount").append("전체 개수 : "+data.count[0].count)
+						if (data.count[0].count % 9 == 0) {
+							$("#totalcountsix").append(parseInt((data.count[0].count) / 9))
+							if (page < parseInt((data.count[0].count) / 9)) {
+								$("#nextbtn").attr("onclick", "nextbtn()");
+							} else if (page == parseInt((data.count[0].count) / 9)) {
+								$("#nextbtn").removeAttr("onclick");
+							}
+						} else {
+							$("#totalcountsix").append(parseInt((data.count[0].count) / 9) + 1)
+							if (page < parseInt((data.count[0].count) / 9 + 1)) {
+								$("#nextbtn").attr("onclick", "nextbtn()");
+							} else if (page == parseInt((data.count[0].count) / 9) + 1) {
+								$("#nextbtn").removeAttr("onclick");
+							}
+						}
+						for (var i = 0; i < data.camplist.length; i++) {
+							if (data.camplist[i].firstimageurl != "no data") {
+								$(".camprow").append(
+										"<div class='col-4 mb-4'>" 
+										+ "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>"
+										 + "<div class='card-header'>"
+												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
+												+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
+												+"<p>"+data.camplist[i].addr1+"</p>"
+												+"<span>★★★☆☆</span>&nbsp<span style='margin-left:20px'>ㅁㅁㅁㅁㅁ 원</span>"
+												+ "</div></div>")
+							} else {
+								$(".camprow").append(
+										"<div class='col-4 mb-4'>" + "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>"
+										 + "<div class='card-header'>"
+												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
+												+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+												+"<p>"+data.camplist[i].addr1+"</p>"
+												+"<span>★★★☆☆</span>&nbsp<span style='margin-left:20px'>ㅁㅁㅁㅁㅁ 원</span>"
+												+ "</div></div>")
+							}
+						}
+					}
+				})
+			}
+			function nextbtn() {
+				var dotarget = document.getElementById("doselect");
+				var sigungutarget = document.getElementById("sigunguselect");
+				$("#npage").empty();
+				$("#npage").append(page + 1)
+				page++;
+				if (page > 1) {
+					$("#prebtn").attr("onclick", "prebtn()");
+				}
+
+				$.ajax({
+					url : "search/sigungucamp",
+					type : "get",
+					data : {
+						donm : dotarget.value,
+						category : sigungutarget.value,
+						npage : page - 1
+					},
+					contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+					success : function(data) {
+						$(".camprow").empty();
+						$("#totalcountsix").empty();
+						$("#totalcount").empty();
+						$("#totalcount").append("전체 개수 : "+data.count[0].count)
+
+						if (data.count[0].count % 9 == 0) {
+							endpage = $("#totalcountsix").append(parseInt((data.count[0].count) / 9))
+							if (page == parseInt((data.count[0].count) / 9)) {
+								$("#nextbtn").removeAttr("onclick");
+							}
+						} else {
+							endpage = $("#totalcountsix").append(parseInt((data.count[0].count) / 9) + 1)
+							if (page == parseInt((data.count[0].count) / 9) + 1) {
+								$("#nextbtn").removeAttr("onclick");
+							}
+						}
+						for (var i = 0; i < data.camplist.length; i++) {
+							if (data.camplist[i].firstimageurl != "no data") {
+								$(".camprow").append(
+										"<div class='col-4 mb-4'>" + "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" + "<div class='card-header'>"
+												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
+												+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
+												+"<p>"+data.camplist[i].addr1+"</p>"
+												+"<span>★★★☆☆</span>&nbsp<span style='margin-left:20px'>ㅁㅁㅁㅁㅁ 원</span>"
+												+"<div></div>")
+							} else {
+								$(".camprow").append(
+										"<div class='col-4 mb-4'>" + "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" + "<div class='card-header'>"
+												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
+												+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+												+"<p>"+data.camplist[i].addr1+"</p>"
+												+"<span>★★★☆☆</span>&nbsp<span style='margin-left:20px'>ㅁㅁㅁㅁㅁ 원</span>"
+												+ "</div></div>")
+							}
+						}
+					}
+				})
+
+			}
+
+			function prebtn() {
+				var dotarget = document.getElementById("doselect");
+				var sigungutarget = document.getElementById("sigunguselect");
+				$('#npage').empty();
+				$('#npage').append(page - 1);
+				page--;
+				if (page == 1) {
+					$("#prebtn").removeAttr("onclick");
+				}
+				$.ajax({
+					url : "search/sigungucamp",
+					type : "get",
+					data : {
+						donm : dotarget.value,
+						category : sigungutarget.value,
+						npage : page - 1
+					},
+					contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+					success : function(data) {
+						$(".camprow").empty();
+						$("#totalcountsix").empty();
+						$("#totalcount").empty();
+						$("#totalcount").append("전체 개수 : "+data.count[0].count)
+						if (data.count[0].count % 9 == 0) {
+							endpage = $("#totalcountsix").append(parseInt((data.count[0].count) / 9))
+							if (page < parseInt((data.count[0].count) / 9)) {
+								$("#nextbtn").attr("onclick", "nextbtn()");
+							}
+						} else {
+							endpage = $("#totalcountsix").append(parseInt((data.count[0].count) / 9) + 1)
+							if (page < parseInt((data.count[0].count) / 9) + 1) {
+								$("#nextbtn").attr("onclick", "nextbtn()");
+							}
+						}
+						for (var i = 0; i < data.camplist.length; i++) {
+							if (data.camplist[i].firstimageurl != "no data") {
+								$(".camprow").append(
+										"<div class='col-4 mb-4'>" + "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" + "<div class='card-header'>"
+												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
+												+ "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"
+												+"<p>"+data.camplist[i].addr1+"</p>"
+												+"<span>★★★☆☆</span>&nbsp<span style='margin-left:20px'>ㅁㅁㅁㅁㅁ 원</span>"
+												+ "</div></div>")
+							} else {
+								$(".camprow").append(
+										"<div class='col-4 mb-4'>" + "<div class='card text-black bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" + "<div class='card-header'>"
+												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
+												+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+												+"<p>"+data.camplist[i].addr1+"</p>"
+												+"<span>★★★☆☆</span>&nbsp<span style='margin-left:20px'>ㅁㅁㅁㅁㅁ 원</span>"
+												+ "</div></div>")
+							}
+						}
+					}
+				})
+			}
+		</script>
+</body>
+</html>
+
+
+
+

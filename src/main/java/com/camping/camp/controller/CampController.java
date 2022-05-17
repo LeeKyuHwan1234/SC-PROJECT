@@ -1,43 +1,30 @@
 package com.camping.camp.controller;
 
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
-import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JsonParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.camping.camp.dto.CampDto;
 import com.camping.camp.service.CampService;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.io.InputStreamReader;
@@ -67,8 +54,9 @@ public class CampController {
 	@RequestMapping(value = "place")
 	@JsonProperty("keyword")
 	public String getPlaceDetail(Model model, HttpServletRequest req,HttpServletResponse resp,@RequestParam("contentid") String contentid) throws Exception {
-		    
+		//장소 아이디
 		String encurl = URLDecoder.decode(contentid, "UTF-8");
+		//캠핑장 갤러리 사진 크롤링
 		String address = "https://www.gocamping.or.kr/bsite/camp/info/read.do?c_no="+contentid;
 		Document rawData = Jsoup.connect(address).timeout(5000).get();
 		Elements blogOption = rawData.select("div.box_photo > #gallery > a ");
@@ -78,6 +66,7 @@ public class CampController {
 			a = option.select("img").attr("src");
 			arrList.add(a);
 		}
+		//크롤링할 데이터가 있는지 확인
 		if (arrList.isEmpty()) {
 			model.addAttribute("gall","xxxxx");
 		} else {
@@ -85,7 +74,7 @@ public class CampController {
 		}
 		//캠핑장 데이터 호출
 		List<CampDto> campdetail = campService.getPlaceDetail(encurl);
-		//날씨
+		//날씨 api
 		StringBuilder urlBuilder = new StringBuilder("https://api.openweathermap.org/data/2.5/weather"); /*URL*/
         urlBuilder.append("?" + URLEncoder.encode("lat","UTF-8") + "=" + URLEncoder.encode(campdetail.get(0).getMapy(), "UTF-8")); /*위도 , 37.9330692*/
         urlBuilder.append("&" + URLEncoder.encode("lon","UTF-8") + "=" + URLEncoder.encode(campdetail.get(0).getMapx(), "UTF-8")); /*경도, 128.6740240*/
@@ -97,7 +86,6 @@ public class CampController {
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
         //상태 코드 확인
-        //System.out.println("Response code: " + conn.getResponseCode()); 
         BufferedReader rd;
         if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
             rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -106,13 +94,12 @@ public class CampController {
         }
         StringBuilder sb = new StringBuilder();
         String line;
-       while ((line = rd.readLine()) != null) {
+        while ((line = rd.readLine()) != null) {
             sb.append(line);
      	}
        	String c = sb.toString();
        	JSONParser jsonParser = new JSONParser();
        	JSONObject jsonObj = (JSONObject)jsonParser.parse(c);
-       	System.out.println(jsonObj);
         rd.close();
         conn.disconnect();
         model.addAttribute("weather", jsonObj);
@@ -121,13 +108,18 @@ public class CampController {
 	}
 	
 	@RequestMapping(value = "search")
-	public String getSearch(Model model) {
+	public String getSearch() {
+		return "search_keyword";
+	}
+	
+	@RequestMapping(value = "koreamap")
+	public String getKoreaMap(Model model) {
 		HashMap<String, Object> map = new HashMap<String,Object>(); 
 		map.put("cate", campService.getDoCategory());
 		map.put("camplist",campService.getTotalCamp());
 		map.put("count",campService.getTotalCampCount());
 		model.addAttribute("data",map);
-		return "search_keyword";
+		return "koreaMap";
 	}
 	
 	

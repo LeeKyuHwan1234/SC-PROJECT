@@ -6,8 +6,10 @@
 </head>
 <body>
 
-<span th:each="datalist : ${data}">
-캠핑장 이름 : <span th:text="${datalist.facltnm}"></span>
-</span>
+<span th:text="${session.user_id}"></span>
+<span th:text="${session.user_nickname}"></span>
+<span th:text="${session.user_email}"></span>
+<span th:text="${session.user_image}"></span>
+<span th:text="${session.access_Token}"></span>
 </body>
 </html>
