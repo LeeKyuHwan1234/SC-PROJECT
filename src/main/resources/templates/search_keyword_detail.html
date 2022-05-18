@@ -205,8 +205,9 @@
 				data-bs-target="#campmodal" data-index="4" th:data-img="${gall[4]}"
 				class="more_btn" th:text="|+${#lists.size(gall)-4}|"></div>
 		</div>
+	
 	</div>
-		<hr style="height: 5px;">
+		
 		<div class="container weathercon">
 			<div style=" padding: 85px 30px 30px 50px;border:2px solid;">
 			<div class="inblock">
@@ -234,10 +235,27 @@
 			Hello
 		</div>
 	</div>
-	<div class="container" style="height: 600px;">
-		<hr style="height: 5px;">
+	
+	
+	
+	
+	<!-- 리뷰 -->
+	<div class="container" style="height: auto;">
+		<hr style="height: 8px;">
 		<h2 style="margin-top: 30px;" th:text="리뷰"></h2>
+	
+		 <div th:each="b, i : ${blog.blog_title}" style="border:2px solid;">
+			<img th:src="${blog.blog_writer_image[i.index]}"  style="width:35px; height:35px;border-radius:50%;"></img>
+			<p th:text="${b}" style="font-size:5px;"></p>
+			<p th:text="${blog.blog_content[i.index]}" style="font-size:5px;"></p>
+			<p th:text="${blog.blog_writer[i.index]}" style="font-size:5px;"></p>
+			<p th:text="${blog.blog_writer_date[i.index]}" style="font-size:5px;"></p>
+			
+			<img th:src="${blog.blog_image[i.index]}"></img>
+		</div>
 	</div>
+	
+	
 	<!-- Footer-->
 	<th:block th:replace="fragment/footer :: footerFragment"></th:block>
 

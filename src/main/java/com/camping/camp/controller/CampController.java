@@ -18,6 +18,7 @@ import com.camping.camp.dto.CampDto;
 import com.camping.camp.service.CampService;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.extern.slf4j.Slf4j;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -25,6 +26,17 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.concurrent.TimeUnit;
+
+
 
 import java.util.ArrayList;
 import java.io.InputStreamReader;
@@ -32,10 +44,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 
 
 
 @Controller 
+@Slf4j
 public class CampController {
 	
 	@Autowired
@@ -59,10 +74,10 @@ public class CampController {
 		//캠핑장 갤러리 사진 크롤링
 		String address = "https://www.gocamping.or.kr/bsite/camp/info/read.do?c_no="+contentid;
 		Document rawData = Jsoup.connect(address).timeout(5000).get();
-		Elements blogOption = rawData.select("div.box_photo > #gallery > a ");
+		Elements rawOption = rawData.select("div.box_photo > #gallery > a ");
 		String a = "";
 		ArrayList<String> arrList = new ArrayList<String>();
-		for (Element option : blogOption) {
+		for (Element option : rawOption) {
 			a = option.select("img").attr("src");
 			arrList.add(a);
 		}
@@ -79,7 +94,7 @@ public class CampController {
         urlBuilder.append("?" + URLEncoder.encode("lat","UTF-8") + "=" + URLEncoder.encode(campdetail.get(0).getMapy(), "UTF-8")); /*위도 , 37.9330692*/
         urlBuilder.append("&" + URLEncoder.encode("lon","UTF-8") + "=" + URLEncoder.encode(campdetail.get(0).getMapx(), "UTF-8")); /*경도, 128.6740240*/
         urlBuilder.append("&" + URLEncoder.encode("appid","UTF-8") + "=" + URLEncoder.encode("d34aeb285b6205f0378e01aff69b323c", "UTF-8")); /*API KEY*/
-        urlBuilder.append("&" + URLEncoder.encode("lang","UTF-8") + "=" + URLEncoder.encode("kr", "UTF-8")); /*API KEY*/
+        urlBuilder.append("&" + URLEncoder.encode("lang","UTF-8") + "=" + URLEncoder.encode("kr", "UTF-8")); /*한글 지원*/
       
         URL url = new URL(urlBuilder.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -102,6 +117,51 @@ public class CampController {
        	JSONObject jsonObj = (JSONObject)jsonParser.parse(c);
         rd.close();
         conn.disconnect();
+        
+        //네이버 뷰 크롤링 부분
+        int i = 1;
+		String blog_title = "";
+		String blog_content = "";
+		String blog_image = "";
+		String blog_writer = "";
+		String blog_writer_image = "";
+		String blog_writer_date = "";
+
+		ArrayList<Object> blog_title_list = new ArrayList<Object>();
+		ArrayList<Object> blog_content_list = new ArrayList<Object>();
+		ArrayList<Object> blog_image_list = new ArrayList<Object>();
+		ArrayList<Object> blog_writer_list = new ArrayList<Object>();
+		ArrayList<Object> blog_writer_image_list = new ArrayList<Object>();
+		ArrayList<Object> blog_writer_date_list = new ArrayList<Object>();
+		
+		String blogaddress = "https://search.naver.com/search.naver?where=view&query=";
+		blogaddress += "리버카라반";
+		Document blogData = Jsoup.connect(blogaddress).timeout(5000).get();
+		HashMap<String,Object> blogdata = new HashMap<String,Object>();
+		for(i =1; i<31;i++) {
+			Elements blogOption = blogData.select("#main_pack > section > div > div._list > panel-list > div > more-contents > div > ul > li:nth-child("+i+")");
+			blog_title = blogOption.select("div > div > a.api_txt_lines").text();
+			blog_content = blogOption.select("div > div > div > div.total_dsc_wrap > a > div.api_txt_lines").text();
+			blog_image = blogOption.select("div.total_wrap.api_ani_send > a > span > img").attr("src");
+			blog_writer_image = blogOption.select("div.total_wrap.api_ani_send > div > div.total_info > div.total_sub > a > span > img").attr("src");
+			blog_writer = blogOption.select("div.total_wrap.api_ani_send > div > div.total_info > div.total_sub > span > span > span.elss.etc_dsc_inner > a").text();
+			blog_writer_date = blogOption.select("div.total_wrap.api_ani_send > div > div.total_info > div.total_sub > span > span > span.etc_dsc_area > span.sub_time.sub_txt").text();
+			
+			blog_title_list.add(blog_title);
+			blog_content_list.add(blog_content);
+			blog_image_list.add(blog_image);
+			blog_writer_list.add(blog_writer);
+			blog_writer_image_list.add(blog_writer_image);
+			blog_writer_date_list.add(blog_writer_date);
+			
+			blogdata.put("blog_title",blog_title_list);
+			blogdata.put("blog_content",blog_content_list);
+			blogdata.put("blog_image",blog_image_list);
+			blogdata.put("blog_writer",blog_writer_list);
+			blogdata.put("blog_writer_image",blog_writer_image_list);
+			blogdata.put("blog_writer_date",blog_writer_date_list);
+		}
+		model.addAttribute("blog", blogdata);
         model.addAttribute("weather", jsonObj);
 		model.addAttribute("data",campdetail);
 		return "search_keyword_detail";
@@ -121,7 +181,55 @@ public class CampController {
 		model.addAttribute("data",map);
 		return "koreaMap";
 	}
-	
+	@RequestMapping(value = "craw")
+	@JsonProperty("keyword")
+	public String Craw(Model model, HttpServletRequest req,HttpServletResponse resp) throws Exception {
+				//캠핑장 갤러리 사진 크롤링
+//				int i = 1;
+//				String blog_title = "";
+//				String blog_content = "";
+//				String blog_image = "";
+//				String blog_writer = "";
+//				String blog_writer_image = "";
+//				String blog_writer_date = "";
+//
+//				ArrayList<Object> blog_title_list = new ArrayList<Object>();
+//				ArrayList<Object> blog_content_list = new ArrayList<Object>();
+//				ArrayList<Object> blog_image_list = new ArrayList<Object>();
+//				ArrayList<Object> blog_writer_list = new ArrayList<Object>();
+//				ArrayList<Object> blog_writer_image_list = new ArrayList<Object>();
+//				ArrayList<Object> blog_writer_date_list = new ArrayList<Object>();
+//				String address = "https://search.naver.com/search.naver?where=view&query=";
+//				address += "리버카라반";
+//				Document rawData = Jsoup.connect(address).timeout(5000).get();
+//				HashMap<String,Object> map = new HashMap<String,Object>();
+//				for(i =1; i<31;i++) {
+//					Elements blogOption = rawData.select("#main_pack > section > div > div._list > panel-list > div > more-contents > div > ul > li:nth-child("+i+")");
+//					blog_title = blogOption.select("div > div > a.api_txt_lines").text();
+//					blog_content = blogOption.select("div > div > div > div.total_dsc_wrap > a > div.api_txt_lines").text();
+//					blog_image = blogOption.select("div.total_wrap.api_ani_send > a > span > img").attr("src");
+//					blog_writer_image = blogOption.select("div.total_wrap.api_ani_send > div > div.total_info > div.total_sub > a > span > img").attr("src");
+//					blog_writer = blogOption.select("div.total_wrap.api_ani_send > div > div.total_info > div.total_sub > span > span > span.elss.etc_dsc_inner > a").text();
+//					blog_writer_date = blogOption.select("div.total_wrap.api_ani_send > div > div.total_info > div.total_sub > span > span > span.etc_dsc_area > span.sub_time.sub_txt").text();
+//					
+//					blog_title_list.add(blog_title);
+//					blog_content_list.add(blog_content);
+//					blog_image_list.add(blog_image);
+//					blog_writer_list.add(blog_writer);
+//					blog_writer_image_list.add(blog_writer_image);
+//					blog_writer_date_list.add(blog_writer_date);
+//					
+//					map.put("blog_title",blog_title_list);
+//					map.put("blog_content",blog_content_list);
+//					map.put("blog_image",blog_image_list);
+//					map.put("blog_writer",blog_writer_list);
+//					map.put("blog_writer_image",blog_writer_image_list);
+//					map.put("blog_writer_date",blog_writer_date_list);
+//				}
+//				model.addAttribute("blog", map);
+				return "index";
+	}
+
 	
 	//--------------------------------------------------- api -----------------------------------------------------
 	
