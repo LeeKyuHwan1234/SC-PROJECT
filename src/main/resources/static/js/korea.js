@@ -92,7 +92,6 @@ function drawMap(target) {
 	                     	            "<div class='card-body'>"+
 	                   	              	  "<img src="+data.camplist[i].firstimageurl+" style='width:250px; height:200px;'></img>"+
 	                     	              "<p>"+data.camplist[i].addr1+"</p>"+
-	                     	              "<span>★★★☆☆</span>&nbsp<span style='margin-left:20px'>ㅁㅁㅁㅁㅁ 원</span>"+
 	                     	              "</div></div>")
 	                     			}
 	                      		else {
@@ -103,8 +102,7 @@ function drawMap(target) {
 	                     	            "<div class='card-body'>"+
 	                   	              	  "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"+
 	                   	              	"<p>"+data.camplist[i].addr1+"</p>"+
-	                     	              "<span>★★★☆☆</span>&nbsp<span style='margin-left:20px'>ㅁㅁㅁㅁㅁ 원</span>"+
-	                   	              	"</div></div></div>")
+	                     	              "</div></div></div>")
 	                   	        }
                        		}
 							var target = document.getElementById("sigunguselect");

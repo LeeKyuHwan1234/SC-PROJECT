@@ -96,13 +96,13 @@
 }
 
 .camp_bg {
-	margin-top:30px;
-	background-image: url("../images/campbg.png");
+	height: 700px; 
+	background-image:url('../images/campbg.png');
 	background-repeat: no-repeat;
 	background-size:cover;
-	background-position: bottom;
+	background-position:bottom;
 	text-align:center;
-	line-height: 500px;
+	line-height: 700px;
 	vertical-align: middle;
 	font-size:3rem;
 	color:white;
@@ -193,6 +193,44 @@
 	display:inline-block;
 }
 .weathercon {
+	margin-top:30px;
+	margin-bottom:30px;
 	display:grid;
-	grid-template-columns: 1fr 2fr;
+	grid-template-columns: 1.5fr 2fr;
+}
+
+a {
+	text-decoration-line: none;
+}
+a:link {
+  color : black;
+}
+a:visited {
+  color : black;
+}
+a:hover {
+  color : black;
+}
+a:active {
+  color : black
+}
+
+.griddiv {
+	display:grid;
+	grid-template-columns: 2fr 1fr;
+}
+
+#reviewdiv::-webkit-scrollbar {
+    width: 8px;  /* 스크롤바의 너비 */
+}
+
+#reviewdiv::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: lightgray; /* 스크롤바의 색상 */
+    
+    border-radius: 10px;
+}
+
+#reviewdiv::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
 }

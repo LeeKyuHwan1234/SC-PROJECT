@@ -126,6 +126,7 @@ public class CampController {
 		String blog_writer = "";
 		String blog_writer_image = "";
 		String blog_writer_date = "";
+		String blog_url = "";
 
 		ArrayList<Object> blog_title_list = new ArrayList<Object>();
 		ArrayList<Object> blog_content_list = new ArrayList<Object>();
@@ -133,33 +134,42 @@ public class CampController {
 		ArrayList<Object> blog_writer_list = new ArrayList<Object>();
 		ArrayList<Object> blog_writer_image_list = new ArrayList<Object>();
 		ArrayList<Object> blog_writer_date_list = new ArrayList<Object>();
+		ArrayList<Object> blog_url_list = new ArrayList<Object>();
 		
 		String blogaddress = "https://search.naver.com/search.naver?where=view&query=";
-		blogaddress += "리버카라반";
+		blogaddress += campdetail.get(0).getFacltnm();
 		Document blogData = Jsoup.connect(blogaddress).timeout(5000).get();
 		HashMap<String,Object> blogdata = new HashMap<String,Object>();
 		for(i =1; i<31;i++) {
 			Elements blogOption = blogData.select("#main_pack > section > div > div._list > panel-list > div > more-contents > div > ul > li:nth-child("+i+")");
+
+			
 			blog_title = blogOption.select("div > div > a.api_txt_lines").text();
 			blog_content = blogOption.select("div > div > div > div.total_dsc_wrap > a > div.api_txt_lines").text();
 			blog_image = blogOption.select("div.total_wrap.api_ani_send > a > span > img").attr("src");
 			blog_writer_image = blogOption.select("div.total_wrap.api_ani_send > div > div.total_info > div.total_sub > a > span > img").attr("src");
 			blog_writer = blogOption.select("div.total_wrap.api_ani_send > div > div.total_info > div.total_sub > span > span > span.elss.etc_dsc_inner > a").text();
 			blog_writer_date = blogOption.select("div.total_wrap.api_ani_send > div > div.total_info > div.total_sub > span > span > span.etc_dsc_area > span.sub_time.sub_txt").text();
+			blog_url = blogOption.select("div.total_wrap.api_ani_send > div.total_area >  a").attr("href");
 			
-			blog_title_list.add(blog_title);
-			blog_content_list.add(blog_content);
-			blog_image_list.add(blog_image);
-			blog_writer_list.add(blog_writer);
-			blog_writer_image_list.add(blog_writer_image);
-			blog_writer_date_list.add(blog_writer_date);
-			
-			blogdata.put("blog_title",blog_title_list);
-			blogdata.put("blog_content",blog_content_list);
-			blogdata.put("blog_image",blog_image_list);
-			blogdata.put("blog_writer",blog_writer_list);
-			blogdata.put("blog_writer_image",blog_writer_image_list);
-			blogdata.put("blog_writer_date",blog_writer_date_list);
+
+			if(blog_content != null && !blog_content.equals("") && blog_image != null && !blog_image.equals("")) {
+				blog_title_list.add(blog_title);
+				blog_content_list.add(blog_content);
+				blog_image_list.add(blog_image);
+				blog_writer_list.add(blog_writer);
+				blog_writer_image_list.add(blog_writer_image);
+				blog_writer_date_list.add(blog_writer_date);
+				blog_url_list.add(blog_url);
+				
+				blogdata.put("blog_title",blog_title_list);
+				blogdata.put("blog_content",blog_content_list);
+				blogdata.put("blog_image",blog_image_list);
+				blogdata.put("blog_writer",blog_writer_list);
+				blogdata.put("blog_writer_image",blog_writer_image_list);
+				blogdata.put("blog_writer_date",blog_writer_date_list);
+				blogdata.put("blog_url", blog_url_list);
+			}
 		}
 		model.addAttribute("blog", blogdata);
         model.addAttribute("weather", jsonObj);

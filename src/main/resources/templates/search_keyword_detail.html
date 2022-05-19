@@ -35,9 +35,10 @@
 <body id="page-top">
 	<!-- Navigation-->
 		<th:block th:replace="fragment/header :: headerFragment"></th:block>
-	<div class="container">
-		<div class="camp_bg" style="height: 500px;"
+	<div class="camp_bg"
 			th:text="${data[0].facltnm}"></div>
+		
+	<div class="container">
 		<div class="sub_layout layout">
 			<article>
 				<header class="camp_top_info">
@@ -91,86 +92,137 @@
 							</table>
 						</div>
 					</div>
-					<div class="intro" style="height: auto; background-color: #f9f9f9">
+					<div class="intro" style="height: auto; background-color: #f9f9f9;" >
 						<p th:if="${data[0].intro} != 'no data'"
 							th:text="${data[0].intro}"></p>
 						<p th:unless="${data[0].intro} != 'no data'"
 							style='text-align: center;'></p>
 					</div>
 					<div class="campOption"
-						style="height: auto; background-color: #f9f9f9">
+						style="height: auto; background-color: #f9f9f9; padding-bottom: 20px;">
 						<div style="width: 100%; height: 30px;"></div>
 						<!-- 해당 값을 포함하고 있는지 확인 후 값이 있다면 해당 아이콘 출력 (contains 함수)-->
 						<div class="iconDiv">
 							<img th:if="${#strings.contains({data[0].sbrscl},'전기')}"
-								class="campOptionicon" src="../images/bolt.png" alt="전기"
+								class="campOptionicon" src="../images/options/bolt.png" alt="전기"
 								style="width: 50px; height: 50px;" />
+							<img th:unless="${#strings.contains({data[0].sbrscl},'전기')}"
+								class="campOptionicon" src="../images/options/bolt.png" alt="전기"
+								style="width: 50px; height: 50px; opacity:0.1;" />
 							<p th:if="${#strings.contains({data[0].sbrscl},'전기')}">전기</p>
+							<p th:unless="${#strings.contains({data[0].sbrscl},'전기')}" style="opacity:0.1;">전기</p>
 						</div>
 						<div class="iconDiv">
 							<img th:if="${#strings.contains({data[0].sbrscl},'무선인터넷')}"
-								class="campOptionicon" src="../images/wifi.png"
+								class="campOptionicon" src="../images/options/wifi.png"
 								style="width: 50px; height: 50px;" />
+								<img th:unless="${#strings.contains({data[0].sbrscl},'무선인터넷')}"
+								class="campOptionicon" src="../images/options/wifi.png" alt="무선인터넷"
+								style="width: 50px; height: 50px; opacity:0.1;" />
 							<p th:if="${#strings.contains({data[0].sbrscl},'무선인터넷')}">무선인터넷</p>
+							<p th:unless="${#strings.contains({data[0].sbrscl},'무선인터넷')}" style="opacity:0.1;">무선인터넷</p>
+							
 						</div>
 						<div class="iconDiv">
 							<img th:if="${#strings.contains({data[0].sbrscl},'장작판매')}"
-								class="campOptionicon" src="../images/firewood.png"
+								class="campOptionicon" src="../images/options/firewood.png"
 								style="width: 50px; height: 50px;" />
+							<img th:unless="${#strings.contains({data[0].sbrscl},'장작판매')}"
+								class="campOptionicon" src="../images/options/firewood.png" alt="장작판매"
+								style="width: 50px; height: 50px; opacity:0.1;" />
+							
 							<p th:if="${#strings.contains({data[0].sbrscl},'장작판매')}">장작판매</p>
+							<p th:unless="${#strings.contains({data[0].sbrscl},'장작판매')}" style="opacity:0.1;">장작판매</p>
 						</div>
 						<div class="iconDiv">
 							<img th:if="${#strings.contains({data[0].sbrscl},'온수')}"
-								class="campOptionicon" src="../images/water.png"
+								class="campOptionicon" src="../images/options/water.png"
 								style="width: 50px; height: 50px;" />
+								<img th:unless="${#strings.contains({data[0].sbrscl},'온수')}"
+								class="campOptionicon" src="../images/options/water.png" alt="온수"
+								style="width: 50px; height: 50px; opacity:0.1;" />
+							
 							<p th:if="${#strings.contains({data[0].sbrscl},'온수')}">온수</p>
+							<p th:unless="${#strings.contains({data[0].sbrscl},'온수')}" style="opacity:0.1;">온수</p>
 						</div>
 						<div class="iconDiv">
 							<img th:if="${#strings.contains({data[0].sbrscl},'트렘폴린')}"
-								class="campOptionicon" src="../images/trampoline.png"
+								class="campOptionicon" src="../images/options/trampoline.png"
 								style="width: 50px; height: 50px;" />
+								<img th:unless="${#strings.contains({data[0].sbrscl},'트렘폴린')}"
+								class="campOptionicon" src="../images/options/trampoline.png" alt="트렘폴린"
+								style="width: 50px; height: 50px; opacity:0.1;" />
 							<p th:if="${#strings.contains({data[0].sbrscl},'트렘폴린')}">트램펄린</p>
+							<p th:unless="${#strings.contains({data[0].sbrscl},'트렘폴린')}" style="opacity:0.1;">트램펄린</p>
 						</div>
 						<div class="iconDiv">
 							<img th:if="${#strings.contains({data[0].sbrscl},'물놀이장')}"
-								class="campOptionicon" src="../images/swimming pool.png"
+								class="campOptionicon" src="../images/options/swimming pool.png"
 								style="width: 50px; height: 50px;" />
+								<img th:unless="${#strings.contains({data[0].sbrscl},'물놀이장')}"
+								class="campOptionicon" src="../images/options/swimming pool.png" alt="물놀이장"
+								style="width: 50px; height: 50px; opacity:0.1;" />
 							<p th:if="${#strings.contains({data[0].sbrscl},'물놀이장')}">물놀이장</p>
+							<p th:unless="${#strings.contains({data[0].sbrscl},'물놀이장')}" style="opacity:0.1;">물놀이장</p>
 						</div>
 						<div class="iconDiv">
 							<img th:if="${#strings.contains({data[0].sbrscl},'운동시설')}"
-								class="campOptionicon" src="../images/sport.png"
+								class="campOptionicon" src="../images/options/sport.png"
 								style="width: 50px; height: 50px;" />
+								<img th:unless="${#strings.contains({data[0].sbrscl},'운동시설')}"
+								class="campOptionicon" src="../images/options/sport.png" alt="운동시설"
+								style="width: 50px; height: 50px; opacity:0.1;" />
 							<p th:if="${#strings.contains({data[0].sbrscl},'운동시설')}">운동시설</p>
+							<p th:unless="${#strings.contains({data[0].sbrscl},'운동시설')}" style="opacity:0.1;">운동시설</p>
 						</div>
 						<div class="iconDiv">
 							<img th:if="${#strings.contains({data[0].sbrscl},'마트.편의점')}"
-								class="campOptionicon" src="../images/market.png"
+								class="campOptionicon" src="../images/options/market.png"
 								style="width: 50px; height: 50px;" />
-							<p th:if="${#strings.contains({data[0].sbrscl},'마트.편의점')}">마트.편의점</p>
+								<img th:unless="${#strings.contains({data[0].sbrscl},'마트.편의점')}"
+								class="campOptionicon" src="../images/options/market.png" alt="마트.편의점"
+								style="width: 50px; height: 50px; opacity:0.1;" />
+							<p th:if="${#strings.contains({data[0].sbrscl},'마트.편의점')}">마트,편의점</p>
+							<p th:unless="${#strings.contains({data[0].sbrscl},'마트.편의점')}" style="opacity:0.1;">마트,편의점</p>
 						</div>
 						<div class="iconDiv">
 							<img th:if="${#strings.contains({data[0].sbrscl},'산책로')}"
-								class="campOptionicon" src="../images/trail.png"
+								class="campOptionicon" src="../images/options/trail.png"
 								style="width: 50px; height: 50px;" />
+								<img th:unless="${#strings.contains({data[0].sbrscl},'산책로')}"
+								class="campOptionicon" src="../images/options/trail.png" alt="산책로"
+								style="width: 50px; height: 50px; opacity:0.1;" />
 							<p th:if="${#strings.contains({data[0].sbrscl},'산책로')}">산책로</p>
+							<p th:unless="${#strings.contains({data[0].sbrscl},'산책로')}" style="opacity:0.1;">산책로</p>
 						</div>
 						<div class="iconDiv">
 							<img th:if="${#strings.contains({data[0].sbrscl},'놀이터')}"
-								class="campOptionicon" src="../images/noriter.png"
+								class="campOptionicon" src="../images/options/noriter.png"
 								style="width: 50px; height: 50px;" />
+								<img th:unless="${#strings.contains({data[0].sbrscl},'놀이터')}"
+								class="campOptionicon" src="../images/options/noriter.png" alt="놀이터"
+								style="width: 50px; height: 50px; opacity:0.1;" />
 							<p th:if="${#strings.contains({data[0].sbrscl},'놀이터')}">놀이터</p>
+							<p th:unless="${#strings.contains({data[0].sbrscl},'놀이터')}" style="opacity:0.1;">놀이터</p>
 						</div>
 						<div class="iconDiv">
 							<img th:if="${#strings.contains({data[0].sbrscl},'운동장')}"
-								class="campOptionicon" src="../images/playground.png"
+								class="campOptionicon" src="../images/options/playground.png"
 								style="width: 50px; height: 50px;" />
+								<img th:unless="${#strings.contains({data[0].sbrscl},'운동장')}"
+								class="campOptionicon" src="../images/options/playground.png" alt="운동장"
+								style="width: 50px; height: 50px; opacity:0.1;" />
 							<p th:if="${#strings.contains({data[0].sbrscl},'운동장')}">운동장</p>
+							<p th:unless="${#strings.contains({data[0].sbrscl},'운동장')}" style="opacity:0.1;">운동장</p>
 						</div>
 						<div class="iconDiv">
-							<img th:if="${data[0].animalcmgcl}"
-								class="campOptionicon" src="../images/animal.png"
+							<img th:if="|${data[0].animalcmgcl} == '불가능'|"	class="campOptionicon" src="../images/options/animal.png"
 								style="width: 50px; height: 50px;" />
+							<img th:if="|${data[0].animalcmgcl} == '가능'|"	class="campOptionicon" src="../images/options/animal.png"
+								style="width: 50px; height: 50px;" />
+							<img th:if="|${data[0].animalcmgcl} == '가능(소형견)'|"	class="campOptionicon" src="../images/options/animal.png"
+								style="width: 50px; height: 50px;" />
+							
 							<p th:if="${data[0].animalcmgcl}" th:text="${data[0].animalcmgcl}"></p>
 						</div>
 					</div>
@@ -225,35 +277,43 @@
 				<!-- 풍속 -->
 				<h2 style="margin-top: 30px;" th:text="|${weather.wind.speed}m/s|"></h2>
 				<!-- 풍향 -->
-				<h2 style="margin-top: 30px; margin-left: 30px;" th:text="${weather.wind.deg}"></h2>
+				<img style="margin-top: 30px; margin-left: 30px;" src="../images/windarrow.png" th:style="|transform: rotate( ${weather.wind.deg}deg ); width:35px; height:35px;|"></img>
 			</div>
 			<!-- 온도 -->
 			<h2 style="margin-top: 30px;" th:text="|${#numbers.formatInteger((weather.main.temp- 273.15),2, 'COMMA')}°C|"></h2>
 		</div>
 		</div>
-		<div style="height:500px; border:2px solid;">
-			Hello
+		<div class="container">
+		 <h2 th:text="리뷰"></h2>
+		 <div id="reviewdiv" style="overflow:scroll; overflow-x: hidden; width:100%; height:600px;">
+		 <div th:each="b, i : ${blog.blog_title}" style="border:2px solid darkgray;  margin: 10px 10px 10px 0px; border-radius:15px;">
+				<div class="griddiv">
+				<div style="margin-inline: 20px;">
+					<p>
+					<img th:src="${blog.blog_writer_image[i.index]}"  style="width:35px; height:35px;border-radius:50%;"></img>
+					<span th:text="${blog.blog_writer[i.index]}" style="font-size:15px; color:gray"></span> 
+					<span th:text="${blog.blog_writer_date[i.index]}" style="font-size:15px; color:darkgray"></span>
+					<br>
+					</p>
+					<a th:href="${blog.blog_url[i.index]}" target='_blank'>
+					<span th:text="${b}" style="font-size:20px;"></span><br>
+					<span th:text="${blog.blog_content[i.index]}" style="font-size:15px;"></span><br>
+					</a>
+					</div>
+					<div>
+						<img th:src="${blog.blog_image[i.index]}" style="border-radius: 0 15px 15px 0px;"></img>
+					</div>
+				</div>
+				</div>
 		</div>
 	</div>
+</div>
 	
 	
 	
 	
 	<!-- 리뷰 -->
-	<div class="container" style="height: auto;">
-		<hr style="height: 8px;">
-		<h2 style="margin-top: 30px;" th:text="리뷰"></h2>
-	
-		 <div th:each="b, i : ${blog.blog_title}" style="border:2px solid;">
-			<img th:src="${blog.blog_writer_image[i.index]}"  style="width:35px; height:35px;border-radius:50%;"></img>
-			<p th:text="${b}" style="font-size:5px;"></p>
-			<p th:text="${blog.blog_content[i.index]}" style="font-size:5px;"></p>
-			<p th:text="${blog.blog_writer[i.index]}" style="font-size:5px;"></p>
-			<p th:text="${blog.blog_writer_date[i.index]}" style="font-size:5px;"></p>
-			
-			<img th:src="${blog.blog_image[i.index]}"></img>
-		</div>
-	</div>
+
 	
 	
 	<!-- Footer-->

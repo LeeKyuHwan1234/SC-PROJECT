@@ -20,7 +20,8 @@
         <div class="option">
             <div class="inputDiv">
                <form onsubmit="searchPlaces(); return false;">
-                   <input type="text" th:value="${data.keyword}" id="keyword" size="25" style="height:50px; margin:10px; border:2px solid #19ce60;
+                   <a href="/search" class="slogo" style="vertical-align: middle;"><img class="slogo" src="/images/camper.png" alt="..." style="width:100px; height:80px;"/></a>
+                   <input type="text" th:value="${data.keyword}" id="keyword" size="25" style="height:50px; margin:0 0 3px 11px; vertical-align:middle; border:2px solid #19ce60;
                    border-radius:10px; padding-left: 50px; font-size:30px"> 
                  </form>
             </div>
@@ -291,18 +292,17 @@ function displayPagination(pagination) {
 // 인포윈도우에 장소명을 표시합니다
 function displayInfowindow(marker, title, places) {
   //마커 오버레이 부분
-    var itemStr = '<p id="closebtn" onclick="windowClose()">X</p><div class="listcard" style="width:420px;height:150px;">'+
+    var itemStr = '<p id="closebtn" onclick="windowClose()">X</p><div class="listcard" style="width:300px;height:280px;">'+
     '<a href="/place?contentid='+places.contentid+'">'+   
     '<div style="float:left;">';
        if (places.firstimageurl != "no data") {
-       	itemStr += '<img src="'+places.firstimageurl+'" style="width:200px; height:150px; border-radius:10px; margin-right:10px;"></div>'
+       	itemStr += '<img src="'+places.firstimageurl+'" style="width:300px; height:200px; border-radius:10px; margin-right:10px;"></div>'
        }
        else if(places.firstimageurl == "no data") (
-       	itemStr += '<img src="../images/camp3.webp" style="width:200px; height:150px; border-radius:10px;margin-right:10px;"></div>'
+       	itemStr += '<img src="../images/camp3.webp" style="width:300px; height:200px; border-radius:10px;margin-right:10px;"></div>'
        )
        itemStr += 
-     	'<img src="../images/camp3.webp" style="width:200px; height:150px; border-radius:10px;margin-right:10px;"></div>'+
-       '<div class="info" style="margin-left:10px; padding:10px;">' +
+     	 '<div class="info" style="margin-left:10px; padding:10px;">' +
        '<div>' + places.facltnm + '</div>'+
        '<div>' + places.addr1 + '</div></a>'+
        '<div class="star-ratings">'+
