@@ -304,11 +304,11 @@ kbd kbd {
 figure {
   margin: 0 0 1rem;
 }
-
+/* 
 img,
 svg {
-  vertical-align: middle;
-}
+   vertical-align: middle; 
+} */
 
 .campOption img,svg {
 	margin-inline : 30px;
@@ -339,7 +339,7 @@ td,
 th {
   border-color: inherit;
   border-style: solid;
-  border-width: 0;
+  border-width: 1px;
 }
 
 label {

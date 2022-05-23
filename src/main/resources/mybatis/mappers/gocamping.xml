@@ -8,7 +8,11 @@
          SELECT addr1,contentid, facltnm, addr1 FROM gocampingapi ORDER BY contentid DESC LIMIT 15
  	</select>
  	<select id="getPlaceDetail" resultType="CampDto" parameterType="CampDto">
-         SELECT animalcmgcl,contentid,facltnm, addr1, firstimageurl,mapx, mapy, tel, induty, managesttus, operpdcl, operdecl, homepage, intro, sbrscl, sigungunm,donm FROM gocampingapi WHERE contentid = #{encurl} ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC;
+         SELECT 
+	         animalcmgcl,contentid,facltnm, addr1, firstimageurl,mapx, mapy, tel, induty, managesttus, resvecl, homepage, intro, sbrscl, sigungunm,donm,
+	         gnrlsiteco, autositeco, glampsiteco, caravsiteco, indvdlcaravsiteco , sitedstnc, sitemg1width,sitemg2width,sitemg3width,sitemg1vrticl,sitemg2vrticl,sitemg3vrticl,
+	         sitemg1co,sitemg2co,sitemg3co,sitebottomcl1,sitebottomcl2,sitebottomcl3,sitebottomcl4,sitebottomcl5, toiletco, swrmco, wtrplco , lctcl
+         FROM gocampingapi WHERE contentid = #{encurl} ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC;
  	</select>
  	<select id="getSearchCamp" resultType="CampDto" parameterType="CampDto">
          SELECT contentid,facltnm, addr1,addr2, firstimageurl, mapx, mapy, tel FROM gocampingapi WHERE facltnm LIKE CONCAT('%', #{keyword}, '%') OR donm LIKE CONCAT('%', #{keyword}, '%')

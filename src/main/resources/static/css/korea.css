@@ -220,6 +220,11 @@ a:active {
 	grid-template-columns: 2fr 1fr;
 }
 
+
+.backslash {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="0" x2="100%" y2="100%" stroke="gray" /></svg>');
+}
+
 #reviewdiv::-webkit-scrollbar {
     width: 8px;  /* 스크롤바의 너비 */
 }
@@ -234,3 +239,4 @@ a:active {
 #reviewdiv::-webkit-scrollbar-track {
     background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
 }
+

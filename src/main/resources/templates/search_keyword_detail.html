@@ -76,17 +76,17 @@
 										<td th:text="${data[0].induty}"></td>
 									</tr>
 									<tr>
-										<th scope="col">운영기간</th>
-										<td th:text="${data[0].operpdcl}"></td>
+										<th scope="col">입지 구분</th>
+										<td th:text="${data[0].lctcl}"></td>
 									</tr>
 									<tr>
-										<th scope="col">운영일</th>
-										<td th:text="${data[0].operdecl}"></td>
+										<th scope="col">예약방법</th>
+										<td th:text="${data[0].resvecl}"></td>
 									</tr>
 									<tr>
 										<th scope="col">홈페이지</th>
 										<td><a th:text="${data[0].homepage}"
-											th:href="${data[0].homepage}"></a></td>
+											th:href="${data[0].homepage}" target='_blank'></a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -146,6 +146,16 @@
 							<p th:unless="${#strings.contains({data[0].sbrscl},'온수')}" style="opacity:0.1;">온수</p>
 						</div>
 						<div class="iconDiv">
+							<img th:if="${#strings.contains({data[0].sbrscl},'마트.편의점')}"
+								class="campOptionicon" src="../images/options/market.png"
+								style="width: 50px; height: 50px;" />
+								<img th:unless="${#strings.contains({data[0].sbrscl},'마트.편의점')}"
+								class="campOptionicon" src="../images/options/market.png" alt="마트.편의점"
+								style="width: 50px; height: 50px; opacity:0.1;" />
+							<p th:if="${#strings.contains({data[0].sbrscl},'마트.편의점')}">마트,편의점</p>
+							<p th:unless="${#strings.contains({data[0].sbrscl},'마트.편의점')}" style="opacity:0.1;">마트,편의점</p>
+						</div>
+						<div class="iconDiv">
 							<img th:if="${#strings.contains({data[0].sbrscl},'트렘폴린')}"
 								class="campOptionicon" src="../images/options/trampoline.png"
 								style="width: 50px; height: 50px;" />
@@ -174,16 +184,6 @@
 								style="width: 50px; height: 50px; opacity:0.1;" />
 							<p th:if="${#strings.contains({data[0].sbrscl},'운동시설')}">운동시설</p>
 							<p th:unless="${#strings.contains({data[0].sbrscl},'운동시설')}" style="opacity:0.1;">운동시설</p>
-						</div>
-						<div class="iconDiv">
-							<img th:if="${#strings.contains({data[0].sbrscl},'마트.편의점')}"
-								class="campOptionicon" src="../images/options/market.png"
-								style="width: 50px; height: 50px;" />
-								<img th:unless="${#strings.contains({data[0].sbrscl},'마트.편의점')}"
-								class="campOptionicon" src="../images/options/market.png" alt="마트.편의점"
-								style="width: 50px; height: 50px; opacity:0.1;" />
-							<p th:if="${#strings.contains({data[0].sbrscl},'마트.편의점')}">마트,편의점</p>
-							<p th:unless="${#strings.contains({data[0].sbrscl},'마트.편의점')}" style="opacity:0.1;">마트,편의점</p>
 						</div>
 						<div class="iconDiv">
 							<img th:if="${#strings.contains({data[0].sbrscl},'산책로')}"
@@ -216,14 +216,16 @@
 							<p th:unless="${#strings.contains({data[0].sbrscl},'운동장')}" style="opacity:0.1;">운동장</p>
 						</div>
 						<div class="iconDiv">
-							<img th:if="|${data[0].animalcmgcl} == '불가능'|"	class="campOptionicon" src="../images/options/animal.png"
-								style="width: 50px; height: 50px;" />
-							<img th:if="|${data[0].animalcmgcl} == '가능'|"	class="campOptionicon" src="../images/options/animal.png"
-								style="width: 50px; height: 50px;" />
-							<img th:if="|${data[0].animalcmgcl} == '가능(소형견)'|"	class="campOptionicon" src="../images/options/animal.png"
-								style="width: 50px; height: 50px;" />
-							
-							<p th:if="${data[0].animalcmgcl}" th:text="${data[0].animalcmgcl}"></p>
+							 <img th:if="|${(data[0].animalcmgcl).toString().equals('불가능')}|"	class="campOptionicon" src="../images/options/animal.png"
+								style="width: 50px; height: 50px; opacity:0.1;" />
+							 <img th:if="|${(data[0].animalcmgcl).toString().equals('가능')}|"	class="campOptionicon" src="../images/options/animal.png"
+								style="width: 50px; height: 50px; opacity:1;" />
+							 <img th:if="|${(data[0].animalcmgcl).toString().equals('가능(소형견)')}|"	class="campOptionicon" src="../images/options/animal.png"
+								style="width: 50px; height: 50px; opacity:0.5;"/>
+								
+								<p th:if="|${(data[0].animalcmgcl).toString().equals('불가능')}|" th:text="${data[0].animalcmgcl}" style="opacity:0.1;"></p>
+								<p th:if="|${(data[0].animalcmgcl).toString().equals('가능')}|" th:text="${data[0].animalcmgcl}" style="opacity:1;"></p>
+								<p th:if="|${(data[0].animalcmgcl).toString().equals('가능(소형견)')}|" th:text="${data[0].animalcmgcl}" style="opacity:0.5;"></p>
 						</div>
 					</div>
 				</header>
@@ -261,36 +263,112 @@
 	</div>
 		
 		<div class="container weathercon">
-			<div style=" padding: 85px 30px 30px 50px;border:2px solid;">
+			<div style=" width:95%; padding: 0px 0px 0px 30px;">
+			<div style="width:450px;">
 			<div class="inblock">
-			<!-- 날씨 아이콘 -->
-			<img style="margin-top: 30px; width:150px;height:150px;" th:src="|../images/weathericon/${weather.weather[0].icon}.png|"></img>
+					<!-- 날씨 아이콘 -->
+					<img style="width:150px;height:150px;" th:src="|../images/weathericon/${weather.weather[0].icon}.png|"></img>
+			</div>	
+			<div class="inblock" style="margin-left: 30px; vertical-align: top; margin-top: 1px;">
 			<!-- 도시 이름 -->
-			<h2 style="margin-top: 30px;" th:text="|${data[0].donm} ${data[0].sigungunm}|"></h2>
-			</div>
-			<div class="inblock" style="margin-left:30px;">
-			<!--  날씨 매개변수 그룹 (비, 바람 등) 
-			<h2 style="margin-top: 30px;" th:text="${weather.weather[0].main}"></h2> -->
-			<!-- 날씨  -->
-			<h2 style="margin-top: 30px;" th:text="${weather.weather[0].description}"></h2>
-			<div style="display : inline-flex;">
-				<!-- 풍속 -->
-				<h2 style="margin-top: 30px;" th:text="|${weather.wind.speed}m/s|"></h2>
-				<!-- 풍향 -->
-				<img style="margin-top: 30px; margin-left: 30px;" src="../images/windarrow.png" th:style="|transform: rotate( ${weather.wind.deg}deg ); width:35px; height:35px;|"></img>
-			</div>
+				<h5 style="margin-top:30px;"th:text="|${data[0].donm} ${data[0].sigungunm}|"></h5>
+			
 			<!-- 온도 -->
-			<h2 style="margin-top: 30px;" th:text="|${#numbers.formatInteger((weather.main.temp- 273.15),2, 'COMMA')}°C|"></h2>
+				<h5 th:text="|${#numbers.formatInteger((weather.main.temp- 273.15),2, 'COMMA')}°C|"></h5>
+			<!--  날씨 매개변수 그룹 (비, 바람 등) 
+				<h2 style="margin-top: 30px;" th:text="${weather.weather[0].main}"></h2> -->
+			<!-- 날씨  -->
+				<h5 th:text="${weather.weather[0].description}"></h5>
+			</div>
+			<div class="inblock" style="vertical-align: top; margin-left: 30px; margin-top: 30px;">
+				<!-- 풍속 -->
+				<h5 th:text="|${weather.wind.speed}m/s|"></h5>
+			<div>
+				<!-- 풍향 -->
+				<h5 th:if="${#numbers.formatInteger(weather.wind.deg,2,'COMMA')} <= 22 and ${#numbers.formatInteger(weather.wind.deg,2,'COMMA')} > 337 " th:text="북풍" ></h5>
+				<h5 th:if="${#numbers.formatInteger(weather.wind.deg,2,'COMMA')} <= 67 and ${#numbers.formatInteger(weather.wind.deg,2,'COMMA')} > 22 " th:text="북동풍" ></h5>
+				<h5 th:if="${#numbers.formatInteger(weather.wind.deg,2,'COMMA')} <= 112 and ${#numbers.formatInteger(weather.wind.deg,2,'COMMA')} > 67 " th:text="동풍" ></h5>
+				<h5 th:if="${#numbers.formatInteger(weather.wind.deg,2,'COMMA')} <= 157 and ${#numbers.formatInteger(weather.wind.deg,2,'COMMA')} > 112 " th:text="남동풍" ></h5>
+				<h5 th:if="${#numbers.formatInteger(weather.wind.deg,2,'COMMA')} <= 202 and ${#numbers.formatInteger(weather.wind.deg,2,'COMMA')} > 157 " th:text="남풍" ></h5>
+				<h5 th:if="${#numbers.formatInteger(weather.wind.deg,2,'COMMA')} <= 247 and ${#numbers.formatInteger(weather.wind.deg,2,'COMMA')} > 202 " th:text="남서풍" ></h5>
+				<h5 th:if="${#numbers.formatInteger(weather.wind.deg,2,'COMMA')} <= 292 and ${#numbers.formatInteger(weather.wind.deg,2,'COMMA')} > 247 " th:text="서풍" ></h5>
+				<h5 th:if="${#numbers.formatInteger(weather.wind.deg,2,'COMMA')} <= 337 and ${#numbers.formatInteger(weather.wind.deg,2,'COMMA')} > 292 " th:text="북서풍" ></h5>
+			</div>
+				<div>	
+					<img style="margin-left: 30px;" src="../images/windarrow.png" th:style="|transform: rotate( ${weather.wind.deg}deg ); width:35px; height:35px;|"></img>
+				</div>
+			</div>
 		</div>
+		<hr>
+		<h4 th:if="${!((data[0].gnrlsiteco).toString().equals('0') and (data[0].autositeco).toString().equals('0') and (data[0].glampsiteco).toString().equals('0') and (data[0].caravsiteco).toString().equals('0') and (data[0].indvdlcaravsiteco).toString().equals('0'))}" style="margin-top:10px;">주요 시설</h4>
+		<div style="margin-bottom:10px;">		
+			<span th:if="${data[0].gnrlsiteco} != '0'" th:text="|일반 야영장(${data[0].gnrlsiteco}면)|"></span>
+			<span th:if="${data[0].autositeco} != '0'" th:text="|자동차 야영장(${data[0].autositeco}면)|"></span>
+			<span th:if="${data[0].glampsiteco} != '0'" th:text="|글램핑장(${data[0].glampsiteco}면)|"></span>
+			<span th:if="${data[0].caravsiteco} != '0'" th:text="|카라반(${data[0].caravsiteco}면)|"></span>
+			<span th:if="${data[0].indvdlcaravsiteco} != '0'" th:text="|개인 카라반(${data[0].indvdlcaravsiteco}면)|"></span>
+		</div>
+	<div style="margin-bottom:10px;" th:if="${!(data[0].sitedstnc).toString().equals('0')}">
+		<h4>사이트 간격</h4>
+		<span  th:text="|${data[0].sitedstnc} 미터|"></span>
+	</div>
+	<div class="sitetable" style="margin-bottom:10px;">
+	<h4>사이트 정보</h4>
+	<table style="text-align:center; border-collapse: unset;">
+		<tbody>
+		<tr>
+			<th class="backslash" style="width:85px;"></th>
+			<td style="width:150px;">사이트 가로 크기</td>
+			<td style="width:150px;">사이트 세로 크기</td>
+			<td style="width:120px;">사이트 수량</td>
+		</tr>
+		<tr th:if="${data[0].sitemg1width} ">
+			<td>site 1</td>
+			<td th:text="${data[0].sitemg1width}"></td>
+			<td th:text="${data[0].sitemg1vrticl}"></td>
+			<td th:text="${data[0].sitemg1co}"></td>
+		</tr>
+		<tr>
+			<td>site 2</td>
+			<td th:text="${data[0].sitemg2width}"></td>
+			<td th:text="${data[0].sitemg2vrticl}"></td>
+			<td th:text="${data[0].sitemg2co}"></td>
+		</tr>
+		<tr>
+			<td>site 3</td>
+			<td th:text="${data[0].sitemg3width}"></td>
+			<td th:text="${data[0].sitemg3vrticl}"></td>
+			<td th:text="${data[0].sitemg3co}"></td>
+		</tr>
+		</tbody>
+	</table>
+	</div>
+	<div style="margin-bottom:10px;">
+	<h4 th:if="${!((data[0].sitebottomcl1).toString().equals('0') and !(data[0].sitebottomcl2).toString().equals('0') and !(data[0].sitebottomcl3).toString().equals('0') and !(data[0].sitebottomcl4).toString().equals('0') and !(data[0].sitebottomcl5).toString().equals('0'))}">사이트 바닥 정보</h4>
+		<span th:if="${data[0].sitebottomcl1} != '0'" th:text="|잔디(${data[0].sitebottomcl1})|"></span>
+		<span th:if="${data[0].sitebottomcl2} != '0'" th:text="|파쇄석(${data[0].sitebottomcl2})|"></span>
+		<span th:if="${data[0].sitebottomcl3} != '0'" th:text="|테크(${data[0].sitebottomcl3})|"></span>
+		<span th:if="${data[0].sitebottomcl4} != '0'" th:text="|자갈(${data[0].sitebottomcl4})|"></span>
+		<span th:if="${data[0].sitebottomcl5} != '0'" th:text="|맨흙(${data[0].sitebottomcl5})|"></span>
+	</div>
+	<div>
+	<h4 th:if="${!((data[0].toiletco).toString().equals('0') and !(data[0].swrmco).toString().equals('0') and !(data[0].wtrplco).toString().equals('0'))}">편의 시설 </h4>
+	<span th:if="${data[0].toiletco} != '0'" th:text="화장실"></span>
+	<span th:if="${data[0].swrmco} != '0'" th:text="샤워실"></span>
+	<span th:if="${data[0].wtrplco} != '0'" th:text="개수대"></span>
+	</div>
+			
+	
+	
 		</div>
 		<div class="container">
 		 <h2 th:text="리뷰"></h2>
 		 <div id="reviewdiv" style="overflow:scroll; overflow-x: hidden; width:100%; height:600px;">
 		 <div th:each="b, i : ${blog.blog_title}" style="border:2px solid darkgray;  margin: 10px 10px 10px 0px; border-radius:15px;">
 				<div class="griddiv">
-				<div style="margin-inline: 20px;">
-					<p>
-					<img th:src="${blog.blog_writer_image[i.index]}"  style="width:35px; height:35px;border-radius:50%;"></img>
+				<div style="margin-inline: 20px; margin-bottom:5px;">
+					<p style="margin-bottom:10px;">
+					<img th:src="${blog.blog_writer_image[i.index]}"  style="width:35px; height:35px;border-radius:50%; vertical-align: middle;"></img>
 					<span th:text="${blog.blog_writer[i.index]}" style="font-size:15px; color:gray"></span> 
 					<span th:text="${blog.blog_writer_date[i.index]}" style="font-size:15px; color:darkgray"></span>
 					<br>
@@ -301,7 +379,7 @@
 					</a>
 					</div>
 					<div>
-						<img th:src="${blog.blog_image[i.index]}" style="border-radius: 0 15px 15px 0px;"></img>
+						<img th:src="${blog.blog_image[i.index]}" style="border-radius: 0 15px 15px 0px; width:100%; height:100%;"></img>
 					</div>
 				</div>
 				</div>
