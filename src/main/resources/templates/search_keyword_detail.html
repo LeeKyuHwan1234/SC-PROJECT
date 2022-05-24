@@ -264,7 +264,7 @@
 		
 		<div class="container weathercon">
 			<div style=" width:95%; padding: 0px 0px 0px 30px;">
-			<div style="width:450px;">
+			<div style="width:450px; margin-left:40px;">
 			<div class="inblock">
 					<!-- 날씨 아이콘 -->
 					<img style="width:150px;height:150px;" th:src="|../images/weathericon/${weather.weather[0].icon}.png|"></img>
@@ -300,13 +300,12 @@
 			</div>
 		</div>
 		<hr>
-		<h4 th:if="${!((data[0].gnrlsiteco).toString().equals('0') and (data[0].autositeco).toString().equals('0') and (data[0].glampsiteco).toString().equals('0') and (data[0].caravsiteco).toString().equals('0') and (data[0].indvdlcaravsiteco).toString().equals('0'))}" style="margin-top:10px;">주요 시설</h4>
+		<h4 th:if="${!((data[0].gnrlsiteco).toString().equals('0') and (data[0].autositeco).toString().equals('0') and (data[0].glampsiteco).toString().equals('0') and (data[0].caravsiteco).toString().equals('0'))}" style="margin-top:10px;">주요 시설</h4>
 		<div style="margin-bottom:10px;">		
 			<span th:if="${data[0].gnrlsiteco} != '0'" th:text="|일반 야영장(${data[0].gnrlsiteco}면)|"></span>
 			<span th:if="${data[0].autositeco} != '0'" th:text="|자동차 야영장(${data[0].autositeco}면)|"></span>
 			<span th:if="${data[0].glampsiteco} != '0'" th:text="|글램핑장(${data[0].glampsiteco}면)|"></span>
 			<span th:if="${data[0].caravsiteco} != '0'" th:text="|카라반(${data[0].caravsiteco}면)|"></span>
-			<span th:if="${data[0].indvdlcaravsiteco} != '0'" th:text="|개인 카라반(${data[0].indvdlcaravsiteco}면)|"></span>
 		</div>
 	<div style="margin-bottom:10px;" th:if="${!(data[0].sitedstnc).toString().equals('0')}">
 		<h4>사이트 간격</h4>
@@ -344,7 +343,7 @@
 	</table>
 	</div>
 	<div style="margin-bottom:10px;">
-	<h4 th:if="${!((data[0].sitebottomcl1).toString().equals('0') and !(data[0].sitebottomcl2).toString().equals('0') and !(data[0].sitebottomcl3).toString().equals('0') and !(data[0].sitebottomcl4).toString().equals('0') and !(data[0].sitebottomcl5).toString().equals('0'))}">사이트 바닥 정보</h4>
+	<h4 th:if="${!((data[0].sitebottomcl1).toString().equals('0') and (data[0].sitebottomcl2).toString().equals('0') and (data[0].sitebottomcl3).toString().equals('0') and (data[0].sitebottomcl4).toString().equals('0') and (data[0].sitebottomcl5).toString().equals('0'))}">사이트 바닥 정보</h4>
 		<span th:if="${data[0].sitebottomcl1} != '0'" th:text="|잔디(${data[0].sitebottomcl1})|"></span>
 		<span th:if="${data[0].sitebottomcl2} != '0'" th:text="|파쇄석(${data[0].sitebottomcl2})|"></span>
 		<span th:if="${data[0].sitebottomcl3} != '0'" th:text="|테크(${data[0].sitebottomcl3})|"></span>
@@ -352,7 +351,7 @@
 		<span th:if="${data[0].sitebottomcl5} != '0'" th:text="|맨흙(${data[0].sitebottomcl5})|"></span>
 	</div>
 	<div>
-	<h4 th:if="${!((data[0].toiletco).toString().equals('0') and !(data[0].swrmco).toString().equals('0') and !(data[0].wtrplco).toString().equals('0'))}">편의 시설 </h4>
+	<h4 th:if="${!((data[0].toiletco).toString().equals('0') and (data[0].swrmco).toString().equals('0') and (data[0].wtrplco).toString().equals('0'))}">편의 시설 </h4>
 	<span th:if="${data[0].toiletco} != '0'" th:text="화장실"></span>
 	<span th:if="${data[0].swrmco} != '0'" th:text="샤워실"></span>
 	<span th:if="${data[0].wtrplco} != '0'" th:text="개수대"></span>
@@ -364,7 +363,7 @@
 		<div class="container">
 		 <h2 th:text="리뷰"></h2>
 		 <div id="reviewdiv" style="overflow:scroll; overflow-x: hidden; width:100%; height:600px;">
-		 <div th:each="b, i : ${blog.blog_title}" style="border:2px solid darkgray;  margin: 10px 10px 10px 0px; border-radius:15px;">
+		 <div th:each="b, i : ${blog.blog_title}" style="border:2px solid darkgray;  margin: 10px 10px 10px 0px; box-shadow:5px 5px 5px;  border-radius:15px;">
 				<div class="griddiv">
 				<div style="margin-inline: 20px; margin-bottom:5px;">
 					<p style="margin-bottom:10px;">

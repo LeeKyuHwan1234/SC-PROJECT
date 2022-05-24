@@ -5,25 +5,6 @@
 <title>sample</title>
 </head>
 <body>
-	<div style="display:grid; grid-template-columns: auto auto auto auto auto auto;">
-			<div>
-			<img th:each="bwi : ${blog.blog_writer_image}" th:src="${bwi}"></img>
-		</div>
-		<div>
-			<h5 th:each="bt : ${blog.blog_title}" th:text="${bt}"></h5>
-		</div>
-			<div>
-			<h5 th:each="bc : ${blog.blog_content}" th:text="${bc}"></h5>
-		</div>
-		<div>
-			<img th:each="bi : ${blog.blog_image}" th:src="${bi}"></img>
-		</div>
-		<div>
-			<h5 th:each="bw : ${blog.blog_writer}" th:text="${bw}"></h5>
-		</div>
-			<div>
-			<h5 th:each="bwd : ${blog.blog_writer_date}" th:text="${bwd}"></h5>
-		</div>
-	</div>
+	<div th:each="d : ${data}" th:text="${d}"></div>
 </body>
 </html>

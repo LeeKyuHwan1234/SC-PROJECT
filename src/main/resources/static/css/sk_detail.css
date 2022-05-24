@@ -339,7 +339,18 @@ td,
 th {
   border-color: inherit;
   border-style: solid;
-  border-width: 1px;
+  border-width: 0px;
+}
+
+.sitetable thead,
+.sitetable tbody,
+.sitetable tfoot,
+.sitetable tr,
+.sitetable td,
+.sitetable th {
+  border-color: inherit;
+  border-style: solid;
+  border-width: 2px;
 }
 
 label {
