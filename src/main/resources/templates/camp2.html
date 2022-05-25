@@ -21,7 +21,7 @@
             <div class="inputDiv">
                <form onsubmit="searchPlaces(); return false;">
                    <a href="/search" class="slogo" style="vertical-align: middle;"><img class="slogo" src="/images/camper.png" alt="..." style="width:100px; height:80px;"/></a>
-                   <input type="text" id="keyword" size="25" style="height:50px; margin:0 0 3px 11px; vertical-align:middle; border:2px solid #19ce60;
+                   <input type="text" th:value="${dodata}" id="keyword" size="25" style="height:50px; margin:0 0 3px 11px; vertical-align:middle; border:2px solid #19ce60;
                    border-radius:10px; padding-left: 50px; font-size:30px"> 
                  </form>
             </div>
@@ -37,8 +37,11 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cccf4c7daf4e1155d9f902755ad1d425&libraries=services"></script>
 <script th:inline="javascript">
-	var csdata = ([[${data}]])
-	console.log(csdata)
+	var dodata = [[${dodata}]]
+	var lcdata = [[${lcdata}]]
+	var indata = [[${indata}]]
+	var sbdata = [[${sbdata}]]
+	var sidata = [[${sidata}]]
 </script>
 <script>
 
@@ -83,19 +86,18 @@ searchPlaces();
 
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
-		displayPlaces(csdata)
+		displayPlaces2()
 }
 
 
 
 // 검색 결과 목록과 마커를 표출하는 함수입니다
-function displayPlaces(places) {
+function displayPlaces2(places) {
 	$.ajax({
 		url : "/search/display2",
 		type : "get",
-		async : false,
 		data : {
-			keyword : csdata,
+			dodata : dodata
 		},
 		contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
 		success : function(data) {

@@ -18,9 +18,20 @@
          SELECT contentid,facltnm, addr1,addr2, firstimageurl, mapx, mapy, tel FROM gocampingapi WHERE facltnm LIKE CONCAT('%', #{keyword}, '%') OR donm LIKE CONCAT('%', #{keyword}, '%')
          OR sigungunm LIKE CONCAT('%', #{keyword}, '%') OR addr1 LIKE CONCAT('%', #{keyword}, '%') OR addr2 LIKE CONCAT('%', #{keyword}, '%') ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC;
   </select>
+  
+  
+  
  	<select id="getSearchCamp2" resultType="CampDto" parameterType="CampDto">
-         SELECT contentid,facltnm, addr1,addr2, firstimageurl, mapx, mapy, tel FROM gocampingapi WHERE donm ~ '^(인천시|충청남도|대전시).*' AND lctcl ~ '^(계곡|산|숲|도심).*' AND induty ~ '^(자동차야영장|일반야영장).*' AND sbrscl ~ '^(전기|무선인터넷).*' AND sitedstnc ~ '^(0|1|2|3|4|5|6).*' ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC;
+         SELECT contentid,facltnm, addr1,addr2, firstimageurl, mapx, mapy, tel FROM gocampingapi WHERE donm ~ '^
+         <foreach collection="dodata" index="index" item="item" open="(" separator="|" close=")">
+					#{item}
+				</foreach>
+         .*' AND lctcl ~ '^(계곡|산|숲|도심).*' AND induty ~ '^(자동차야영장|일반야영장).*' AND sbrscl ~ '^(전기|무선인터넷).*' AND sitedstnc ~ '^(0|1|2|3|4|5|6).*' ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC;
   </select>
+  
+  
+  
+  
     <select id="getSearchDo" resultType="CampDto" parameterType="HashMap">
          SELECT addr1,contentid,firstimageurl,facltnm FROM gocampingapi 
          <choose> 

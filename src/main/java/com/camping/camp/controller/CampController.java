@@ -3,6 +3,7 @@ package com.camping.camp.controller;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -69,9 +71,10 @@ public class CampController {
 	}
 	
 	@RequestMapping(value = "camp2")
-	public String getCamp1(Model model, HttpServletRequest req,HttpServletResponse resp, String[] docheck) throws Exception {
-		model.addAttribute("data",docheck);
-		return "camp2";
+	public String getCamp1(Model model, HttpServletRequest req,HttpServletResponse resp, @RequestParam(value="Listx")  Map<String,Object> ajaxdata) throws Exception {
+		
+		model.addAttribute("dodata",ajaxdata);
+			return "index";
 	}
 	
 	
@@ -217,6 +220,7 @@ public class CampController {
 	@JsonProperty("keyword")
 	public @ResponseBody HashMap<String,Object> getSearchKeyword2(HttpServletRequest req,HttpServletResponse resp,@RequestParam HashMap<String,Object> ajaxdata) throws Exception {
 		HashMap<String,Object> map = new HashMap<String,Object>();
+		log.info(ajaxdata.toString());
 		map.put("data",campService.getSearchCamp2(ajaxdata)); 
 		return map;
 	}

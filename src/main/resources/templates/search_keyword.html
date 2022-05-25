@@ -24,6 +24,7 @@
 <link href="/css/header.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body id="page-top" style="overflow:hidden;">
 	<!-- Navigation-->
@@ -32,7 +33,7 @@
 		<header class="masthead">
 			<div class="container">
 				<div class="masthead-subheading">Where should  we  go  this  time?</div>
-				<form action="/camp" method="post" name="searchform">
+				<form action="/camp2" method="post" name="searchform2">
 					<div class="masthead-heading text-uppercase">
 						<input type="text" id="craw_id" name="searchKeyword" placeholder="캠핑장 이름, 주소"
 						style="font-size:30px; margin:0; background-color:lightcyan;"/>
@@ -42,7 +43,7 @@
 				<button>상세조건으로 검색</button>
 				</div>
 				
-				<form action="/camp2" method="post" name="searchform2">
+				<form name="searchform2" >
 				<div style="text-align:left;" >
 				<ul>
 				<li>
@@ -79,14 +80,14 @@
 						<div class="check_w">
 						<strong>입지 구분</strong>
 								<ul style="display: -webkit-inline-box;">
-									<li><input type="checkbox" name="docheck" value="강"><label for="c_do01">강</label></li>
-									<li><input type="checkbox" name="docheck" value="계곡"><label for="c_do02">계곡</label></li>
-									<li><input type="checkbox" name="docheck" value="도심"><label for="c_do03">도심</label></li>
-									<li><input type="checkbox" name="docheck" value="산"><label for="c_do04">산</label></li>
-									<li><input type="checkbox" name="docheck" value="섬"><label for="c_do05">섬</label></li>
-									<li><input type="checkbox" name="docheck" value="숲"><label for="c_do06">숲</label></li>
-									<li><input type="checkbox" name="docheck" value="호수"><label for="c_do07">호수</label></li>
-									<li><input type="checkbox" name="docheck" value="해변"><label for="c_do08">해변</label></li>
+									<li><input type="checkbox" name="lccheck" value="강"><label for="c_lc01">강</label></li>
+									<li><input type="checkbox" name="lccheck" value="계곡"><label for="c_lc02">계곡</label></li>
+									<li><input type="checkbox" name="lccheck" value="도심"><label for="c_lc03">도심</label></li>
+									<li><input type="checkbox" name="lccheck" value="산"><label for="c_lc04">산</label></li>
+									<li><input type="checkbox" name="lccheck" value="섬"><label for="c_lc05">섬</label></li>
+									<li><input type="checkbox" name="lccheck" value="숲"><label for="c_lc06">숲</label></li>
+									<li><input type="checkbox" name="lccheck" value="호수"><label for="c_lc07">호수</label></li>
+									<li><input type="checkbox" name="lccheck" value="해변"><label for="c_lc08">해변</label></li>
 								</ul>
 						</div>
 					</div>
@@ -96,10 +97,10 @@
 						<div class="check_w">
 						<strong>주요 시설</strong>
 								<ul style="display: -webkit-inline-box;">
-									<li><input type="checkbox" name="docheck" value="일반야영장"><label for="c_do01">일반야영장</label></li>
-									<li><input type="checkbox" name="docheck" value="자동차야영장"><label for="c_do02">자동차야영장</label></li>
-									<li><input type="checkbox" name="docheck" value="글램핑"><label for="c_do03">글램핑</label></li>
-									<li><input type="checkbox" name="docheck" value="카라반"><label for="c_do04">카라반</label></li>
+									<li><input type="checkbox" name="incheck" value="일반야영장"><label for="c_in01">일반야영장</label></li>
+									<li><input type="checkbox" name="incheck" value="자동차야영장"><label for="c_in02">자동차야영장</label></li>
+									<li><input type="checkbox" name="incheck" value="글램핑"><label for="c_in03">글램핑</label></li>
+									<li><input type="checkbox" name="incheck" value="카라반"><label for="c_in04">카라반</label></li>
 								</ul>
 						</div>
 					</div>
@@ -109,11 +110,11 @@
 						<div class="check_w">
 						<strong>바닥 형태</strong>
 								<ul style="display: -webkit-inline-box;">
-									<li><input type="checkbox" name="docheck" value="잔디"><label for="c_do01">잔디</label></li>
-									<li><input type="checkbox" name="docheck" value="테크"><label for="c_do02">테크</label></li>
-									<li><input type="checkbox" name="docheck" value="파쇄석"><label for="c_do03">파쇄석</label></li>
-									<li><input type="checkbox" name="docheck" value="자갈"><label for="c_do04">자갈</label></li>
-									<li><input type="checkbox" name="docheck" value="맨흙"><label for="c_do05">맨흙</label></li>
+									<li><input type="checkbox" name="bocheck" value="잔디"><label for="c_bo01">잔디</label></li>
+									<li><input type="checkbox" name="bocheck" value="테크"><label for="c_bo02">테크</label></li>
+									<li><input type="checkbox" name="bocheck" value="파쇄석"><label for="c_bo03">파쇄석</label></li>
+									<li><input type="checkbox" name="bocheck" value="자갈"><label for="c_bo04">자갈</label></li>
+									<li><input type="checkbox" name="bocheck" value="맨흙"><label for="c_bo05">맨흙</label></li>
 								</ul>
 						</div>
 					</div>
@@ -123,17 +124,17 @@
 						<div class="check_w">
 						<strong>부대 시설</strong>
 								<ul style="display: -webkit-inline-box;">
-									<li><input type="checkbox" name="docheck" value="전기"><label for="c_do01">전기</label></li>
-									<li><input type="checkbox" name="docheck" value="무선인터넷"><label for="c_do02">무선인터넷</label></li>
-									<li><input type="checkbox" name="docheck" value="장작판매"><label for="c_do03">장작판매</label></li>
-									<li><input type="checkbox" name="docheck" value="온수"><label for="c_do04">온수</label></li>
-									<li><input type="checkbox" name="docheck" value="마트.편의점"><label for="c_do05">마트.편의점</label></li>
-									<li><input type="checkbox" name="docheck" value="트렘폴린"><label for="c_do06">트렘폴린</label></li>
-									<li><input type="checkbox" name="docheck" value="물놀이장"><label for="c_do07">물놀이장</label></li>
-									<li><input type="checkbox" name="docheck" value="운동시설"><label for="c_do08">운동시설</label></li>
-									<li><input type="checkbox" name="docheck" value="산책로"><label for="c_do09">산책로</label></li>
-									<li><input type="checkbox" name="docheck" value="놀이터"><label for="c_do010">놀이터</label></li>
-									<li><input type="checkbox" name="docheck" value="운동장"><label for="c_do011">운동장</label></li>
+									<li><input type="checkbox" name="sbcheck" value="전기"><label for="c_sb01">전기</label></li>
+									<li><input type="checkbox" name="sbcheck" value="무선인터넷"><label for="c_sb02">무선인터넷</label></li>
+									<li><input type="checkbox" name="sbcheck" value="장작판매"><label for="c_sb03">장작판매</label></li>
+									<li><input type="checkbox" name="sbcheck" value="온수"><label for="c_sb04">온수</label></li>
+									<li><input type="checkbox" name="sbcheck" value="마트.편의점"><label for="c_sb05">마트.편의점</label></li>
+									<li><input type="checkbox" name="sbcheck" value="트렘폴린"><label for="c_sb06">트렘폴린</label></li>
+									<li><input type="checkbox" name="sbcheck" value="물놀이장"><label for="c_sb07">물놀이장</label></li>
+									<li><input type="checkbox" name="sbcheck" value="운동시설"><label for="c_sb08">운동시설</label></li>
+									<li><input type="checkbox" name="sbcheck" value="산책로"><label for="c_sb09">산책로</label></li>
+									<li><input type="checkbox" name="sbcheck" value="놀이터"><label for="c_sb10">놀이터</label></li>
+									<li><input type="checkbox" name="sbcheck" value="운동장"><label for="c_sb11">운동장</label></li>
 								</ul>
 						</div>
 					</div>
@@ -143,9 +144,9 @@
 						<div class="check_w">
 						<strong>편의 시설</strong>
 								<ul style="display: -webkit-inline-box;">
-									<li><input type="checkbox" name="docheck" value="화장실"><label for="c_do01">화장실</label></li>
-									<li><input type="checkbox" name="docheck" value="샤워실"><label for="c_do02">샤워실</label></li>
-									<li><input type="checkbox" name="docheck" value="개수대"><label for="c_do03">개수대</label></li>
+									<li><input type="checkbox" name="facheck" value="화장실"><label for="c_fa01">화장실</label></li>
+									<li><input type="checkbox" name="facheck" value="샤워실"><label for="c_fa02">샤워실</label></li>
+									<li><input type="checkbox" name="facheck" value="개수대"><label for="c_fa03">개수대</label></li>
 								</ul>
 						</div>
 					</div>
@@ -155,30 +156,71 @@
 						<div class="check_w">
 						<strong>사이트 간 거리</strong>
 								<ul style="display: -webkit-inline-box;">
-									<li><input type="checkbox" name="docheck" value="1"><label for="c_do01">1</label></li>
-									<li><input type="checkbox" name="docheck" value="2"><label for="c_do02">2</label></li>
-									<li><input type="checkbox" name="docheck" value="3"><label for="c_do03">3</label></li>
-									<li><input type="checkbox" name="docheck" value="4"><label for="c_do04">4</label></li>
-									<li><input type="checkbox" name="docheck" value="5"><label for="c_do05">5</label></li>
-									<li><input type="checkbox" name="docheck" value="6"><label for="c_do06">6</label></li>
-									<li><input type="checkbox" name="docheck" value="7"><label for="c_do07">7</label></li>
-									<li><input type="checkbox" name="docheck" value="8"><label for="c_do08">8</label></li>
-									<li><input type="checkbox" name="docheck" value="9"><label for="c_do09">9</label></li>
-									<li><input type="checkbox" name="docheck" value="10"><label for="c_do010">10</label></li>
-									<li><input type="checkbox" name="docheck" value="13"><label for="c_do011">13</label></li>
+									<li><input type="checkbox" name="sicheck" value="1"><label for="c_si01">1</label></li>
+									<li><input type="checkbox" name="sicheck" value="2"><label for="c_si02">2</label></li>
+									<li><input type="checkbox" name="sicheck" value="3"><label for="c_si03">3</label></li>
+									<li><input type="checkbox" name="sicheck" value="4"><label for="c_si04">4</label></li>
+									<li><input type="checkbox" name="sicheck" value="5"><label for="c_si05">5</label></li>
+									<li><input type="checkbox" name="sicheck" value="6"><label for="c_si06">6</label></li>
+									<li><input type="checkbox" name="sicheck" value="7"><label for="c_si07">7</label></li>
+									<li><input type="checkbox" name="sicheck" value="8"><label for="c_si08">8</label></li>
+									<li><input type="checkbox" name="sicheck" value="9"><label for="c_si09">9</label></li>
+									<li><input type="checkbox" name="sicheck" value="10"><label for="c_si10">10</label></li>
+									<li><input type="checkbox" name="sicheck" value="13"><label for="c_si11">13</label></li>
 								</ul>
 						</div>
 					</div>
 				</li>
 				</ul>
 				</div>
-				<button>123</button>
+			<input type="button" name="Listx" id="Listx" value="123">
 			</form>
+			<button onclick="docheck()">123</button>
+			
+			
+			
 			</div>
 		</header>
 		<th:block th:replace="fragment/mainfooter :: footerFragment"></th:block>
 	</body>
+
+<script>
+
+function docheck() {
+	var o = {};
+	var doList = [];
+	var lcList = [];
+	var inList = [];
+	var sbList = [];
+	var siList = [];
 	
+	$("input[name='docheck']:checked").each(function(idx) {
+		doList.push($(this).val());
+	});
+	$("input[name='lccheck']:checked").each(function(idx) {
+		lcList.push($(this).val());
+	});
+	$("input[name='incheck']:checked").each(function(idx) {
+		inList.push($(this).val());
+	});
+	$("input[name='sbcheck']:checked").each(function(idx) {
+		sbList.push($(this).val());
+	});
+	$("input[name='sicheck']:checked").each(function(idx) {
+		siList.push($(this).val());
+	});
+	o.doList = doList;
+	o.lcList = lcList;
+	o.inList = inList;
+	o.sbList = sbList;
+	o.siList = siList;
+	
+	$('#Listx').val(JSON.stringify(o));
+}
+
+
+
+</script>	
 
 </html>
 

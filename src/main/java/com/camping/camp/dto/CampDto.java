@@ -1,9 +1,14 @@
 package com.camping.camp.dto;
 
+import java.util.List;
+import java.util.Map;
+
 import lombok.Data;
 
 @Data
 public class CampDto {
+	
+	Map<String,Object> ajaxdata;
 	private String count;
 	private String countsix;
 	private String encurl;
