@@ -33,22 +33,20 @@
 		<header class="masthead">
 			<div class="container">
 				<div class="masthead-subheading">Where should  we  go  this  time?</div>
-				<form action="/camp2" method="post" name="searchform2">
+				<form action="camp" method="post" name="searchform">
 					<div class="masthead-heading text-uppercase">
 						<input type="text" id="craw_id" name="searchKeyword" placeholder="캠핑장 이름, 주소"
 						style="font-size:30px; margin:0; background-color:lightcyan;"/>
-					</div>
-				</form>
-				<div>
-				<button>상세조건으로 검색</button>
-				</div>
+					<span style="font-size:25px; cursor:pointer" id="offDisplay" onclick="offDisplay()">상세조건 <i class="fa-solid fa-square-plus"style="width:25px; height:25px;"></i></span>
 				
-				<form name="searchform2" >
-				<div style="text-align:left;" >
+					</div>
+					</form>
+					<form action="camp2" method="post" id="searchform2" name="searchform2" style="display:none" >
+				<div id="selectOption" style="width:1400px; text-align:left;justify-content: center;display: inline-flex;">
 				<ul>
 				<li>
 					<div class="folder_w">
-						<div class="check_w" style="background-color:rgba(221, 221, 221, .5);">
+						<div class="check_w" >
 						<strong>지역별</strong>
 								<ul style="display: -webkit-inline-box; " >
 									<li><input type="checkbox" name="docheck" id="c_do01" value="서울시" ><label for="c_do01">서울시</label></li>
@@ -74,7 +72,9 @@
 								</ul>
 						</div>
 					</div>
-				</li>		
+					<h5>▣ 지역은 반드시 하나 이상 선택해야 합니다.</h5>	
+				</li>
+					
 				<li>
 					<div class="folder_w" style="display: inline-block;">
 						<div class="check_w">
@@ -154,7 +154,7 @@
 				<li>
 					<div class="folder_w" style="display: inline-block;">
 						<div class="check_w">
-						<strong>사이트 간 거리</strong>
+						<strong>사이트 간 거리(m)</strong>
 								<ul style="display: -webkit-inline-box;">
 									<li><input type="checkbox" name="sicheck" value="1"><label for="c_si01">1</label></li>
 									<li><input type="checkbox" name="sicheck" value="2"><label for="c_si02">2</label></li>
@@ -172,51 +172,86 @@
 					</div>
 				</li>
 				</ul>
-				</div>
-			<input type="button" name="Listx" id="Listx" value="123">
+				
+			<input type="hidden" name="Listx1" id="Listx1" value="123">
+			<input type="hidden" name="Listx2" id="Listx2" value="123">
+			<input type="hidden" name="Listx3" id="Listx3" value="123">
+			<input type="hidden" name="Listx4" id="Listx4" value="123">
+			<input type="hidden" name="Listx5" id="Listx5" value="123">
+			<input type="hidden" name="Listx6" id="Listx5" value="123">
+			<input type="hidden" name="Listx7" id="Listx5" value="123">
+			</div>
 			</form>
-			<button onclick="docheck()">123</button>
-			
-			
+			<button style="display:none" name="submitbtn" id="subbtn" onclick="docheck()">검색</button>
 			
 			</div>
+			
+			
 		</header>
 		<th:block th:replace="fragment/mainfooter :: footerFragment"></th:block>
 	</body>
 
 <script>
+$(document).ready( function() {
+  $( '#offDisplay' ).click( function() {
+    $( '#searchform2' ).toggle( 'swing' );
+    $( '#subbtn' ).toggle( 'swing' );
+  });
+});
 
 function docheck() {
-	var o = {};
-	var doList = [];
-	var lcList = [];
-	var inList = [];
-	var sbList = [];
-	var siList = [];
-	
-	$("input[name='docheck']:checked").each(function(idx) {
-		doList.push($(this).val());
-	});
-	$("input[name='lccheck']:checked").each(function(idx) {
-		lcList.push($(this).val());
-	});
-	$("input[name='incheck']:checked").each(function(idx) {
-		inList.push($(this).val());
-	});
-	$("input[name='sbcheck']:checked").each(function(idx) {
-		sbList.push($(this).val());
-	});
-	$("input[name='sicheck']:checked").each(function(idx) {
-		siList.push($(this).val());
-	});
-	o.doList = doList;
-	o.lcList = lcList;
-	o.inList = inList;
-	o.sbList = sbList;
-	o.siList = siList;
-	
-	$('#Listx').val(JSON.stringify(o));
+	if($("input:checkbox[name='docheck']").is(":checked") == true){
+		$.when(chkappend()).then(function(x) {
+			$("#searchform2").submit();
+		});		
+	}
+	else {
+		alert('지역을 선택해주세요!')
+	}
 }
+
+
+function chkappend() {
+	  var o = {};
+		var doList = [];
+		var lcList = [];
+		var inList = [];
+		var sbList = [];
+		var siList = [];
+		var boList = [];
+		var faList = [];
+		
+		$("input[name='docheck']:checked").each(function(idx) {
+			doList.push({"doid":$(this).val()});
+		});
+		$("input[name='lccheck']:checked").each(function(idx) {
+			lcList.push({"lcid":$(this).val()});
+		});
+		$("input[name='incheck']:checked").each(function(idx) {
+			inList.push({"inid":$(this).val()});
+		});
+		$("input[name='sbcheck']:checked").each(function(idx) {
+			sbList.push({"sbid":$(this).val()});
+		});
+		$("input[name='sicheck']:checked").each(function(idx) {
+			siList.push({"siid":$(this).val()});
+		});
+		$("input[name='bocheck']:checked").each(function(idx) {
+			boList.push({"boid":$(this).val()});
+		});
+		$("input[name='facheck']:checked").each(function(idx) {
+			faList.push({"faid":$(this).val()});
+		});
+		
+		$('#Listx1').val(JSON.stringify(doList));
+		$('#Listx2').val(JSON.stringify(lcList));
+		$('#Listx3').val(JSON.stringify(inList));
+		$('#Listx4').val(JSON.stringify(sbList));
+		$('#Listx5').val(JSON.stringify(siList));
+		$('#Listx6').val(JSON.stringify(faList));
+		$('#Listx7').val(JSON.stringify(boList));
+	}
+	
 
 
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="EUC-KR"?>
 <!DOCTYPE mapper
       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -19,26 +19,34 @@
          OR sigungunm LIKE CONCAT('%', #{keyword}, '%') OR addr1 LIKE CONCAT('%', #{keyword}, '%') OR addr2 LIKE CONCAT('%', #{keyword}, '%') ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC;
   </select>
   
-  
-  
- 	<select id="getSearchCamp2" resultType="CampDto" parameterType="CampDto">
-         SELECT contentid,facltnm, addr1,addr2, firstimageurl, mapx, mapy, tel FROM gocampingapi WHERE donm ~ '^
-         <foreach collection="dodata" index="index" item="item" open="(" separator="|" close=")">
-					#{item}
+ 
+	<select id="getSearchCamp2" resultType="CampDto" parameterType="java.util.List" >
+         SELECT contentid,facltnm, addr1,addr2, firstimageurl, mapx, mapy, tel FROM gocampingapi WHERE 
+      	 <foreach collection="doList" index="index" item="item" separator="OR">
+					 donm LIKE '%' || #{item} || '%'
 				</foreach>
-         .*' AND lctcl ~ '^(Í≥ÑÍ≥°|ÏÇ∞|Ïà≤|ÎèÑÏã¨).*' AND induty ~ '^(ÏûêÎèôÏ∞®ÏïºÏòÅÏû•|ÏùºÎ∞òÏïºÏòÅÏû•).*' AND sbrscl ~ '^(Ï†ÑÍ∏∞|Î¨¥ÏÑ†Ïù∏ÌÑ∞ÎÑ∑).*' AND sitedstnc ~ '^(0|1|2|3|4|5|6).*' ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC;
+				<foreach collection="lcList" index="index" item="item" separator="OR" open="AND">
+					 lctcl LIKE '%' || #{item} || '%'
+				</foreach>
+				<foreach collection="inList" index="index" item="item" separator="OR" open="AND">
+					 induty LIKE '%' || #{item} || '%'
+				</foreach>
+				<foreach collection="sbList" index="index" item="item" separator="OR" open="AND" >
+					 sbrscl LIKE '%' || #{item} || '%'
+				</foreach>
+				<foreach collection="siList" index="index" item="item" separator="OR" open="AND">
+					 sitedstnc LIKE '%' || #{item} || '%'
+				</foreach>
+				ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC;
   </select>
   
-  
-  
-  
-    <select id="getSearchDo" resultType="CampDto" parameterType="HashMap">
+   <select id="getSearchDo" resultType="CampDto" parameterType="HashMap">
          SELECT addr1,contentid,firstimageurl,facltnm FROM gocampingapi 
          <choose> 
-      	 	<when test="category != 'Ï†ÑÍµ≠'">
+      	 	<when test="category != '¿¸±π'">
       	 		 WHERE donm = #{category} ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC LIMIT 9 OFFSET CAST(#{npage} AS INTEGER) * 9 ;
       	 	</when>
-      	 	<when test="category == 'Ï†ÑÍµ≠'">
+      	 	<when test="category == '¿¸±π'">
       	 		ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC LIMIT 9 OFFSET CAST(#{npage} AS INTEGER) * 9 
       	 	</when>
       	 </choose>
@@ -46,7 +54,7 @@
     <select id="getSearchDoCount" resultType="CampDto" parameterType="HashMap">
        	SELECT COUNT(facltnm) as count FROM gocampingapi
        	<choose> 
-      	 	<when test="category != 'Ï†ÑÍµ≠'">
+      	 	<when test="category != '¿¸±π'">
       	 		  WHERE donm = #{category}
       	 	</when>
       	</choose>
@@ -57,9 +65,9 @@
     <select id="getSearchSigunguCount" resultType="CampDto" parameterType="HashMap">
        	SELECT COUNT(facltnm) as count FROM gocampingapi 
        	 <choose>
-      	 	<when test='donm == "Ï†ÑÍµ≠"'>
+      	 	<when test='donm == "¿¸±π"'>
       	 	 </when>
-      	 	<when test='donm != "Ï†ÑÍµ≠" and category == ""'>
+      	 	<when test='donm != "¿¸±π" and category == ""'>
       	 		WHERE donm = #{donm} 
       	 	</when>
       	  	<when test='category != ""'>
@@ -76,7 +84,7 @@
     <select id="getSigunguCamp" resultType="CampDto" parameterType="HashMap">
       	 SELECT addr1,contentid,firstimageurl,facltnm FROM gocampingapi
       	 <choose> 
-      	 	<when test="donm == 'Ï†ÑÍµ≠' and category == ''">
+      	 	<when test="donm == '¿¸±π' and category == ''">
       	 		ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC LIMIT 9 OFFSET CAST(#{npage} AS INTEGER) * 9
       	 	</when>
       	 	<when test='donm != "" and category == ""'>

@@ -11509,7 +11509,6 @@ header.masthead .masthead-heading {
 
 @media (min-width: 768px) {
   header.masthead {
-    padding-top: 17rem;
     padding-bottom: 12.5rem;
   }
   header.masthead .masthead-subheading {
@@ -11517,7 +11516,7 @@ header.masthead .masthead-heading {
     font-style: italic;
     font-family: 'Water Brush', cursive;
     line-height: 2.25rem;
-    margin-bottom: 8rem;
+    margin-bottom: 3rem;
   }
   header.masthead .masthead-heading {
     font-size: 4.5rem;

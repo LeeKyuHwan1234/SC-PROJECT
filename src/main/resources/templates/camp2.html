@@ -21,7 +21,7 @@
             <div class="inputDiv">
                <form onsubmit="searchPlaces(); return false;">
                    <a href="/search" class="slogo" style="vertical-align: middle;"><img class="slogo" src="/images/camper.png" alt="..." style="width:100px; height:80px;"/></a>
-                   <input type="text" th:value="${dodata}" id="keyword" size="25" style="height:50px; margin:0 0 3px 11px; vertical-align:middle; border:2px solid #19ce60;
+                   <input type="text" id="keyword" size="25" style="height:50px; margin:0 0 3px 11px; vertical-align:middle; border:2px solid #19ce60;
                    border-radius:10px; padding-left: 50px; font-size:30px"> 
                  </form>
             </div>
@@ -37,11 +37,12 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cccf4c7daf4e1155d9f902755ad1d425&libraries=services"></script>
 <script th:inline="javascript">
-	var dodata = [[${dodata}]]
-	var lcdata = [[${lcdata}]]
-	var indata = [[${indata}]]
-	var sbdata = [[${sbdata}]]
-	var sidata = [[${sidata}]]
+	var dodata = [[${data}]]
+	console.log(dodata.length)
+	if(dodata.length == 0) {
+		alert('검색 결과가 없습니다!')
+		location.href='/search'
+	}
 </script>
 <script>
 
@@ -82,26 +83,63 @@ var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
 map.setMaxLevel(12);
 // 키워드로 장소를 검색합니다
-searchPlaces();
+searchPlaces2();
 
 // 키워드 검색을 요청하는 함수입니다
-function searchPlaces() {
+function searchPlaces2() {
 		displayPlaces2()
 }
+//키워드 검색을 요청하는 함수입니다
+function searchPlaces() {
 
+    var keyword = document.getElementById('keyword').value;
 
+    if (!keyword.replace(/^\s+|\s+$/g, '')) {
+        alert('키워드를 입력해주세요!');
+        return false;
+    }
+
+    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+    ps.keywordSearch( keyword+"캠핑장", placesSearchCB); 
+}
+
+// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+function placesSearchCB(data, status, pagination) {
+    if (status === kakao.maps.services.Status.OK) {
+
+        // 정상적으로 검색이 완료됐으면
+        // 검색 목록과 마커를 표출합니다
+        displayPlaces(data);
+
+        // 페이지 번호를 표출합니다
+        displayPagination(pagination);
+
+    } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+
+        alert('검색 결과가 존재하지 않습니다.');
+        return;
+
+    } else if (status === kakao.maps.services.Status.ERROR) {
+
+        alert('검색 결과 중 오류가 발생했습니다.');
+        return;
+
+    }
+}
 
 // 검색 결과 목록과 마커를 표출하는 함수입니다
-function displayPlaces2(places) {
+function displayPlaces(places) {
+	 var keyword = document.getElementById('keyword').value;
 	$.ajax({
-		url : "/search/display2",
+		url : "/search/display",
 		type : "get",
+		async : false,
 		data : {
-			dodata : dodata
+			keyword : keyword,
 		},
 		contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
 		success : function(data) {
-			console.log(data)
+			console.log(data.data[i])
 			var listEl = document.getElementById('placesList'), 
 		    menuEl = document.getElementById('menu_wrap'),
 		    fragment = document.createDocumentFragment(), 
@@ -158,6 +196,68 @@ function displayPlaces2(places) {
 		    map.setBounds(bounds);
 		}
 	})
+}
+
+
+// 검색 결과 목록과 마커를 표출하는 함수입니다
+function displayPlaces2(places) {
+	
+			console.log(dodata)
+			var listEl = document.getElementById('placesList'), 
+		    menuEl = document.getElementById('menu_wrap'),
+		    fragment = document.createDocumentFragment(), 
+		    bounds = new kakao.maps.LatLngBounds(), 
+		    listStr = '';
+		    closebtn = document.getElementById('closebtn')
+		    
+		    // 검색 결과 목록에 추가된 항목들을 제거합니다
+		    removeAllChildNods(listEl);
+	
+		    // 지도에 표시되고 있는 마커를 제거합니다
+		    removeMarker();
+		    
+		    for ( var i=0; i< dodata.length; i++ ) {
+	
+		        // 마커를 생성하고 지도에 표시합니다
+		        var placePosition = new kakao.maps.LatLng(dodata[i].mapy, dodata[i].mapx),
+		            marker = addMarker(placePosition, i), 
+		            itemEl = getListItem(i, dodata[i]); // 검색 결과 항목 Element를 생성합니다
+		        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+		        // LatLngBounds 객체에 좌표를 추가합니다
+		        bounds.extend(placePosition);
+		        // 마커와 검색결과 항목에 mouseover 했을때
+		        // 해당 장소에 인포윈도우에 장소명을 표시합니다
+		        // mouseout 했을 때는 인포윈도우를 닫습니다
+		        (function(marker, title, places) {
+		            kakao.maps.event.addListener(marker, 'click', function() {
+		                displayInfowindow(marker, title, places);
+		            });
+		            // kaks
+			      itemEl.onclick =  function () {
+		                displayInfowindow(marker, title,places);
+		                map.setBounds(bounds);
+		            };
+				//마우스 오버, 아웃 이벤트
+		        /*     itemEl.onmouseover =  function () {
+		                displayInfowindow(marker, title,places);
+		                map.setBounds(bounds);
+		            }; 
+	 
+		            itemEl.onmouseout =  function () {
+		                infowindow.close();
+		            }; */
+		        })(marker, dodata[i].place_name, dodata[i]);
+	
+		        fragment.appendChild(itemEl);
+		    }
+	
+		    // 검색결과 항목들을 검색결과 목록 Element에 추가합니다
+		    listEl.appendChild(fragment);
+		    menuEl.scrollTop = 0;
+	
+		    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+		    map.setBounds(bounds);
+		
 }
 
 // 검색결과 항목을 Element로 반환하는 함수입니다

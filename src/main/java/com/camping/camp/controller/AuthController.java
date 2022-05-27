@@ -24,6 +24,12 @@ public class AuthController {
 	@Autowired
 	private AuthService as;
 	
+	public static void test() {
+		String input = "lacp port 11/1,11/2,12/1,12/2";
+		String subinput = input.substring(0, 8);
+		System.out.println(subinput);		
+	}
+	
 	@RequestMapping(value = "/kakaoLogin", method = RequestMethod.GET)
 	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session) throws Exception {
 		//카카오에서 받은 

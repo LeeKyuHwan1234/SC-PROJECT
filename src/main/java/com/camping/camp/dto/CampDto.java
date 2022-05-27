@@ -7,9 +7,12 @@ import lombok.Data;
 
 @Data
 public class CampDto {
-	
-	Map<String,Object> ajaxdata;
-	private String count;
+	private List<Object> doList;
+	private List<Object> lcList;
+	private List<Object> inList;
+	private List<Object> sbList;
+	private List<Object> siList;
+    private String count;
 	private String countsix;
 	private String encurl;
 	private String keyword;

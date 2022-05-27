@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.camping.camp.dto.CampDto;
 import com.camping.camp.service.CampService;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.Gson;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.jsoup.Jsoup;
@@ -41,6 +43,7 @@ import java.util.concurrent.TimeUnit;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -71,10 +74,33 @@ public class CampController {
 	}
 	
 	@RequestMapping(value = "camp2")
-	public String getCamp1(Model model, HttpServletRequest req,HttpServletResponse resp, @RequestParam(value="Listx")  Map<String,Object> ajaxdata) throws Exception {
+	public String getCamp1(Model model, HttpServletRequest req,HttpServletResponse resp,@RequestParam(value="Listx1") String Listx1,@RequestParam(value="Listx2") String Listx2
+			,@RequestParam(value="Listx3") String Listx3,@RequestParam(value="Listx4") String Listx4,@RequestParam(value="Listx5") String Listx5) throws Exception {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+	
+		Gson gson = new Gson();
+		List<Map<String, Object>> list1 = (List<Map<String, Object>>) gson.fromJson(Listx1, List.class);
+		List<Map<String, Object>> list2 = (List<Map<String, Object>>) gson.fromJson(Listx2, List.class);
+		List<Map<String, Object>> list3 = (List<Map<String, Object>>) gson.fromJson(Listx3, List.class);
+		List<Map<String, Object>> list4 = (List<Map<String, Object>>) gson.fromJson(Listx4, List.class);
+		List<Map<String, Object>> list5 = (List<Map<String, Object>>) gson.fromJson(Listx5, List.class);
 		
-		model.addAttribute("dodata",ajaxdata);
-			return "index";
+		List<String> doList = list1.stream().map(item -> (String)item.get("doid")).toList();
+		List<String> lcList = list2.stream().map(item -> (String)item.get("lcid")).toList();
+		List<String> inList = list3.stream().map(item -> (String)item.get("inid")).toList();
+		List<String> sbList = list4.stream().map(item -> (String)item.get("sbid")).toList();
+		List<String> siList = list5.stream().map(item -> (String)item.get("siid")).toList();
+		
+		
+		map.put("doList", doList);
+		map.put("lcList",lcList);
+		map.put("inList",inList);
+		map.put("sbList",sbList);
+		map.put("siList",siList);
+		System.out.println(">>>>>>>>"+map);
+		model.addAttribute("data",campService.getSearchCamp2(map));
+
+		return "camp2";
 	}
 	
 	
@@ -106,7 +132,7 @@ public class CampController {
         urlBuilder.append("?" + URLEncoder.encode("lat","UTF-8") + "=" + URLEncoder.encode(campdetail.get(0).getMapy(), "UTF-8")); /*위도 , 37.9330692*/
         urlBuilder.append("&" + URLEncoder.encode("lon","UTF-8") + "=" + URLEncoder.encode(campdetail.get(0).getMapx(), "UTF-8")); /*경도, 128.6740240*/
         urlBuilder.append("&" + URLEncoder.encode("appid","UTF-8") + "=" + URLEncoder.encode("d34aeb285b6205f0378e01aff69b323c", "UTF-8")); /*API KEY*/
-        urlBuilder.append("&" + URLEncoder.encode("lang","UTF-8") + "=" + URLEncoder.encode("kr", "UTF-8")); /*한글 지원*/
+        //urlBuilder.append("&" + URLEncoder.encode("lang","UTF-8") + "=" + URLEncoder.encode("kr", "UTF-8")); /*한글 지원*/
       
         URL url = new URL(urlBuilder.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -211,7 +237,8 @@ public class CampController {
 	@RequestMapping(value = "search/display")
 	@JsonProperty("keyword")
 	public @ResponseBody HashMap<String,Object> getSearchKeyword(HttpServletRequest req,HttpServletResponse resp,@RequestParam HashMap<String,Object> ajaxdata) throws Exception {
-		HashMap<String,Object> map = new HashMap<String,Object>();
+		System.out.println(ajaxdata);
+       	HashMap<String,Object> map = new HashMap<String,Object>();
 		map.put("data",campService.getSearchCamp(ajaxdata)); 
 		return map;
 	}
@@ -220,7 +247,6 @@ public class CampController {
 	@JsonProperty("keyword")
 	public @ResponseBody HashMap<String,Object> getSearchKeyword2(HttpServletRequest req,HttpServletResponse resp,@RequestParam HashMap<String,Object> ajaxdata) throws Exception {
 		HashMap<String,Object> map = new HashMap<String,Object>();
-		log.info(ajaxdata.toString());
 		map.put("data",campService.getSearchCamp2(ajaxdata)); 
 		return map;
 	}
