@@ -189,7 +189,6 @@ ul {
 ol,
 ul,
 dl {
-  margin-top: 0;
   margin-bottom: 1rem;
 }
 
@@ -4104,7 +4103,8 @@ textarea.form-control-lg {
 .navbar > .container-lg,
 .navbar > .container-xl,
 .navbar > .container-xxl {
-  display: flex;
+	margin-top: 20px;
+	display: flex;
   flex-wrap: inherit;
   align-items: center;
   justify-content: space-between;
@@ -11875,6 +11875,7 @@ section#contact form#contactForm :-ms-input-placeholder {
  li {
 	 list-style:none;
 	 }
+
 .check_w ul {
 	 list-style:none;
 	 margin-left:50px;

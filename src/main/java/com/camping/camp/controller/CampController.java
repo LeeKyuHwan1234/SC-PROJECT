@@ -75,7 +75,7 @@ public class CampController {
 	
 	@RequestMapping(value = "camp2")
 	public String getCamp1(Model model, HttpServletRequest req,HttpServletResponse resp,@RequestParam(value="Listx1") String Listx1,@RequestParam(value="Listx2") String Listx2
-			,@RequestParam(value="Listx3") String Listx3,@RequestParam(value="Listx4") String Listx4,@RequestParam(value="Listx5") String Listx5) throws Exception {
+			,@RequestParam(value="Listx3") String Listx3,@RequestParam(value="Listx4") String Listx4,@RequestParam(value="Listx5") String Listx5,@RequestParam(value="Listx6") String Listx6,@RequestParam(value="Listx7") String Listx7) throws Exception {
 		HashMap<String,Object> map = new HashMap<String,Object>();
 	
 		Gson gson = new Gson();
@@ -84,19 +84,24 @@ public class CampController {
 		List<Map<String, Object>> list3 = (List<Map<String, Object>>) gson.fromJson(Listx3, List.class);
 		List<Map<String, Object>> list4 = (List<Map<String, Object>>) gson.fromJson(Listx4, List.class);
 		List<Map<String, Object>> list5 = (List<Map<String, Object>>) gson.fromJson(Listx5, List.class);
+		List<Map<String, Object>> list6 = (List<Map<String, Object>>) gson.fromJson(Listx6, List.class);
+		List<Map<String, Object>> list7 = (List<Map<String, Object>>) gson.fromJson(Listx7, List.class);
 		
 		List<String> doList = list1.stream().map(item -> (String)item.get("doid")).toList();
 		List<String> lcList = list2.stream().map(item -> (String)item.get("lcid")).toList();
 		List<String> inList = list3.stream().map(item -> (String)item.get("inid")).toList();
 		List<String> sbList = list4.stream().map(item -> (String)item.get("sbid")).toList();
 		List<String> siList = list5.stream().map(item -> (String)item.get("siid")).toList();
-		
+		List<String> faList = list6.stream().map(item -> (String)item.get("faid")).toList();
+		List<String> boList = list7.stream().map(item -> (String)item.get("boid")).toList();
 		
 		map.put("doList", doList);
 		map.put("lcList",lcList);
 		map.put("inList",inList);
 		map.put("sbList",sbList);
 		map.put("siList",siList);
+		map.put("faList",faList);
+		map.put("boList",boList);
 		System.out.println(">>>>>>>>"+map);
 		model.addAttribute("data",campService.getSearchCamp2(map));
 

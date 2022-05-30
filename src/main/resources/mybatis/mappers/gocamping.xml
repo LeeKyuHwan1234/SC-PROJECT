@@ -22,20 +22,20 @@
  
 	<select id="getSearchCamp2" resultType="CampDto" parameterType="java.util.List" >
          SELECT contentid,facltnm, addr1,addr2, firstimageurl, mapx, mapy, tel FROM gocampingapi WHERE 
-      	 <foreach collection="doList" index="index" item="item" separator="OR">
-					 donm LIKE '%' || #{item} || '%'
+      	 <foreach collection="doList" index="index" item="item" open="donm in (" close=")" separator=",">
+					 #{item}
 				</foreach>
-				<foreach collection="lcList" index="index" item="item" separator="OR" open="AND">
-					 lctcl LIKE '%' || #{item} || '%'
+				<foreach collection="lcList" index="index" item="item" open="and lctcl in (" close=")" separator=",">
+					  #{item}
 				</foreach>
-				<foreach collection="inList" index="index" item="item" separator="OR" open="AND">
-					 induty LIKE '%' || #{item} || '%'
+				<foreach collection="inList" index="index" item="item" open="and induty in (" close=")" separator=",">
+					  #{item}
 				</foreach>
-				<foreach collection="sbList" index="index" item="item" separator="OR" open="AND" >
-					 sbrscl LIKE '%' || #{item} || '%'
+				<foreach collection="sbList" index="index" item="item" open="and sbrscl in (" close=")" separator="," >
+					  #{item}
 				</foreach>
-				<foreach collection="siList" index="index" item="item" separator="OR" open="AND">
-					 sitedstnc LIKE '%' || #{item} || '%'
+				<foreach collection="siList" index="index" item="item" open="and sitedstnc in (" close=")" separator=",">
+					  #{item}
 				</foreach>
 				ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC;
   </select>
