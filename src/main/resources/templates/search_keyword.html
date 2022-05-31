@@ -40,33 +40,33 @@
 						</div>
 					</form>
 					<form action="camp2" method="post" id="searchform2" name="searchform2" style="display:none; margin-top:30px;" >
-				<div id="selectOption" style="width:1400px; text-align:left;justify-content: center;background-color:lightgray;opacity:70%; border-radius:30px; color:black;display: inline-flex;">
+				<div id="selectOption" style="width:1600px; text-align:left;justify-content: center;background-color:lightgray;opacity:70%; border-radius:30px; color:black;display: inline-flex;">
 				<ul>
 				<li>
 					<div class="folder_w">
 						<div class="check_w"><h5>▣ 지역은 반드시 하나 이상 선택해야 합니다.</h5>	
-						<strong>지역별</strong>
+						<strong>지역별 <input type='checkbox' name='docheck' value='selectall1' onclick='doselectAll(this)'/></strong>
 								<ul style="display: -webkit-inline-box;margin-left: 124px; " >
-									<li><input type="checkbox" name="docheck" id="c_do01" value="서울시" ><label for="c_do01">서울시</label></li>
-									<li><input type="checkbox" name="docheck" id="c_do02" value="부산시"><label for="c_do02">부산시</label></li>
-									<li><input type="checkbox" name="docheck" id="c_do03" value="대구시"><label for="c_do03">대구시</label></li>
-									<li><input type="checkbox" name="docheck" id="c_do04" value="인천시"><label for="c_do04">인천시</label></li>
-									<li><input type="checkbox" name="docheck" id="c_do05" value="광주시"><label for="c_do05">광주시</label></li>
-									<li><input type="checkbox" name="docheck" id="c_do06" value="대전시"><label for="c_do06">대전시</label></li>
-									<li><input type="checkbox" name="docheck" id="c_do07" value="울산시"><label for="c_do07">울산시</label></li>
-									<li><input type="checkbox" name="docheck" id="c_do08" value="세종시"><label for="c_do08">세종시</label></li>
-									<li><input type="checkbox" name="docheck" id="c_do09" value="경기도"><label for="c_do09">경기도</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do1" value="서울시" ><label for="c_do1">서울시</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do2" value="부산시"><label for="c_do2">부산시</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do3" value="대구시"><label for="c_do3">대구시</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do4" value="인천시"><label for="c_do4">인천시</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do5" value="광주시"><label for="c_do5">광주시</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do6" value="대전시"><label for="c_do6">대전시</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do7" value="울산시"><label for="c_do7">울산시</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do8" value="세종시"><label for="c_do8">세종시</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do9" value="경기도"><label for="c_do9">경기도</label></li>
 								</ul>
 								<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<ul style="display: -webkit-inline-box;margin-left: 124px;">
-									<li><input type="checkbox" name="docheck" id="c_do10" value="강원도"><label for="c_do010">강원도</label></li>
-									<li><input type="checkbox" name="docheck" id="c_do11" value="충청북도"><label for="c_do011">충청북도</label></li>
-									<li><input type="checkbox" name="docheck" id="c_do12" value="충청남도"><label for="c_do012">충청남도</label></li>
-									<li><input type="checkbox" name="docheck" id="c_do13" value="전라북도"><label for="c_do013">전라북도</label></li>
-									<li><input type="checkbox" name="docheck" id="c_do14" value="전라남도"><label for="c_do014">전라남도</label></li>
-									<li><input type="checkbox" name="docheck" id="c_do15" value="경상북도"><label for="c_do015">경상북도</label></li>
-									<li><input type="checkbox" name="docheck" id="c_do16" value="경상남도"><label for="c_do016">경상남도</label></li>
-									<li><input type="checkbox" name="docheck" id="c_do17" value="제주도"><label for="c_do017">제주도</label></li>
+								<ul style="display: -webkit-inline-box;margin-left: 159px;">
+									<li><input type="checkbox" name="docheck" id="c_do10" value="강원도"><label for="c_do10">강원도</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do11" value="충청북도"><label for="c_do11">충청북도</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do12" value="충청남도"><label for="c_do12">충청남도</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do13" value="전라북도"><label for="c_do13">전라북도</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do14" value="전라남도"><label for="c_do14">전라남도</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do15" value="경상북도"><label for="c_do15">경상북도</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do16" value="경상남도"><label for="c_do16">경상남도</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do17" value="제주도"><label for="c_do17">제주도</label></li>
 								</ul>
 						</div>
 					</div>
@@ -76,7 +76,7 @@
 				<li>
 					<div class="folder_w" style="display: inline-block;">
 						<div class="check_w">
-						<strong>입지 구분</strong>
+						<strong>입지 구분 <input type='checkbox' name='lccheck' value='selectall2' onclick='lcselectAll(this)'/></strong>
 								<ul style="display: -webkit-inline-box; margin-left:107px;">
 									<li><input type="checkbox" name="lccheck" id="c_lc01" value="강"><label for="c_lc01">강</label></li>
 									<li><input type="checkbox" name="lccheck" id="c_lc02" value="계곡"><label for="c_lc02">계곡</label></li>
@@ -93,7 +93,7 @@
 				<li>
 					<div class="folder_w" style="display: inline-block;">
 						<div class="check_w">
-						<strong>주요 시설</strong>
+						<strong>주요 시설 <input type='checkbox' name='incheck' value='selectall3' onclick='inselectAll(this)'/></strong>
 								<ul style="display: -webkit-inline-box; margin-left:107px;">
 									<li><input type="checkbox" name="incheck" id="c_in01" value="일반야영장"><label for="c_in01">일반야영장</label></li>
 									<li><input type="checkbox" name="incheck" id="c_in02" value="자동차야영장"><label for="c_in02">자동차야영장</label></li>
@@ -106,13 +106,13 @@
 				<li>
 					<div class="folder_w" style="display: inline-block;">
 						<div class="check_w">
-						<strong>바닥 형태</strong>
+						<strong>바닥 형태 <input type='checkbox' name='bocheck' value='selectall4' onclick='boselectAll(this)'/></strong>
 								<ul style="display: -webkit-inline-box; margin-left:105px;">
-									<li><input type="checkbox" name="bocheck" id="c_bo01" value="잔디"><label for="c_bo01">잔디</label></li>
-									<li><input type="checkbox" name="bocheck" id="c_bo02" value="테크"><label for="c_bo02">테크</label></li>
-									<li><input type="checkbox" name="bocheck" id="c_bo03" value="파쇄석"><label for="c_bo03">파쇄석</label></li>
-									<li><input type="checkbox" name="bocheck" id="c_bo04" value="자갈"><label for="c_bo04">자갈</label></li>
-									<li><input type="checkbox" name="bocheck" id="c_bo05" value="맨흙"><label for="c_bo05">맨흙</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo01" value="sitebottomcl1"><label for="c_bo01">잔디</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo02" value="sitebottomcl2"><label for="c_bo02">테크</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo03" value="sitebottomcl3"><label for="c_bo03">파쇄석</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo04" value="sitebottomcl4"><label for="c_bo04">자갈</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo05" value="sitebottomcl5"><label for="c_bo05">맨흙</label></li>
 								</ul>
 						</div>
 					</div>
@@ -120,7 +120,7 @@
 				<li>
 					<div class="folder_w" style="display: inline-block;">
 						<div class="check_w">
-						<strong>부대 시설</strong>
+						<strong>부대 시설 <input type='checkbox' name='sbcheck' value='selectall5' onclick='sbselectAll(this)'/></strong>
 								<ul style="display: -webkit-inline-box; margin-left:105px;">
 									<li><input type="checkbox" name="sbcheck" id="c_sb01" value="전기"><label for="c_sb01">전기</label></li>
 									<li><input type="checkbox" name="sbcheck" id="c_sb02" value="무선인터넷"><label for="c_sb02">무선인터넷</label></li>
@@ -140,7 +140,7 @@
 				<li>
 					<div class="folder_w" style="display: inline-block;">
 						<div class="check_w">
-						<strong>편의 시설</strong>
+						<strong>편의 시설 <input type='checkbox' name='facheck' value='selectall6' onclick='faselectAll(this)'/></strong>
 								<ul style="display: -webkit-inline-box; margin-left:105px;">
 									<li><input type="checkbox" name="facheck" id="c_fa01" value="화장실"><label for="c_fa01">화장실</label></li>
 									<li><input type="checkbox" name="facheck" id="c_fa02" value="샤워실"><label for="c_fa02">샤워실</label></li>
@@ -152,7 +152,7 @@
 				<li>
 					<div class="folder_w" style="display: inline-block;">
 						<div class="check_w">
-						<strong>사이트 간 거리(m)</strong>
+						<strong>사이트 간 거리(m) <input type='checkbox' name='sicheck' value='selectall7' onclick='siselectAll(this)'/></strong>
 								<ul style="display: -webkit-inline-box; margin-left:55px;">
 									<li><input type="checkbox" name="sicheck" id="c_si01" value="1"><label for="c_si01">1</label></li>
 									<li><input type="checkbox" name="sicheck" id="c_si02" value="2"><label for="c_si02">2</label></li>
@@ -181,11 +181,8 @@
 			</div>
 			</form>
 			<button style="display:none" name="submitbtn" id="subbtn" onclick="docheck()">검색</button>
-			
 			</div>
-			
-			
-		</header>
+			</header>
 		<th:block th:replace="fragment/mainfooter :: footerFragment"></th:block>
 	</body>
 
@@ -207,7 +204,49 @@ function docheck() {
 		alert('지역을 선택해주세요!')
 	}
 }
+function doselectAll(selectAll1)  {
+  const checkboxes = document.getElementsByName('docheck');
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = selectAll1.checked;
+  })
+}
+function lcselectAll(selectAll2)  {
+  const checkboxes = document.getElementsByName('lccheck');
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = selectAll2.checked;
+  })
+}
+function inselectAll(selectAll3)  {
+  const checkboxes = document.getElementsByName('incheck');
+  checkboxes.forEach((checkbox) => {
+	 checkbox.checked = selectAll3.checked;
+ })
+}
 
+ function sbselectAll(selectAll4)  {
+  const checkboxes = document.getElementsByName('sbcheck');
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = selectAll4.checked;
+  })
+}
+  function siselectAll(selectAll5)  {
+    const checkboxes = document.getElementsByName('sicheck');
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = selectAll5.checked;
+    })
+  }
+  function boselectAll(selectAll6)  {
+    const checkboxes = document.getElementsByName('bocheck');
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = selectAll6.checked;
+    })
+  }
+  function faselectAll(selectAll7)  {
+    const checkboxes = document.getElementsByName('facheck');
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = selectAll7.checked;
+    })
+  }
 
 function chkappend() {
 	  var o = {};

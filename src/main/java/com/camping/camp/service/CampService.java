@@ -10,6 +10,7 @@ public interface CampService {
 	List<CampDto> getPlaceDetail(String encurl);
 	List<CampDto> getSearchCamp(HashMap<String, Object> ajaxdata);
 	List<CampDto> getSearchCamp2(HashMap<String, Object> ajaxdata);
+	List<CampDto> getSearchRound(HashMap<String, Object> ajaxdata);
 	List<CampDto> getSearchDo(HashMap<String, String> ajaxdata);
 	List<CampDto> getSearchSigungu(String encurl);
 	List<CampDto> getDoCategory();

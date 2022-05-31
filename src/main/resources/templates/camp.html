@@ -20,8 +20,8 @@
         <div class="option">
             <div class="inputDiv">
                <form onsubmit="searchPlaces(); return false;">
-                   <a href="/search" class="slogo" style="vertical-align: middle;"><img class="slogo" src="/images/camper.png" alt="..." style="width:100px; height:80px;"/></a>
-                   <input type="text" th:value="${data.keyword}" id="keyword" size="25" style="height:50px; margin:0 0 3px 11px; vertical-align:middle; border:2px solid #19ce60;
+                   <a href="/search" class="slogo" style="vertical-align: middle;"><img class="slogo" src="/images/fire.png" alt="..." style="width:100px; height:80px;"/></a>
+                   <input type="text" id="keyword"  th:value="${data.keyword}" size="25" style="height:50px; margin:0 0 3px 11px; vertical-align:middle; border:2px solid #19ce60;
                    border-radius:10px; padding-left: 50px; font-size:30px"> 
                  </form>
             </div>
@@ -29,21 +29,174 @@
         <hr>
         <ul id="placesList"></ul>
         <div id="pagination"></div>
-    </div>
         
-</div>
-
+    </div>
+    <div>
+   <form action="camp2" method="post" id="searchform2" name="searchform2" style="display:none; margin-top:30px; margin-left:681px; margin-top:10px; z-index:1; position:absolute;" >
+				<div id="selectOption" style="width:1000px; margin-top: 36px;text-align:left;justify-content: center;background-color:lightgray; border-radius:0 30px 30px 30px; color:black;display: inline-flex; line-height:40px;">
+				<ul>
+				<li>
+					<div class="folder_w">
+						<div class="check_w"><h5>▣ 지역은 반드시 하나 이상 선택해야 합니다.</h5>	
+						<strong>지역별 <input type='checkbox' name='docheck' value='selectall' onclick='doselectAll(this)'/></strong>
+								<ul style="display: -webkit-inline-box;margin-left: 124px; " >
+									<li><input type="checkbox" name="docheck" id="c_do1" value="서울시" ><label for="c_do1">서울시</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do2" value="부산시"><label for="c_do2">부산시</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do3" value="대구시"><label for="c_do3">대구시</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do4" value="인천시"><label for="c_do4">인천시</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do5" value="광주시"><label for="c_do5">광주시</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do6" value="대전시"><label for="c_do6">대전시</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do7" value="울산시"><label for="c_do7">울산시</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do8" value="세종시"><label for="c_do8">세종시</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do9" value="경기도"><label for="c_do9">경기도</label></li>
+								</ul>
+								<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<ul style="display: -webkit-inline-box;margin-left: 124px;">
+									<li><input type="checkbox" name="docheck" id="c_do10" value="강원도"><label for="c_do10">강원도</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do11" value="충청북도"><label for="c_do11">충청북도</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do12" value="충청남도"><label for="c_do12">충청남도</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do13" value="전라북도"><label for="c_do13">전라북도</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do14" value="전라남도"><label for="c_do14">전라남도</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do15" value="경상북도"><label for="c_do15">경상북도</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do16" value="경상남도"><label for="c_do16">경상남도</label></li>
+									<li><input type="checkbox" name="docheck" id="c_do17" value="제주도"><label for="c_do17">제주도</label></li>
+								</ul>
+						</div>
+					</div>
+					
+				</li>
+					
+				<li>
+					<div class="folder_w" style="display: inline-block;">
+						<div class="check_w">
+						<strong>입지 구분 <input type='checkbox' name='lccheck' value='selectall' onclick='lcselectAll(this)'/></strong>
+								<ul style="display: -webkit-inline-box; margin-left:107px;">
+									<li><input type="checkbox" name="lccheck" id="c_lc01" value="강"><label for="c_lc01">강</label></li>
+									<li><input type="checkbox" name="lccheck" id="c_lc02" value="계곡"><label for="c_lc02">계곡</label></li>
+									<li><input type="checkbox" name="lccheck" id="c_lc03" value="도심"><label for="c_lc03">도심</label></li>
+									<li><input type="checkbox" name="lccheck" id="c_lc04" value="산"><label for="c_lc04">산</label></li>
+									<li><input type="checkbox" name="lccheck" id="c_lc05" value="섬"><label for="c_lc05">섬</label></li>
+									<li><input type="checkbox" name="lccheck" id="c_lc06" value="숲"><label for="c_lc06">숲</label></li>
+									<li><input type="checkbox" name="lccheck" id="c_lc07" value="호수"><label for="c_lc07">호수</label></li>
+									<li><input type="checkbox" name="lccheck" id="c_lc08" value="해변"><label for="c_lc08">해변</label></li>
+								</ul>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="folder_w" style="display: inline-block;">
+						<div class="check_w">
+						<strong>주요 시설 <input type='checkbox' name='incheck' value='selectall' onclick='inselectAll(this)'/></strong>
+								<ul style="display: -webkit-inline-box; margin-left:107px;">
+									<li><input type="checkbox" name="incheck" id="c_in01" value="일반야영장"><label for="c_in01">일반야영장</label></li>
+									<li><input type="checkbox" name="incheck" id="c_in02" value="자동차야영장"><label for="c_in02">자동차야영장</label></li>
+									<li><input type="checkbox" name="incheck" id="c_in03" value="글램핑"><label for="c_in03">글램핑</label></li>
+									<li><input type="checkbox" name="incheck" id="c_in04" value="카라반"><label for="c_in04">카라반</label></li>
+								</ul>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="folder_w" style="display: inline-block;">
+						<div class="check_w">
+						<strong>바닥 형태 <input type='checkbox' name='bocheck' value='selectall' onclick='boselectAll(this)'/></strong>
+								<ul style="display: -webkit-inline-box; margin-left:105px;">
+									<li><input type="checkbox" name="bocheck" id="c_bo01" value="sitebottomcl1"><label for="c_bo01">잔디</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo02" value="sitebottomcl2"><label for="c_bo02">테크</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo03" value="sitebottomcl3"><label for="c_bo03">파쇄석</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo04" value="sitebottomcl4"><label for="c_bo04">자갈</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo05" value="sitebottomcl5"><label for="c_bo05">맨흙</label></li>
+								</ul>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="folder_w" style="display: inline-block;">
+						<div class="check_w">
+						<strong>부대 시설 <input type='checkbox' name='sbcheck' value='selectall' onclick='sbselectAll(this)'/></strong>
+								<ul style="display: -webkit-inline-box; margin-left:105px;">
+									<li><input type="checkbox" name="sbcheck" id="c_sb01" value="전기"><label for="c_sb01">전기</label></li>
+									<li><input type="checkbox" name="sbcheck" id="c_sb02" value="무선인터넷"><label for="c_sb02">무선인터넷</label></li>
+									<li><input type="checkbox" name="sbcheck" id="c_sb03" value="장작판매"><label for="c_sb03">장작판매</label></li>
+									<li><input type="checkbox" name="sbcheck" id="c_sb04" value="온수"><label for="c_sb04">온수</label></li>
+									<li><input type="checkbox" name="sbcheck" id="c_sb05" value="마트.편의점"><label for="c_sb05">마트,편의점</label></li>
+									<li><input type="checkbox" name="sbcheck" id="c_sb06" value="트렘폴린"><label for="c_sb06">트램펄린</label></li>
+									<li><input type="checkbox" name="sbcheck" id="c_sb07" value="물놀이장"><label for="c_sb07">물놀이장</label></li>
+									<li><input type="checkbox" name="sbcheck" id="c_sb08" value="운동시설"><label for="c_sb08">운동시설</label></li>
+									<li><input type="checkbox" name="sbcheck" id="c_sb09" value="산책로"><label for="c_sb09">산책로</label></li>
+									<li><input type="checkbox" name="sbcheck" id="c_sb10" value="놀이터"><label for="c_sb10">놀이터</label></li>
+									<li><input type="checkbox" name="sbcheck" id="c_sb11" value="운동장"><label for="c_sb11">운동장</label></li>
+								</ul>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="folder_w" style="display: inline-block;">
+						<div class="check_w">
+						<strong>편의 시설 <input type='checkbox' name='facheck' value='selectall' onclick='faselectAll(this)'/></strong>
+								<ul style="display: -webkit-inline-box; margin-left:105px;">
+									<li><input type="checkbox" name="facheck" id="c_fa01" value="화장실"><label for="c_fa01">화장실</label></li>
+									<li><input type="checkbox" name="facheck" id="c_fa02" value="샤워실"><label for="c_fa02">샤워실</label></li>
+									<li><input type="checkbox" name="facheck" id="c_fa03" value="개수대"><label for="c_fa03">개수대</label></li>
+								</ul>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="folder_w" style="display: inline-block;">
+						<div class="check_w">
+						<strong>사이트 간 거리(m) <input type='checkbox' name='sicheck' value='selectall' onclick='siselectAll(this)'/></strong>
+								<ul style="display: -webkit-inline-box; margin-left:55px;">
+									<li><input type="checkbox" name="sicheck" id="c_si01" value="1"><label for="c_si01">1</label></li>
+									<li><input type="checkbox" name="sicheck" id="c_si02" value="2"><label for="c_si02">2</label></li>
+									<li><input type="checkbox" name="sicheck" id="c_si03" value="3"><label for="c_si03">3</label></li>
+									<li><input type="checkbox" name="sicheck" id="c_si04" value="4"><label for="c_si04">4</label></li>
+									<li><input type="checkbox" name="sicheck" id="c_si05" value="5"><label for="c_si05">5</label></li>
+									<li><input type="checkbox" name="sicheck" id="c_si06" value="6"><label for="c_si06">6</label></li>
+									<li><input type="checkbox" name="sicheck" id="c_si07" value="7"><label for="c_si07">7</label></li>
+									<li><input type="checkbox" name="sicheck" id="c_si08" value="8"><label for="c_si08">8</label></li>
+									<li><input type="checkbox" name="sicheck" id="c_si09" value="9"><label for="c_si09">9</label></li>
+									<li><input type="checkbox" name="sicheck" id="c_si10" value="10"><label for="c_si10">10</label></li>
+									<li><input type="checkbox" name="sicheck" id="c_si11" value="13"><label for="c_si11">13</label></li>
+								</ul>
+						</div>
+					</div>
+				</li>
+				</ul>
+				
+			<input type="hidden" name="Listx1" id="Listx1" value="123">
+			<input type="hidden" name="Listx2" id="Listx2" value="123">
+			<input type="hidden" name="Listx3" id="Listx3" value="123">
+			<input type="hidden" name="Listx4" id="Listx4" value="123">
+			<input type="hidden" name="Listx5" id="Listx5" value="123">
+			<input type="hidden" name="Listx6" id="Listx6" value="123">
+			<input type="hidden" name="Listx7" id="Listx7" value="123">
+			</div>
+			</form>
+    </div>
+    <button style="display:none" name="submitbtn" id="subbtn" onclick="docheck()" >검색</button>
+   </div>
     <button id="hd-btn"></button>
-
+    <button id="ophd-btn"><i  class="fa-solid fa-square-plus"></i></button>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cccf4c7daf4e1155d9f902755ad1d425&libraries=services"></script>
+<script th:inline="javascript">
+	var dodata = [[${data}]]
+	var checkdata = [[${checkdata}]]
+	console.log(checkdata)
+	if(dodata.length == 0) {
+		alert('검색 결과가 없습니다!')
+		location.href='/search'
+	}
+</script>
 <script>
 
-//슬라이드 버튼
-/* document.getElementById("hd-btn").onclick = function (){
-  $(document.getElementById("menu_wrap")).animate({width: 'toggle'}, 20, 'linear'), function() {
-    $( this ).after( "<div>Animation complete.</div>" );
+
+$(document).ready( function() {
+	$( '#ophd-btn' ).click( function() {
+    $( '#searchform2' ).toggle(0);
+    $( '#subbtn' ).toggle(0);
   });
-} */
+});
 
 //사이드바 토글 기능
 $( "#hd-btn" ).click(function() {
@@ -55,12 +208,111 @@ $( "#hd-btn" ).click(function() {
    	}, 20, "linear", function() {
     if(styleValue == "679px"){
     	$("#hd-btn").css({"margin-left":"0px","background-position": "0 -60px"})
+    	$("#searchform2").css({"margin-left":"0px"})
+    	$("#ophd-btn").css({"margin-left":"0px"})
+    	$("#subbtn").css({"margin-left":"929px"})
     } else if (styleValue == "0px") {
     	$("#hd-btn").css({"margin-left":"679px","background-position": "0 0px"})
+    	$("#searchform2").css({"margin-left":"679px"})
+    	$("#ophd-btn").css({"margin-left":"679px"})
+    	$("#subbtn").css({"margin-left":"1600px"})
+    	
     }
   });
 });
+function docheck() {
+	if($("input:checkbox[name='docheck']").is(":checked") == true){
+		$.when(chkappend()).then(function(x) {
+			$("#searchform2").submit();
+		});		
+	}
+	else {
+		alert('지역을 선택해주세요!')
+	}
+}
+function doselectAll(selectAll1)  {
+  const checkboxes = document.getElementsByName('docheck');
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = selectAll1.checked;
+  })
+}
+function lcselectAll(selectAll2)  {
+  const checkboxes = document.getElementsByName('lccheck');
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = selectAll2.checked;
+  })
+}
+function inselectAll(selectAll3)  {
+  const checkboxes = document.getElementsByName('incheck');
+  checkboxes.forEach((checkbox) => {
+	 checkbox.checked = selectAll3.checked;
+ })
+}
 
+ function sbselectAll(selectAll4)  {
+  const checkboxes = document.getElementsByName('sbcheck');
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = selectAll4.checked;
+  })
+}
+  function siselectAll(selectAll5)  {
+    const checkboxes = document.getElementsByName('sicheck');
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = selectAll5.checked;
+    })
+  }
+  function boselectAll(selectAll6)  {
+    const checkboxes = document.getElementsByName('bocheck');
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = selectAll6.checked;
+    })
+  }
+  function faselectAll(selectAll7)  {
+    const checkboxes = document.getElementsByName('facheck');
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = selectAll7.checked;
+    })
+  }
+function chkappend() {
+  var o = {};
+	var doList = [];
+	var lcList = [];
+	var inList = [];
+	var sbList = [];
+	var siList = [];
+	var boList = [];
+	var faList = [];
+	
+	$("input[name='docheck']:checked").each(function(idx) {
+		doList.push({"doid":$(this).val()});
+	});
+	$("input[name='lccheck']:checked").each(function(idx) {
+		lcList.push({"lcid":$(this).val()});
+	});
+	$("input[name='incheck']:checked").each(function(idx) {
+		inList.push({"inid":$(this).val()});
+	});
+	$("input[name='sbcheck']:checked").each(function(idx) {
+		sbList.push({"sbid":$(this).val()});
+	});
+	$("input[name='sicheck']:checked").each(function(idx) {
+		siList.push({"siid":$(this).val()});
+	});
+	$("input[name='bocheck']:checked").each(function(idx) {
+		boList.push({"boid":$(this).val()});
+	});
+	$("input[name='facheck']:checked").each(function(idx) {
+		faList.push({"faid":$(this).val()});
+	});
+	
+	$('#Listx1').val(JSON.stringify(doList));
+	$('#Listx2').val(JSON.stringify(lcList));
+	$('#Listx3').val(JSON.stringify(inList));
+	$('#Listx4').val(JSON.stringify(sbList));
+	$('#Listx5').val(JSON.stringify(siList));
+	$('#Listx6').val(JSON.stringify(faList));
+	$('#Listx7').val(JSON.stringify(boList));
+}
 // 마커를 담을 배열입니다
 var markers = [];
 
@@ -134,7 +386,7 @@ function displayPlaces(places) {
 		contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
 		success : function(data) {
 			console.log(data.data[i])
-			var listEl = document.getElementById('placesList'), 
+				var listEl = document.getElementById('placesList'), 
 		    menuEl = document.getElementById('menu_wrap'),
 		    fragment = document.createDocumentFragment(), 
 		    bounds = new kakao.maps.LatLngBounds(), 
@@ -257,7 +509,7 @@ function removeMarker() {
 }
 
 // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
-function displayPagination(pagination) {
+/* function displayPagination(pagination) {
     var paginationEl = document.getElementById('pagination'),
         fragment = document.createDocumentFragment(),
         i; 
@@ -286,7 +538,7 @@ function displayPagination(pagination) {
     }
     paginationEl.appendChild(fragment);
 }
-
+ */
 // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 // 인포윈도우에 장소명을 표시합니다
 function displayInfowindow(marker, title, places) {
@@ -325,30 +577,90 @@ function removeAllChildNods(el) {
         el.removeChild (el.lastChild);
     }
 }
-//별점 퍼센트화
-function ratingToPercent() {
-    const score = 3.7 * 20;
-    return score + 1.5;
-}
 
 //닫기
 function windowClose() {
     infowindow.close();
 }
-
-/* //중심 값 바뀔 때마다 값 가져오는 함수
+//중심 값 바뀔 때마다 값 가져오는 함수
 kakao.maps.event.addListener(map, 'center_changed', function() {
-
-  // 지도의  레벨을 얻어옵니다
-  var level = map.getLevel();
-
   // 지도의 중심좌표를 얻어옵니다 
   var latlng = map.getCenter(); 
-	console.log(level)
 	console.log(latlng.getLat())
 	console.log(latlng.getLng())
-  });
- */
+	position = {
+		"lat" : latlng.getLat(),
+		"lng" : latlng.getLng()
+	};
+	function roundSearch() {
+		$.ajax({
+			url : "/search/round",
+			type : "post",
+			async : false,
+			data : {
+				position
+			},
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+			success : function(data) {
+				var listEl = document.getElementById('placesList'), 
+		    menuEl = document.getElementById('menu_wrap'),
+		    fragment = document.createDocumentFragment(), 
+		    bounds = new kakao.maps.LatLngBounds(), 
+		    listStr = '';
+		    closebtn = document.getElementById('closebtn')
+		    
+		    // 검색 결과 목록에 추가된 항목들을 제거합니다
+		    removeAllChildNods(listEl);
+	
+		    // 지도에 표시되고 있는 마커를 제거합니다
+		    removeMarker();
+		    
+		    for ( var i=0; i< data.data.length; i++ ) {
+	
+		        // 마커를 생성하고 지도에 표시합니다
+		        var placePosition = new kakao.maps.LatLng(data.data[i].mapy, data.data[i].mapx),
+		            marker = addMarker(placePosition, i), 
+		            itemEl = getListItem(i, data.data[i]); // 검색 결과 항목 Element를 생성합니다
+		        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+		        // LatLngBounds 객체에 좌표를 추가합니다
+		        bounds.extend(placePosition);
+		        // 마커와 검색결과 항목에 mouseover 했을때
+		        // 해당 장소에 인포윈도우에 장소명을 표시합니다
+		        // mouseout 했을 때는 인포윈도우를 닫습니다
+		        (function(marker, title, places) {
+		            kakao.maps.event.addListener(marker, 'click', function() {
+		                displayInfowindow(marker, title, places);
+		            });
+		            // kaks
+			      itemEl.onclick =  function () {
+		                displayInfowindow(marker, title,places);
+		                map.setBounds(bounds);
+		            };
+				//마우스 오버, 아웃 이벤트
+		        /*     itemEl.onmouseover =  function () {
+		                displayInfowindow(marker, title,places);
+		                map.setBounds(bounds);
+		            }; 
+	 
+		            itemEl.onmouseout =  function () {
+		                infowindow.close();
+		            }; */
+		        })(marker, data.data[i].place_name, data.data[i]);
+	
+		        fragment.appendChild(itemEl);
+		    }
+	
+		    // 검색결과 항목들을 검색결과 목록 Element에 추가합니다
+		    listEl.appendChild(fragment);
+		    menuEl.scrollTop = 0;
+	
+		    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+		    map.setBounds(bounds);
+			}
+		});
+	}
+});
+
 
 </script>
 </body>

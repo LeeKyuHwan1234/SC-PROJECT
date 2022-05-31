@@ -18,8 +18,6 @@
          SELECT contentid,facltnm, addr1,addr2, firstimageurl, mapx, mapy, tel FROM gocampingapi WHERE facltnm LIKE CONCAT('%', #{keyword}, '%') OR donm LIKE CONCAT('%', #{keyword}, '%')
          OR sigungunm LIKE CONCAT('%', #{keyword}, '%') OR addr1 LIKE CONCAT('%', #{keyword}, '%') OR addr2 LIKE CONCAT('%', #{keyword}, '%') ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC;
   </select>
-  
- 
 	<select id="getSearchCamp2" resultType="CampDto" parameterType="java.util.List" >
          SELECT contentid,facltnm, addr1,addr2, firstimageurl, mapx, mapy, tel FROM gocampingapi WHERE 
       	 <foreach collection="doList" index="index" item="item" open="donm in (" close=")" separator=",">
@@ -31,13 +29,25 @@
 				<foreach collection="inList" index="index" item="item" open="and induty in (" close=")" separator=",">
 					  #{item}
 				</foreach>
-				<foreach collection="sbList" index="index" item="item" open="and sbrscl in (" close=")" separator="," >
+				<foreach collection="sbList" index="index" open="and" separator="and" item="item">
+					  sbrscl like '%' || #{item} || '%'
+				</foreach>
+				<foreach collection="siList" index="index" item="item" open="and sitedstnc in ('0'," close=")" separator=",">
 					  #{item}
 				</foreach>
-				<foreach collection="siList" index="index" item="item" open="and sitedstnc in (" close=")" separator=",">
-					  #{item}
+				<foreach collection="faList" index="index" item="item">
+					  AND #{item} != '0'
+				</foreach>
+				<foreach collection="boList" index="index" item="item"> 
+					  AND #{item} != '0'
 				</foreach>
 				ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC;
+  </select>
+  
+  <select id="getSearchRound" resultType="CampDto" parameterType="CampDto">
+         SELECT * FROM (SELECT *, (6371*acos(cos(radians(#{lat}))*cos(radians(mapy))*cos(radians(mapx)-radians(#{lng}))+sin(radians(#{lat}))*sin(radians(mapy)))) 
+        AS distance 
+        FROM gocampingapi) a  WHERE 10 >= distance
   </select>
   
    <select id="getSearchDo" resultType="CampDto" parameterType="HashMap">
@@ -51,6 +61,7 @@
       	 	</when>
       	 </choose>
     </select>
+    
     <select id="getSearchDoCount" resultType="CampDto" parameterType="HashMap">
        	SELECT COUNT(facltnm) as count FROM gocampingapi
        	<choose> 

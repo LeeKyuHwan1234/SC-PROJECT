@@ -61,8 +61,7 @@ public class CampController {
 	@Autowired
 	CampService campService;
 	
-	
-	
+
 	@RequestMapping(value = "camp")
 	@JsonProperty("keyword")
 	public String getCamp(Model model, HttpServletRequest req,HttpServletResponse resp,@RequestParam("searchKeyword") String keyword) throws Exception {
@@ -70,6 +69,7 @@ public class CampController {
 			HashMap<String, Object> map = new HashMap<String,Object>();
 			map.put("keyword", encurl);
 			model.addAttribute("data",map);
+			System.out.println(model);
 			return "camp";
 	}
 	
@@ -95,7 +95,7 @@ public class CampController {
 		List<String> faList = list6.stream().map(item -> (String)item.get("faid")).toList();
 		List<String> boList = list7.stream().map(item -> (String)item.get("boid")).toList();
 		
-		map.put("doList", doList);
+		map.put("doList",doList);
 		map.put("lcList",lcList);
 		map.put("inList",inList);
 		map.put("sbList",sbList);
@@ -104,6 +104,7 @@ public class CampController {
 		map.put("boList",boList);
 		System.out.println(">>>>>>>>"+map);
 		model.addAttribute("data",campService.getSearchCamp2(map));
+		model.addAttribute("checkdata",map);
 
 		return "camp2";
 	}
@@ -238,6 +239,14 @@ public class CampController {
 	
 	//--------------------------------------------------- api -----------------------------------------------------
 	
+	@RequestMapping(value = "search/round")
+	@JsonProperty("keyword")
+	public @ResponseBody HashMap<String,Object> getSearchRound(HttpServletRequest req,HttpServletResponse resp,@RequestParam HashMap<String,Object> ajaxdata) throws Exception {
+		System.out.println(ajaxdata);
+       	HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("data",campService.getSearchRound(ajaxdata)); 
+		return map;
+	}
 	
 	@RequestMapping(value = "search/display")
 	@JsonProperty("keyword")

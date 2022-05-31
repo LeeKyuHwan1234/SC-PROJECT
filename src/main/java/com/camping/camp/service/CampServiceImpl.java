@@ -40,9 +40,15 @@ public class CampServiceImpl implements CampService {
 		List<CampDto> cam = campDao.getSearchCamp(ajaxdata);
 		return cam;
 	}
+
+	
 	
 	public List<CampDto> getSearchCamp2(HashMap<String, Object> ajaxdata) {
 		List<CampDto> cam = campDao.getSearchCamp2(ajaxdata);
+		return cam;
+	}
+	public List<CampDto> getSearchRound(HashMap<String, Object> ajaxdata) {
+		List<CampDto> cam = campDao.getSearchRound(ajaxdata);
 		return cam;
 	}
 
