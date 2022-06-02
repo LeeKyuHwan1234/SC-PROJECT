@@ -198,21 +198,20 @@ body::-webkit-scrollbar-track {
     border: 0;
 }
 #roundbtn {
-	  overflow: hidden;
+    overflow: hidden;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
-    margin: 10px;
-    width: 35px;
+    margin: 12px;
+    width: 200px;
     height: 35px;
-    font-size: 0;
+    font-size: 3;
     line-height: 0;
-    text-indent: -9999px;
-    background: url(/images/bgplus.png);
-    background-size:cover;
+    /* text-indent: -9999px; */
     cursor: pointer;
-    margin-left:1579px;
-    z-index:1;
-    border: 0;
+    margin-left: 1300px;
+    z-index: 1;
+    border-radius: 20px;
+    font-family: 'Jua';
 }

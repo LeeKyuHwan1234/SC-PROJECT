@@ -459,9 +459,6 @@ function getListItem(index, places) {
     itemStr += 
     '<div class="info" style="float:left; fixed-bottom ">' +
     '<h3>' + places.facltnm + '</h3>'+
-    '<div class="star-ratings">'+
-    '<div class="star-ratings-fill space-x-2" style="width:'+ratingToPercent()+'%">'+
-    '★★★★★'+
     '</div>'+
     '<div class="star-ratings-base space-x-2">'+
     '★★★★★'+
@@ -556,16 +553,7 @@ function displayInfowindow(marker, title, places) {
      	 '<div class="info" style="margin-left:10px; padding:10px;">' +
        '<div>' + places.facltnm + '</div>'+
        '<div>' + places.addr1 + '</div></a>'+
-       '<div class="star-ratings">'+
-       '<div class="star-ratings-fill space-x-2" style="width:'+ratingToPercent()+'%">'+
-       '★★★★★'+
-       '</div>'+
-       '<div class="star-ratings-base space-x-2">'+
-       '★★★★★'+
-       '</div>'+
-   		'</div>'+
-     	'&nbsp;3.7'+
-   		'<div>리뷰 수 (100)</div></div>'+
+       '<div>리뷰 수 (100)</div></div>'+
        '</div></div>'+'</div></div>';
 
     infowindow.setContent(itemStr);

@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.camping.camp.dao.CampDao;
 import com.camping.camp.dto.CampDto;
@@ -41,8 +44,6 @@ public class CampServiceImpl implements CampService {
 		return cam;
 	}
 
-	
-	
 	public List<CampDto> getSearchCamp2(HashMap<String, Object> ajaxdata) {
 		List<CampDto> cam = campDao.getSearchCamp2(ajaxdata);
 		return cam;

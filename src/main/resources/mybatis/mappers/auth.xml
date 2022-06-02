@@ -5,9 +5,9 @@
 
 <mapper namespace="com.camping.camp.dao.AuthDao">
 	<select id="selectUser" parameterType="AuthDto" resultType="AuthDto">
-			SELECT user_id FROM kakao_user WHERE user_id = #{user_id}	
+			SELECT user_id, user_role FROM kakao_user WHERE user_id = #{user_id}	
 	</select>
 	<insert id="insertUser" parameterType="AuthDto">
-			INSERT INTO kakao_user(user_id, user_nickname, user_image, user_email) VALUES (#{user_id},#{user_nickname},#{user_image}, #{user_email})	
+			INSERT INTO kakao_user(user_id, user_nickname, user_image, user_email, user_role) VALUES (#{user_id},#{user_nickname},#{user_image}, #{user_email},0)	
 	</insert>
 </mapper>

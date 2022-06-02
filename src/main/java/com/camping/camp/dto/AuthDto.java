@@ -7,4 +7,5 @@ public class AuthDto {
 	private String user_nickname;
 	private String user_image;
 	private String user_email;
+	private String user_role;
 }

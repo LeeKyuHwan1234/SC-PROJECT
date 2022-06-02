@@ -25,6 +25,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body  onselectstart="return false" id="page-top" style="overflow:hidden;">
 	<!-- Navigation-->
@@ -185,8 +186,63 @@
 			</header>
 		<th:block th:replace="fragment/mainfooter :: footerFragment"></th:block>
 	</body>
-
+<script th:inline="javascript">
+var role = ([[${session.user_role}]])
+</script>
 <script>
+
+function errorList(){
+	if(role == '1'){
+	 	$.ajax({
+  		url : "error/correction/list",
+  		type : "post",
+  		async : false,
+  		contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+  		success : function(data) {
+  			console.log(data)
+  			var html =
+  				'<table>'+
+				'<tbody>'+
+				'<tr class="camp_call_pcVer">'+
+					'<th scope="col">전화번호</th>'+
+					'<th scope="col">운영 상태</th>'+
+					'<th scope="col">캠핑장 유형</th>'+
+					'<th scope="col">입지 구분</th>'+
+					'<th scope="col">예약방법</th>'+
+					'<th scope="col">홈페이지</th>'+
+					'</tr>'+
+					'</tbody>'+
+				'</table>';
+  			for(var i = 0; i< data.data.length; i++){
+  				html +=  +'<td>'+data.data[i].enumber+'</td>'
+  				html +=  +'<td>'+data.data[i].etitle+'</td>'
+  				html +=  +'<td>'+data.data[i].econtent+'</td>'
+  				html +=  +'<td>'+data.data[i].ewriter+'</td>'
+  				html +=  +'<td>'+data.data[i].ewrite_date+'</td>'
+
+ 				 	console.log(html)
+  			}
+
+  			 Swal.fire({
+  				 title: "오류 목록",
+  			   html: html
+  			  	 
+  			 })
+  		}
+  	})
+	} else {
+		 Swal.fire({
+		   icon: 'error',
+		   title: 'Oops...',
+		   text: '관리자가 아닙니다!'
+		 })
+	}
+}
+
+
+
+
+
 $(document).ready( function() {
   $( '#offDisplay' ).click( function() {
     $( '#searchform2' ).toggle(0);

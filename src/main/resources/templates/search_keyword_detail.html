@@ -31,13 +31,16 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link href="/css/sk_detail.css" rel="stylesheet" />
 <link rel="stylesheet" href="/css/korea.css" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body id="page-top">
 	<!-- Navigation-->
 		<th:block th:replace="fragment/header :: headerFragment"></th:block>
-	<div class="camp_bg"
-			th:text="${data[0].facltnm}"></div>
-		
+	<div class="camp_bg" th:text="${data[0].facltnm}"></div>
+	<div class="container">
+		 <button type="button" style="background-color:black; float:right;" onclick="authCheck()">오류 정정</button>
+		 
+	</div>
 	<div class="container">
 		<div class="sub_layout layout">
 			<article>
@@ -433,8 +436,59 @@
 var images = ([[${gall}]])
 var maxidx = images.length;
 var id;
+var session = ([[${session.user_nickname}]])
 </script>
 <script>
+	//로그인 체크
+	function authCheck() {
+		if(session){
+		  (async () => {
+		  	const { value: formValues } = await Swal.fire({
+			    title: '오류 정정 신청',
+			    html:
+			      '<input id="swal-input1" style="width:65%" class="swal2-input" placeholder="제목">' +
+			      '<input id="swal-input2" style="width:30%; margin-left:20px;" class="swal2-input"value='+session+'>'+
+			      '<input id="swal-input3" style="width:415px;height:300px;" placeholder="내용" class="swal2-input">',
+			    focusConfirm: false,
+			    preConfirm: () => {
+			      return {
+			        "etitle" : document.getElementById('swal-input1').value,
+			        "ewriter" :document.getElementById('swal-input2').value,
+			        "econtent" : document.getElementById('swal-input3').value
+			      }
+			    }
+			  })
+			  if (formValues) {
+
+			  	$.ajax({
+				  		url : "/error/correction",
+				  		type : "post",
+				  		async : false,
+				  		data : {
+				  			etitle : formValues.etitle,
+				  			econtent : formValues.econtent,
+				  			ewriter : formValues.ewriter,
+				  		},
+				  		contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+				  		success : function(data) {
+				  			 Swal.fire({
+				  			   icon: 'success',
+				  			   title: 'Yes!',
+				  			   text: '성공'
+				  			 })
+				  		}
+				  	})
+				  }
+		  })()
+		} else {
+			 Swal.fire({
+			   icon: 'error',
+			   title: 'Oops...',
+			   text: '로그인이 필요합니다!'
+			 })
+		}
+	}
+
 	//모달 듸울 때 데이터 불러오는 부분
 	$('#campmodal').on('show.bs.modal', (e)=> {
 		var target = e.relatedTarget.dataset;

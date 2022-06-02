@@ -28,7 +28,6 @@ public class AuthService {
 	
 	public void insertUser(HashMap<String, Object> UserInfo){
 		authDao.insertUser(UserInfo);
-		
 	}
 	
 	public List<AuthDto> selectUser(HashMap<String, Object> UserInfo){
@@ -140,7 +139,7 @@ public class AuthService {
 		return userInfo;
 	}
 	
-	 public void kakaoLogout(String access_Token) {
+	public void kakaoLogout(String access_Token) {
 	        String reqURL = "https://kapi.kakao.com/v1/user/logout";
 	        try {
 	            URL url = new URL(reqURL);

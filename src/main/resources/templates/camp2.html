@@ -177,7 +177,7 @@
    </div>
     <button id="hd-btn"></button>
     <button id="ophd-btn"><i  class="fa-solid fa-square-plus"></i></button>
-    <button id="roundbtn" onclick="roundSearch()"><i  class="fa-solid fa-square-plus"></i></button>
+    <button id="roundbtn" onclick="roundSearch()" >현재 위치로 검색(20km)</button>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cccf4c7daf4e1155d9f902755ad1d425&libraries=services"></script>
 <script th:inline="javascript">
@@ -735,25 +735,19 @@ function windowClose() {
     infowindow.close();
 }
 
-//중심 값 바뀔 때마다 값 가져오는 함수
-kakao.maps.event.addListener(map, 'center_changed', function() {
-	  // 지도의 중심좌표를 얻어옵니다 
-		 var latlng = map.getCenter(); 
-		console.log(latlng.getLat())
-		console.log(latlng.getLng())
-		
-	  position = {
-			"lat" : latlng.getLat(),
-			"lng" : latlng.getLng()
-		};
-	})
-	function roundSearch() {
+
+
+function roundSearch() {
+	 
+	lat =	map.getCenter().getLat(); 
+	lng =	map.getCenter().getLng();
 	$.ajax({
 			url : "/search/round",
 			type : "post",
 			async : false,
 			data : {
-				position
+				"lat" : lat,
+				"lng" : lng
 			},
 			contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
 			success : function(data) {

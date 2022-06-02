@@ -15,8 +15,9 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 					<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-						<li class="nav-item"><a class="nav-link" th:if="${session.access_Token}" th:text="|${session.user_nickname}님 환영합니다.|"></a></li>
 						<li class="nav-item"><a class="nav-link" href="/koreamap">지도로 검색</a></li>
+						<li class="nav-item"><a class="nav-link" th:if="${session.access_Token}" th:text="|${session.user_nickname}님 환영합니다.|"></a></li>
+						<li class="nav-item"><img src="images/alarm.png" style="width:50px;" onclick="errorList()"><img></li>
 						<li class="nav-item"><a class="nav-link" th:if="${session.access_Token}"	href="/auth/logout">
 						로그아웃</a></li>
 						<li class="nav-item"><a class="nav-link" th:unless="${session.access_Token}"	href="https://kauth.kakao.com/oauth/authorize?client_id=572d30428a009e93e6498270de9323e9&redirect_uri=http://localhost:8080/auth/kakaoLogin&response_type=code">
