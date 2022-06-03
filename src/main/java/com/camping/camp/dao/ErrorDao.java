@@ -14,5 +14,7 @@ import com.camping.camp.dto.ErrorDto;
 public interface ErrorDao {
 	
 	List<ErrorDto> getErrorCorrection();
+	
+	List<ErrorDto> getErrorCorrectionOne(HashMap<String, Object> ajaxdata);
 	void insertErrorCorrection(HashMap<String, Object> ajaxdata);
 }

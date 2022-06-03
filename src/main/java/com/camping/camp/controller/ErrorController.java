@@ -46,4 +46,17 @@ public class ErrorController {
 		return map;
 	}
 	
+	@RequestMapping(value = "correction/one")
+	public @ResponseBody HashMap<String,Object> getErrorCorrectionOne(Model model, HttpServletRequest req,HttpServletResponse resp,@RequestParam HashMap<String, Object> ajaxdata) throws Exception {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		System.out.println(ajaxdata);
+		try {
+			map.put("data", errorService.getErrorCorrectionOne(ajaxdata));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return map;
+	}
+	
 }

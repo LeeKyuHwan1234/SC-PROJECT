@@ -5,9 +5,15 @@
 
 <mapper namespace="com.camping.camp.dao.ErrorDao">
 		<insert id="insertErrorCorrection" parameterType="HashMap">
-     	INSERT INTO error_correction(etitle,econtent, ewriter, ewrite_date) VALUES (#{etitle},#{econtent},#{ewriter},NOW())
+     	INSERT INTO error_correction(etitle,econtent, ewriter, ewrite_date,estatus) VALUES (#{etitle},#{econtent},#{ewriter},NOW(),'대기')
      </insert>
      <select id="getErrorCorrection"  resultType="ErrorDto">
-     		SELECT * FROM error_correction
+     		SELECT * FROM error_correction WHERE estatus = '대기'
      </select>
+     <select id="getErrorCorrectionOne"  resultType="ErrorDto">
+     		SELECT * FROM error_correction WHERE enumber = #{enumber}::int
+     </select>
+     <update id="updateErrorCorrectionOne">
+     		Update error_correction SET estatus = #{estatus} WHERE enumber=#{enumber}::int
+     </update>
 </mapper>
