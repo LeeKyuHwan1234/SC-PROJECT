@@ -35,7 +35,7 @@
 </head>
 <body id="page-top">
 	<!-- Navigation-->
-		<th:block th:replace="fragment/header :: headerFragment"></th:block>
+		<th:block th:replace="fragment/mainheader :: headerFragment"></th:block>
 	<div class="camp_bg" th:text="${data[0].facltnm}"></div>
 	<div class="container">
 		 <button type="button" style="background-color:black; float:right;" onclick="authCheck()">오류 정정</button>
@@ -52,7 +52,7 @@
 						</div>
 						<div class="img_b"
 							th:unless="${data[0].firstimageurl} != 'no data'">
-							<img class="img_c" src="/images/camp3.webp"></img>
+							<img class="img_c" src="/images/camp3.jpg"></img>
 						</div>
 						<!--//S:table-->
 						<div class="cont_tb">
@@ -257,11 +257,21 @@
 			th:data-img="${gall[3]}" th:value="${gall[3]}"
 			th:style="|background-image:url(${gall[3]})|"></div>
 		<div class="item5 modal-gall" th:if="${gall[4] != 'x'}"
-			th:style="|background-image:url(${gall[4]})|">
-			<div th:if="${#lists.size(gall)} > 5" data-bs-toggle="modal"
+			th:style="|background-image:linear-gradient(
+        rgba(0, 0, 0, 0.7),
+        rgba(0, 0, 0, 0.7)
+      ), url(${gall[4]}); 
+	background-size: cover;
+	color:white;
+	bottom:0;
+	right:0;
+	text-align:center;
+	vertical-align:middle;
+	line-height:260px;|" data-bs-toggle="modal"
 				data-bs-target="#campmodal" data-index="4" th:data-img="${gall[4]}"
-				class="more_btn" th:text="|+${#lists.size(gall)-4}|"></div>
+				 th:text="|+${#lists.size(gall)-4}|">
 		</div>
+	
 	
 	</div>
 		
@@ -364,9 +374,9 @@
 	
 		</div>
 		<div class="container">
-		 <h2 th:text="리뷰"></h2>
+		 <h2 class="h2review" th:text="리뷰"></h2>
 		 <div id="reviewdiv" style="overflow:scroll; overflow-x: hidden; width:100%; height:600px;">
-		 <div th:each="b, i : ${blog.blog_title}" style="border:2px solid darkgray;  margin: 10px 10px 10px 0px; box-shadow:5px 5px 5px;  border-radius:15px;">
+		 <div th:each="b, i : ${blog.blog_title}" style="border:2px solid darkgray;  margin: 10px 10px 10px 0px; box-shadow:5px 5px; cursor:pointer;  border-radius:15px; ">
 				<div class="griddiv">
 				<div style="margin-inline: 20px; margin-bottom:5px;">
 					<p style="margin-bottom:10px;">
@@ -392,13 +402,47 @@
 	
 	
 	
-	<!-- 리뷰 -->
-
-	
-	
 	<!-- Footer-->
-	<th:block th:replace="fragment/footer :: footerFragment"></th:block>
+	<th:block th:replace="fragment/mainfooter :: footerFragment"></th:block>
 
+    <script>
+      const modal = document.querySelector('.modal');
+      const btnOpenPopup = document.querySelector('.btn-open-popup');
+
+      btnOpenPopup.addEventListener('click', () => {
+
+  			modal.style.display = 'block';
+  			$.ajax({
+      		url : "error/correction/list",
+      		type : "post",
+      		async : false,
+      		contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+      		success : function(data) {
+      			$('table>tbody').empty();
+      			
+      			var storeAdd1 = '<tr>'+
+						'<th scope="col" style="width:15%">번호</th>'+
+						'<th scope="col" style="width:45%">제목</th>'+
+						'<th scope="col" style="width:15%">작성자</th>'+
+						'<th scope="col" style="width:25%">작성 날짜</th>'+
+						'</tr>';
+
+	      		 $("table>tbody").append(storeAdd1);
+						
+						for(var i =0; i< data.data.length; i++){
+	      				storeAdd = 
+	      				'<tr class=errortr id='+data.data[i].enumber+' onclick="errorList()">'+
+		 					 "<td>"+data.data[i].enumber+"</td>"+
+		 					 "<td>"+data.data[i].etitle+"</td>"+
+		 					 "<td>"+data.data[i].ewriter+"</td>"+
+		 					 "<td>"+data.data[i].ewrite_date+"</td>"+
+		 					 "</tr>";
+		      		 $("table>tbody").append(storeAdd);
+	      			}
+      		}
+      });
+     });
+    </script>
 	<!--  Modal -->
 	<div class="modal fade" id="campmodal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">

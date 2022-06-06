@@ -15,11 +15,11 @@
          FROM gocampingapi WHERE contentid = #{encurl} ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC;
  	</select>
  	<select id="getSearchCamp" resultType="CampDto" parameterType="CampDto">
-         SELECT contentid,facltnm, addr1,addr2, firstimageurl, mapx, mapy, tel FROM gocampingapi WHERE facltnm LIKE CONCAT('%', #{keyword}, '%') OR donm LIKE CONCAT('%', #{keyword}, '%')
+         SELECT contentid,facltnm, addr1,addr2, firstimageurl, mapx, mapy, tel, managesttus, induty, lctcl, resvecl, homepage FROM gocampingapi WHERE facltnm LIKE CONCAT('%', #{keyword}, '%') OR donm LIKE CONCAT('%', #{keyword}, '%')
          OR sigungunm LIKE CONCAT('%', #{keyword}, '%') OR addr1 LIKE CONCAT('%', #{keyword}, '%') OR addr2 LIKE CONCAT('%', #{keyword}, '%') ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC;
   </select>
 	<select id="getSearchCamp2" resultType="CampDto" parameterType="java.util.List" >
-         SELECT contentid,facltnm, addr1,addr2, firstimageurl, mapx, mapy, tel FROM gocampingapi WHERE 
+         SELECT contentid,facltnm, addr1,addr2, firstimageurl, mapx, mapy, tel, managesttus, induty, lctcl, resvecl, homepage FROM gocampingapi WHERE 
       	 <foreach collection="doList" index="index" item="item" open="donm in (" close=")" separator=",">
 					 #{item}
 				</foreach>
@@ -47,7 +47,7 @@
   <select id="getSearchRound" resultType="CampDto" parameterType="HashMap">
          SELECT * FROM (SELECT *, (6371*acos(cos(radians(#{lat}::numeric))*cos(radians(mapy))*cos(radians(mapx)-radians(#{lng}::numeric))+sin(radians(#{lat}::numeric))*sin(radians(mapy)))) 
         AS distance 
-        FROM gocampingapi) a  WHERE 20 >= distance
+        FROM gocampingapi) a  WHERE 20 >= distance ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC;
   </select>
   
    <select id="getSearchDo" resultType="CampDto" parameterType="HashMap">

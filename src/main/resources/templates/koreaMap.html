@@ -82,7 +82,7 @@
 							</div>
 					<!-- 없을 때 -->		
 							<div class='card-body' th:unless="${camplist.firstimageurl} != 'no data'">
-								<img src='/images/camp3.webp' style='width: 260px; height: 200px;'></img>
+								<img src='/images/camp3.jpg' style='width: 260px; height: 200px;'></img>
 								<p th:text="${camplist.addr1}"></p>
 							</div>
 						
@@ -93,6 +93,8 @@
 
 				<input type="hidden" id="npagex" name="npagex">
 			</div>
+		</div>
+		<div style="height:300px;">
 		</div>
 		
 		<!-- Footer-->
@@ -209,7 +211,7 @@
 														+ "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>"
 														+ "<div class='card-header'>" + data.camplist[i].facltnm + "</div>"
 														+ "<div class='card-body'>"
-														+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+														+ "<img src='/images/camp3.jpg' style='width:250px; height:200px;'></img>"
 														+"<p>"+data.camplist[i].addr1+"</p>"
 														+ "</div></div>")
 														
@@ -276,7 +278,7 @@
 										"<div class='col-4 mb-4'>" + "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>"
 										 + "<div class='card-header'>"
 												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
-												+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+												+ "<img src='/images/camp3.jpg' style='width:250px; height:200px;'></img>"
 												+"<p>"+data.camplist[i].addr1+"</p>"
 												+ "</div></div>")
 							}
@@ -332,7 +334,7 @@
 								$(".camprow").append(
 										"<div class='col-4 mb-4'>" + "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" + "<div class='card-header'>"
 												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
-												+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+												+ "<img src='/images/camp3.jpg' style='width:250px; height:200px;'></img>"
 												+"<p>"+data.camplist[i].addr1+"</p>"
 												+ "</div></div>")
 							}
@@ -388,7 +390,7 @@
 								$(".camprow").append(
 										"<div class='col-4 mb-4'>" + "<div class='card text-black bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>" + "<div class='card-header'>"
 												+ data.camplist[i].facltnm + "</div>" + "<div class='card-body'>"
-												+ "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"
+												+ "<img src='/images/camp3.jpg' style='width:250px; height:200px;'></img>"
 												+"<p>"+data.camplist[i].addr1+"</p>"
 												+ "</div></div>")
 							}

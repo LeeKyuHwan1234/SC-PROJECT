@@ -33,21 +33,21 @@
 		<!-- Masthead-->
 		<header class="masthead">
 			<div class="container">
-				<div class="masthead-subheading">Where should  we  go  this  time?</div>
+				<div class="masthead-subheading" style="margin-top:50px;">Where should  we  go  this  time?</div>
 				<form action="camp" method="post" name="searchform">
-					<div class="masthead-heading text-uppercase">
-						<input type="text" id="craw_id" name="searchKeyword" placeholder="캠핑장 이름, 주소" style="font-size:30px; margin:0; background-color:lightcyan;"/>
+					<div class="masthead-heading text-uppercase" style="margin-top:100px;">
+						<input type="text" id="craw_id" name="searchKeyword" placeholder="캠핑장 이름, 주소" style="font-size:20px; margin:0; background-color:lightcyan;"/>
 						<span style="font-size:25px; cursor:pointer" id="offDisplay">상세조건 <i class="fa-solid fa-square-plus"style="width:25px; height:25px;"></i></span>
 						</div>
 					</form>
-					<form action="camp2" method="post" id="searchform2" name="searchform2" style="display:none; margin-top:30px;" >
-				<div id="selectOption" style="width:1600px; text-align:left;justify-content: center;background-color:lightgray;opacity:70%; border-radius:30px; color:black;display: inline-flex;">
+					<form action="camp2" method="post" id="searchform2" name="searchform2" style="display:none;">
+				<div id="selectOption" style="text-align:left;justify-content: center;background-color:lightgray;opacity:70%; border-radius:30px; color:black;display: inline-flex;">
 				<ul>
 				<li>
 					<div class="folder_w">
 						<div class="check_w"><h5>▣ 지역은 반드시 하나 이상 선택해야 합니다.</h5>	
 						<strong>지역별 <input type='checkbox' name='docheck' value='selectall1' onclick='doselectAll(this)'/></strong>
-								<ul style="display: -webkit-inline-box;margin-left: 124px; " >
+								<ul style="display: -webkit-inline-box;margin-left: 0; " >
 									<li><input type="checkbox" name="docheck" id="c_do1" value="서울시" ><label for="c_do1">서울시</label></li>
 									<li><input type="checkbox" name="docheck" id="c_do2" value="부산시"><label for="c_do2">부산시</label></li>
 									<li><input type="checkbox" name="docheck" id="c_do3" value="대구시"><label for="c_do3">대구시</label></li>
@@ -59,7 +59,7 @@
 									<li><input type="checkbox" name="docheck" id="c_do9" value="경기도"><label for="c_do9">경기도</label></li>
 								</ul>
 								<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<ul style="display: -webkit-inline-box;margin-left: 159px;">
+								<ul style="display: -webkit-inline-box;margin-left: 50px;">
 									<li><input type="checkbox" name="docheck" id="c_do10" value="강원도"><label for="c_do10">강원도</label></li>
 									<li><input type="checkbox" name="docheck" id="c_do11" value="충청북도"><label for="c_do11">충청북도</label></li>
 									<li><input type="checkbox" name="docheck" id="c_do12" value="충청남도"><label for="c_do12">충청남도</label></li>
@@ -78,7 +78,7 @@
 					<div class="folder_w" style="display: inline-block;">
 						<div class="check_w">
 						<strong>입지 구분 <input type='checkbox' name='lccheck' value='selectall2' onclick='lcselectAll(this)'/></strong>
-								<ul style="display: -webkit-inline-box; margin-left:107px;">
+								<ul style="display: -webkit-inline-box; margin-left:0;">
 									<li><input type="checkbox" name="lccheck" id="c_lc01" value="강"><label for="c_lc01">강</label></li>
 									<li><input type="checkbox" name="lccheck" id="c_lc02" value="계곡"><label for="c_lc02">계곡</label></li>
 									<li><input type="checkbox" name="lccheck" id="c_lc03" value="도심"><label for="c_lc03">도심</label></li>
@@ -95,7 +95,7 @@
 					<div class="folder_w" style="display: inline-block;">
 						<div class="check_w">
 						<strong>주요 시설 <input type='checkbox' name='incheck' value='selectall3' onclick='inselectAll(this)'/></strong>
-								<ul style="display: -webkit-inline-box; margin-left:107px;">
+								<ul style="display: -webkit-inline-box; margin-left:0;">
 									<li><input type="checkbox" name="incheck" id="c_in01" value="일반야영장"><label for="c_in01">일반야영장</label></li>
 									<li><input type="checkbox" name="incheck" id="c_in02" value="자동차야영장"><label for="c_in02">자동차야영장</label></li>
 									<li><input type="checkbox" name="incheck" id="c_in03" value="글램핑"><label for="c_in03">글램핑</label></li>
@@ -108,7 +108,7 @@
 					<div class="folder_w" style="display: inline-block;">
 						<div class="check_w">
 						<strong>바닥 형태 <input type='checkbox' name='bocheck' value='selectall4' onclick='boselectAll(this)'/></strong>
-								<ul style="display: -webkit-inline-box; margin-left:105px;">
+								<ul style="display: -webkit-inline-box; margin-left:0;">
 									<li><input type="checkbox" name="bocheck" id="c_bo01" value="sitebottomcl1"><label for="c_bo01">잔디</label></li>
 									<li><input type="checkbox" name="bocheck" id="c_bo02" value="sitebottomcl2"><label for="c_bo02">테크</label></li>
 									<li><input type="checkbox" name="bocheck" id="c_bo03" value="sitebottomcl3"><label for="c_bo03">파쇄석</label></li>
@@ -122,13 +122,15 @@
 					<div class="folder_w" style="display: inline-block;">
 						<div class="check_w">
 						<strong>부대 시설 <input type='checkbox' name='sbcheck' value='selectall5' onclick='sbselectAll(this)'/></strong>
-								<ul style="display: -webkit-inline-box; margin-left:105px;">
-									<li><input type="checkbox" name="sbcheck" id="c_sb01" value="전기"><label for="c_sb01">전기</label></li>
+								<ul style="display: -webkit-inline-box;margin-left: 0; " ><li><input type="checkbox" name="sbcheck" id="c_sb01" value="전기"><label for="c_sb01">전기</label></li>
 									<li><input type="checkbox" name="sbcheck" id="c_sb02" value="무선인터넷"><label for="c_sb02">무선인터넷</label></li>
 									<li><input type="checkbox" name="sbcheck" id="c_sb03" value="장작판매"><label for="c_sb03">장작판매</label></li>
 									<li><input type="checkbox" name="sbcheck" id="c_sb04" value="온수"><label for="c_sb04">온수</label></li>
 									<li><input type="checkbox" name="sbcheck" id="c_sb05" value="마트.편의점"><label for="c_sb05">마트,편의점</label></li>
 									<li><input type="checkbox" name="sbcheck" id="c_sb06" value="트렘폴린"><label for="c_sb06">트램펄린</label></li>
+								</ul>
+								<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<ul style="display: -webkit-inline-box;margin-left: 50px;">
 									<li><input type="checkbox" name="sbcheck" id="c_sb07" value="물놀이장"><label for="c_sb07">물놀이장</label></li>
 									<li><input type="checkbox" name="sbcheck" id="c_sb08" value="운동시설"><label for="c_sb08">운동시설</label></li>
 									<li><input type="checkbox" name="sbcheck" id="c_sb09" value="산책로"><label for="c_sb09">산책로</label></li>
@@ -142,7 +144,7 @@
 					<div class="folder_w" style="display: inline-block;">
 						<div class="check_w">
 						<strong>편의 시설 <input type='checkbox' name='facheck' value='selectall6' onclick='faselectAll(this)'/></strong>
-								<ul style="display: -webkit-inline-box; margin-left:105px;">
+								<ul style="display: -webkit-inline-box; margin-left:0;">
 									<li><input type="checkbox" name="facheck" id="c_fa01" value="화장실"><label for="c_fa01">화장실</label></li>
 									<li><input type="checkbox" name="facheck" id="c_fa02" value="샤워실"><label for="c_fa02">샤워실</label></li>
 									<li><input type="checkbox" name="facheck" id="c_fa03" value="개수대"><label for="c_fa03">개수대</label></li>
@@ -154,7 +156,7 @@
 					<div class="folder_w" style="display: inline-block;">
 						<div class="check_w">
 						<strong>사이트 간 거리(m) <input type='checkbox' name='sicheck' value='selectall7' onclick='siselectAll(this)'/></strong>
-								<ul style="display: -webkit-inline-box; margin-left:55px;">
+								<ul style="display: -webkit-inline-box; margin-left:0;">
 									<li><input type="checkbox" name="sicheck" id="c_si01" value="1"><label for="c_si01">1</label></li>
 									<li><input type="checkbox" name="sicheck" id="c_si02" value="2"><label for="c_si02">2</label></li>
 									<li><input type="checkbox" name="sicheck" id="c_si03" value="3"><label for="c_si03">3</label></li>

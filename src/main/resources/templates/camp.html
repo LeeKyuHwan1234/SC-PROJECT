@@ -178,6 +178,7 @@
    </div>
     <button id="hd-btn"></button>
     <button id="ophd-btn"><i  class="fa-solid fa-square-plus"></i></button>
+    <button id="roundbtn" onclick="roundSearch()" >현재 위치로 검색(20km)</button>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cccf4c7daf4e1155d9f902755ad1d425&libraries=services"></script>
 <script th:inline="javascript">
 	var dodata = [[${data}]]
@@ -211,11 +212,13 @@ $( "#hd-btn" ).click(function() {
     	$("#searchform2").css({"margin-left":"0px"})
     	$("#ophd-btn").css({"margin-left":"0px"})
     	$("#subbtn").css({"margin-left":"929px"})
+    	$("#roundbtn").css({"margin-left":"950px"})
     } else if (styleValue == "0px") {
     	$("#hd-btn").css({"margin-left":"679px","background-position": "0 0px"})
     	$("#searchform2").css({"margin-left":"679px"})
     	$("#ophd-btn").css({"margin-left":"679px"})
     	$("#subbtn").css({"margin-left":"1600px"})
+    	$("#roundbtn").css({"margin-left":"1300px"})
     	
     }
   });
@@ -358,7 +361,7 @@ function placesSearchCB(data, status, pagination) {
         displayPlaces(data);
 
         // 페이지 번호를 표출합니다
-        displayPagination(pagination);
+        //displayPagination(pagination);
 
     } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 
@@ -444,6 +447,7 @@ function displayPlaces(places) {
 	})
 }
 
+
 // 검색결과 항목을 Element로 반환하는 함수입니다
 function getListItem(index, places) {
 
@@ -454,22 +458,37 @@ function getListItem(index, places) {
     	itemStr += '<img src="'+places.firstimageurl+'" style="width:260px; height:200px; border-radius:10px; margin-left:20px;margin-bottom:15px"></div>'
     }
     else if(places.firstimageurl == "no data") (
-    	itemStr += '<img src="../images/camp3.webp" style="width:260px; height:200px; border-radius:10px; margin-left:20px;margin-bottom:15px"></div>'
+    	itemStr += '<img src="../images/camp3.jpg" style="width:260px; height:200px; border-radius:10px; margin-left:20px;margin-bottom:15px"></div>'
     )
     itemStr += 
     '<div class="info" style="float:left; fixed-bottom ">' +
-    '<h3>' + places.facltnm + '</h3>'+
-    '</div>'+
-    '<div class="star-ratings-base space-x-2">'+
-    '★★★★★'+
-    '</div>'+
-	'</div>'+
-  	'&nbsp;3.7'+
-	'<span>리뷰 수 (100)</span>'+
-    '<span>' + places.addr1 + '</span>'+
-    '<span class="tel">' + places.tel  + '</span></div>'+
-    '<div style="float:right; margin-top:15px;">'+'<div class="star-ratings">'+
-    '</div>'+
+    '<h3>' + places.facltnm + '</h3>';
+    
+    if (places.addr1 != "no data") {
+    	itemStr += '<span>' + places.addr1 + '</span>';
+    }
+    if (places.managesttus != "no data") {
+    	itemStr += '<span>' + places.managesttus + '</span>';
+    }    
+    if (places.induty != "no data") {
+    	itemStr += '<span>' + places.induty + '</span>';
+    }    
+    if (places.lctcl != "no data") {
+    	itemStr += '<span>' + places.lctcl + '</span>';
+    }
+    if (places.resvecl != "no data") {
+    	itemStr += '<span>' + places.resvecl + '</span>';
+    }     
+    if (places.homepage != "no data") {
+    	itemStr += '<span>' + places.homepage + '</span>';
+    }
+    if (places.tel != "no data") {
+    	itemStr += '<span class="tel">' + places.tel  + '</span></div>';
+    }
+ 
+ 
+   itemStr +=
+  	'</div>'+
     '</div></div>'+'</div></div>';           
 
     el.innerHTML = itemStr;
@@ -540,20 +559,20 @@ function removeMarker() {
 // 인포윈도우에 장소명을 표시합니다
 function displayInfowindow(marker, title, places) {
   //마커 오버레이 부분
-    var itemStr = '<p id="closebtn" onclick="windowClose()">X</p><div class="listcard" style="width:300px;height:280px;">'+
+    var itemStr = '<p id="closebtn" onclick="windowClose()">X</p><div class="listcard" style="width:340px; border-radius:15px;">'+
     '<a href="/place?contentid='+places.contentid+'">'+   
     '<div style="float:left;">';
        if (places.firstimageurl != "no data") {
-       	itemStr += '<img src="'+places.firstimageurl+'" style="width:300px; height:200px; border-radius:10px; margin-right:10px;"></div>'
+       	itemStr += '<img src="'+places.firstimageurl+'" style="width:60px; height:60px; border-radius:10px; margin-right:10px;"></div>'
        }
        else if(places.firstimageurl == "no data") (
-       	itemStr += '<img src="../images/camp3.webp" style="width:300px; height:200px; border-radius:10px;margin-right:10px;"></div>'
+       	itemStr += '<img src="../images/camp3.jpg" style="width:60px; height:60px; border-radius:10px;margin-right:10px;"></div>'
        )
        itemStr += 
-     	 '<div class="info" style="margin-left:10px; padding:10px;">' +
-       '<div>' + places.facltnm + '</div>'+
+     	 '<div class="info" style="margin-left:10px; text-align:center;">' +
+       '<h2>' + places.facltnm + '</h2>'+
        '<div>' + places.addr1 + '</div></a>'+
-       '<div>리뷰 수 (100)</div></div>'+
+       '</div>'+
        '</div></div>'+'</div></div>';
 
     infowindow.setContent(itemStr);
@@ -571,25 +590,24 @@ function windowClose() {
     infowindow.close();
 }
 //중심 값 바뀔 때마다 값 가져오는 함수
-kakao.maps.event.addListener(map, 'center_changed', function() {
-  // 지도의 중심좌표를 얻어옵니다 
-  var latlng = map.getCenter(); 
-	console.log(latlng.getLat())
-	console.log(latlng.getLng())
-	position = {
-		"lat" : latlng.getLat(),
-		"lng" : latlng.getLng()
-	};
-	function roundSearch() {
-		$.ajax({
+function roundSearch() {
+	 
+	lat =	map.getCenter().getLat(); 
+	lng =	map.getCenter().getLng();
+	$.ajax({
 			url : "/search/round",
 			type : "post",
 			async : false,
 			data : {
-				position
+				"lat" : lat,
+				"lng" : lng
 			},
 			contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
 			success : function(data) {
+				if(data.data.length == 0) {
+					alert('검색 결과가 없습니다.');
+					location.href='/search';
+				}
 				var listEl = document.getElementById('placesList'), 
 		    menuEl = document.getElementById('menu_wrap'),
 		    fragment = document.createDocumentFragment(), 
@@ -645,9 +663,8 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
 		    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
 		    map.setBounds(bounds);
 			}
-		});
+		})
 	}
-});
 
 
 </script>
