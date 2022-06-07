@@ -36,11 +36,33 @@
 					  #{item}
 				</foreach>
 				<foreach collection="faList" index="index" item="item">
-					  AND #{item} != '0'
+					  <if test='item.equals("È­Àå½Ç")'>
+						  AND toiletco != '0'
+ 						</if>
+ 						<if test='item.equals("»þ¿ö½Ç")'>
+						  AND swrmco != '0'
+ 						</if>
+ 						<if test='item.equals("°³¼ö´ë")'>
+						  AND wtrplco != '0'
+ 						</if>
 				</foreach>
 				<foreach collection="boList" index="index" item="item"> 
-					  AND #{item} != '0'
-				</foreach>
+					  <if test='item.equals("ÀÜµð")'>
+						  AND sitebottomcl1 != '0'
+ 						</if>
+ 						<if test='item.equals("µ¥Å©")'>
+						  AND sitebottomcl2 != '0'
+ 						</if>
+ 						<if test='item.equals("ÆÄ¼â¼®")'>
+						  AND sitebottomcl3 != '0'
+ 						</if>
+ 						<if test='item.equals("ÀÚ°¥")'>
+						  AND sitebottomcl4 != '0'
+ 						</if>
+ 						<if test='item.equals("¸ÇÈë")'>
+						  AND sitebottomcl5 != '0'
+ 						</if>
+ 					</foreach>
 				ORDER BY (CASE WHEN firstimageurl = 'no data' THEN 2 ELSE 1 END), firstimageurl DESC;
   </select>
   

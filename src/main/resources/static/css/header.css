@@ -725,6 +725,7 @@ progress {
   }
 }
 .row {
+	justify-content: center;
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
   display: flex;
@@ -803,7 +804,7 @@ progress {
 
 .col-4 {
   flex: 0 0 auto;
-  width: 33.33333333%;
+  width: 400px;
 }
 
 .col-5 {
@@ -2081,7 +2082,7 @@ progress {
 .table-hover > tbody > tr:hover > * {
   --bs-table-accent-bg: var(--bs-table-hover-bg);
   color: var(--bs-table-hover-color);
-}
+ }
 
 .table-primary {
   --bs-table-bg: #fff4cc;
@@ -11361,12 +11362,6 @@ html {
   min-height:100%
 }
 
-body {
-  position: relative;
-  overflow-x: hidden;
-  min-height:100%
-}
-
 p {
   line-height: 1.75;
 }
@@ -11508,7 +11503,6 @@ header.masthead .masthead-heading {
 }
 
 @media (min-width: 807px) {
-
 	ol, ul {
 	font-size: large;
 	}
@@ -11520,6 +11514,7 @@ header.masthead .masthead-heading {
 	}
 	header.masthead {
     padding-bottom: 12.5rem;
+    height:1670px;
 		}
   header.masthead .masthead-subheading {
     font-size: 5.25rem;
@@ -11861,14 +11856,12 @@ section#contact form#contactForm :-ms-input-placeholder {
   font-size: 0.9rem;
   font-family: 'Jua', sans-serif;
   left: 0;
-  bottom: 0;
   width: 100%;
   padding: 15px 0;
   background-color:#333333;
-  position: relative;
+  /*  position: relative; */
   color:white;
  }
- 
  .mainfooter {
   text-align: center;
   font-size: 0.9rem;

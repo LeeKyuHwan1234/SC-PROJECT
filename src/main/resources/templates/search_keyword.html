@@ -109,11 +109,11 @@
 						<div class="check_w">
 						<strong>바닥 형태 <input type='checkbox' name='bocheck' value='selectall4' onclick='boselectAll(this)'/></strong>
 								<ul style="display: -webkit-inline-box; margin-left:0;">
-									<li><input type="checkbox" name="bocheck" id="c_bo01" value="sitebottomcl1"><label for="c_bo01">잔디</label></li>
-									<li><input type="checkbox" name="bocheck" id="c_bo02" value="sitebottomcl2"><label for="c_bo02">테크</label></li>
-									<li><input type="checkbox" name="bocheck" id="c_bo03" value="sitebottomcl3"><label for="c_bo03">파쇄석</label></li>
-									<li><input type="checkbox" name="bocheck" id="c_bo04" value="sitebottomcl4"><label for="c_bo04">자갈</label></li>
-									<li><input type="checkbox" name="bocheck" id="c_bo05" value="sitebottomcl5"><label for="c_bo05">맨흙</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo01" value="잔디"><label for="c_bo01">잔디</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo02" value="데크"><label for="c_bo02">데크</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo03" value="파쇄석"><label for="c_bo03">파쇄석</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo04" value="자갈"><label for="c_bo04">자갈</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo05" value="맨흙"><label for="c_bo05">맨흙</label></li>
 								</ul>
 						</div>
 					</div>
@@ -188,11 +188,11 @@
 			
 			
 			<!-- modal -->
-			<div class="modal">
+			<div class="modal modallist" id="tablemodal">
 	      <div class="modal-dialog modal-dialog-centered modal-lg">
 					<div class="modal-content">
 						<div class="modal-header" style="color:black;">오류 정정 리스트
-							<button type="button" class="btn-close" data-bs-dismiss="modal"	aria-label="Close"></button>
+							<button type="button" class="btn-close" data-bs-dismiss="modallist"	aria-label="Close"></button>
 						</div>
 						<table  style="color:black;">
 						<tbody>
@@ -229,8 +229,8 @@
 						
 						for(var i =0; i< data.data.length; i++){
 	      				storeAdd = 
-	      				'<tr class=errortr id='+data.data[i].enumber+' onclick="errorList()">'+
-		 					 "<td>"+data.data[i].enumber+"</td>"+
+	      				'<tr class=errortr id='+data.data[i].enumber+' onclick="errorList()" style="cursor:pointer;">'+
+		 					 "<td>"+(i+1)+"</td>"+
 		 					 "<td>"+data.data[i].etitle+"</td>"+
 		 					 "<td>"+data.data[i].ewriter+"</td>"+
 		 					 "<td>"+data.data[i].ewrite_date+"</td>"+
@@ -244,9 +244,6 @@
 			</header>
 			<th:block th:replace="fragment/mainfooter :: footerFragment"></th:block>
 	</body>
-<script th:inline="javascript">
-	var role = ([[${session.user_role}]])
-</script>
 <style>
 .swal2-modal{
     width:600px !important;
@@ -255,6 +252,11 @@
 	margin-right:auto;
 }
 </style>
+
+<script th:inline="javascript">
+var session = ([[${session.user_nickname}]])
+var role = ([[${session.user_role}]])
+</script>
 <script>
 const closeBtn = modal.querySelector(".btn-close")
  
@@ -276,13 +278,15 @@ function errorList(){
   		contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
   		success : function(data) {
   			var html =
-  				'<div style="text-align:right;"><span>'+data.data[0].ewriter+'</span>'+
+  				'<div style="text-align:right;margin-top: 15px;"><span>'+data.data[0].ewriter+'</span>'+
   				'<span style="margin-left:10px;">'+data.data[0].ewrite_date+'</span></div>'+
-  				'<div style="text-align: start;">'+data.data[0].econtent+'</div>';
+  				'<div style="text-align: start; height: 200px; margin-top: 30px; padding: 20px; border: 2px solid;">'+data.data[0].econtent+'</div>';
   			(async () => {
   		  	const { value: formValues } = await Swal.fire({
   				 title: data.data[0].etitle,
   			   html: html,
+  			   allowOutsideClick: false,
+  			   closeOnClickOutside:false,// alert 말고 다른거 눌렀을 때 안닫히게
   			   showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
   			   confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
   			   cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
@@ -291,10 +295,40 @@ function errorList(){
   			   reverseButtons: true, // 버튼 순서 거꾸로
   			 	})
   			  if (formValues) {
-  			  	alert("success")
+
+  			    console.log('123')
+  			  	$.ajax({
+  			  		url : "error/correction/update",
+  			  		type: "post",
+  			  		async : false,
+  			  		data: {
+  			  			"estatus" : '승인',
+  			  			"enumber" : data.data[0].enumber
+  			  		},
+  			  		contentType :"application/x-www-form-urlencoded; charset=UTF-8;",
+  			  		success : function(data) {
+  			  			Swal.fire({
+  			  			   text: '승인되었습니다.'
+  			  			})
+  			  		}
+  			  	})
   			  }
-  			  else {
-  			  	alert("cancel")
+  			  else {	
+  			  	$.ajax({
+				  		url : "error/correction/update",
+				  		type: "post",
+				  		async : false,
+				  		data: {
+				  			"estatus" : '반려',
+				  			"enumber" : data.data[0].enumber
+				  		},
+				  		contentType :"application/x-www-form-urlencoded; charset=UTF-8;",
+				  		success : function(data) {
+				  			Swal.fire({
+			  			   text: '승인되지 않았습니다.'
+			  			})
+			  		}
+			  	})
   			  }
   		  })()
   		 }
@@ -326,7 +360,9 @@ function docheck() {
 		});		
 	}
 	else {
-		alert('지역을 선택해주세요!')
+		Swal.fire({
+		   text: '지역을 선택해주세요!'
+		 })
 	}
 }
 function doselectAll(selectAll1)  {

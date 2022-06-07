@@ -222,9 +222,9 @@ public class CampController {
 		return "search_keyword_detail";
 	}
 	
-	@RequestMapping(value = "search")
+	@RequestMapping(value = "/")
 	public String getSearch() {
-		return "search_keyword";
+		return "index";
 	}
 	
 	@RequestMapping(value = "koreamap")

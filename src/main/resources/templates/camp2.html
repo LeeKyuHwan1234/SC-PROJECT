@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body>
 <div class="map_wrap">
@@ -20,10 +21,11 @@
         <div class="option">
             <div class="inputDiv">
                <form onsubmit="searchPlaces(); return false;">
-                   <a href="/search" class="slogo" style="vertical-align: middle;"><img class="slogo" src="/images/fire.png" alt="..." style="width:100px; height:80px;"/></a>
+                   <a href="/" class="slogo" style="vertical-align: middle;"><img class="slogo" src="/images/fire.png" alt="..." style="width:100px; height:80px;"/></a>
                    <input type="text" id="keyword" size="25" style="height:50px; margin:0 0 3px 11px; vertical-align:middle; border:2px solid #19ce60;
                    border-radius:10px; padding-left: 50px; font-size:30px"> 
                  </form>
+                 <h2 id="datasize" th:text='|캠핑장 개수 : ${data.size}|'></h2>
             </div>
         </div>
         <hr>
@@ -100,11 +102,11 @@
 						<div class="check_w">
 						<strong>바닥 형태 <input type='checkbox' name='bocheck' value='selectall4' onclick='boselectAll(this)'/></strong>
 								<ul style="display: -webkit-inline-box; margin-left:105px;">
-									<li><input type="checkbox" name="bocheck" id="c_bo01" value="sitebottomcl1"><label for="c_bo01">잔디</label></li>
-									<li><input type="checkbox" name="bocheck" id="c_bo02" value="sitebottomcl2"><label for="c_bo02">테크</label></li>
-									<li><input type="checkbox" name="bocheck" id="c_bo03" value="sitebottomcl3"><label for="c_bo03">파쇄석</label></li>
-									<li><input type="checkbox" name="bocheck" id="c_bo04" value="sitebottomcl4"><label for="c_bo04">자갈</label></li>
-									<li><input type="checkbox" name="bocheck" id="c_bo05" value="sitebottomcl5"><label for="c_bo05">맨흙</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo01" value="잔디"><label for="c_bo01">잔디</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo02" value="데크"><label for="c_bo02">데크</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo03" value="파쇄석"><label for="c_bo03">파쇄석</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo04" value="자갈"><label for="c_bo04">자갈</label></li>
+									<li><input type="checkbox" name="bocheck" id="c_bo05" value="맨흙"><label for="c_bo05">맨흙</label></li>
 								</ul>
 						</div>
 					</div>
@@ -185,8 +187,10 @@
 	var checkdata = [[${checkdata}]]
 	console.log(checkdata)
 	if(dodata.length == 0) {
-		alert('검색 결과가 없습니다!')
-		location.href='/search'
+		Swal.fire({
+		   text: '검색 결과가 없습니다.'
+	 	})
+		location.href='/'
 	}
 </script>
 <script>
@@ -352,7 +356,9 @@ function docheck() {
 		});		
 	}
 	else {
-		alert('지역을 선택해주세요!')
+		Swal.fire({
+		   text: '지역을 선택해주세요!'
+		 })
 	}
 }
 function chkappend() {
@@ -428,7 +434,9 @@ function searchPlaces() {
     var keyword = document.getElementById('keyword').value;
 
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
-        alert('키워드를 입력해주세요!');
+    		Swal.fire({
+			   text: '키워드를 입력해주세요!'
+			 })
         return false;
     }
 
@@ -448,14 +456,16 @@ function placesSearchCB(data, status, pagination) {
         displayPagination(pagination);
 
     } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+  		Swal.fire({
+			   text: '검색 결과가 존재하지 않습니다.'
+			 	})
+       return;
 
-        alert('검색 결과가 존재하지 않습니다.');
-        return;
-
-    } else if (status === kakao.maps.services.Status.ERROR) {
-
-        alert('검색 결과 중 오류가 발생했습니다.');
-        return;
+   } else if (status === kakao.maps.services.Status.ERROR) {
+   		Swal.fire({
+			   text: '검색 결과 중 오류가 발생했습니다.'
+			 	})
+       return;
 
     }
 }
@@ -472,7 +482,9 @@ function displayPlaces(places) {
 		},
 		contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
 		success : function(data) {
-			console.log(data.data[i])
+			
+				var datasize = document.getElementById('datasize');
+				datasize.innerHTML= '<div>캠핑장 개수 : '+data.data.length+'<div>';
 			var listEl = document.getElementById('placesList'), 
 		    menuEl = document.getElementById('menu_wrap'),
 		    fragment = document.createDocumentFragment(), 
@@ -758,9 +770,15 @@ function roundSearch() {
 			},
 			contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
 			success : function(data) {
+				var datasize = document.getElementById('datasize');
+				datasize.innerHTML= '<div>캠핑장 개수 : '+data.data.length+'<div>';
 				if(data.data.length == 0) {
-					alert('검색 결과가 없습니다.');
-					location.href='/search';
+					Swal.fire({
+					   icon: 'error',
+					   title: 'Oops...',
+					   text: '검색 결과가 없습니다!'
+					 })
+					location.href='/';
 				}
 				var listEl = document.getElementById('placesList'), 
 		    menuEl = document.getElementById('menu_wrap'),

@@ -9,4 +9,5 @@ public class ErrorDto {
 	private String econtent;
 	private String ewriter;
 	private String ewrite_date;
+	private String estatus;
 }

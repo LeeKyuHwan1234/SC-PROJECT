@@ -100,7 +100,7 @@ function drawMap(target) {
 	                     	          "<div class='card text-dark bg-white' onClick='location.href=`/place?contentid="+data.camplist[i].contentid+"`'>"+
 	                     	            "<div class='card-header'>"+data.camplist[i].facltnm+"</div>"+
 	                     	            "<div class='card-body'>"+
-	                   	              	  "<img src='/images/camp3.webp' style='width:250px; height:200px;'></img>"+
+	                   	              	  "<img src='/images/camp3.jpg' style='width:250px; height:200px;'></img>"+
 	                   	              	"<p>"+data.camplist[i].addr1+"</p>"+
 	                     	              "</div></div></div>")
 	                   	        }

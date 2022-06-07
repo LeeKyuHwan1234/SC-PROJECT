@@ -31,16 +31,22 @@ public class AuthController {
 		HashMap<String, Object> UserInfo = as.getUserInfo(access_Token);
 		List<AuthDto> list = as.selectUser(UserInfo);
 		//유저 정보가 없을 때만 정보 추가
-		if(list.size() == '0') {
+		System.out.println(list.size());
+		if(list.isEmpty()) {
 			as.insertUser(UserInfo);
+			session.setAttribute("user_nickname", UserInfo.get("user_nickname"));
+			session.setAttribute("user_role", 0);
+			session.setAttribute("user_image", UserInfo.get("user_image"));
+			session.setAttribute("access_Token",access_Token);
 		}
-		System.out.println(list);
 		//세션에 별명,이미지, 액세스 토큰 추가
-		session.setAttribute("user_nickname", UserInfo.get("user_nickname"));
-		session.setAttribute("user_role", list.get(0).getUser_role());
-		session.setAttribute("user_image", UserInfo.get("user_image"));
-		session.setAttribute("access_Token",access_Token);
-	    return "redirect:/search";
+		else {	
+			session.setAttribute("user_nickname", UserInfo.get("user_nickname"));
+			session.setAttribute("user_role", list.get(0).getUser_role());
+			session.setAttribute("user_image", UserInfo.get("user_image"));
+			session.setAttribute("access_Token",access_Token);
+		}
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value="/logout")
@@ -53,6 +59,6 @@ public class AuthController {
         session.removeAttribute("user_nickname");
         session.removeAttribute("user_role");
         session.removeAttribute("user_image");
-        return "redirect:/search";
+        return "redirect:/";
     }
 }

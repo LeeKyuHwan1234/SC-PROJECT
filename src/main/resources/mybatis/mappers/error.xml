@@ -13,7 +13,7 @@
      <select id="getErrorCorrectionOne"  resultType="ErrorDto">
      		SELECT * FROM error_correction WHERE enumber = #{enumber}::int
      </select>
-     <update id="updateErrorCorrectionOne">
+     <update id="updateErrorCorrection" parameterType="HashMap">
      		Update error_correction SET estatus = #{estatus} WHERE enumber=#{enumber}::int
      </update>
 </mapper>

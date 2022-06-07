@@ -22,6 +22,9 @@ public class ErrorService {
 	public void insertErrorCorrection(HashMap<String, Object> ajaxdata) {
 		errorDao.insertErrorCorrection(ajaxdata);
 	}
+	public void updateErrorCorrection(HashMap<String, Object> ajaxdata) {
+		errorDao.updateErrorCorrection(ajaxdata);
+	}
 	
 	public List<ErrorDto> getErrorCorrectionOne(HashMap<String, Object> ajaxdata) {
 		List<ErrorDto> map = errorDao.getErrorCorrectionOne(ajaxdata);

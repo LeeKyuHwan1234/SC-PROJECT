@@ -59,4 +59,13 @@ public class ErrorController {
 		return map;
 	}
 	
+	@RequestMapping(value = "correction/update")
+	public void UpdateErrorCorrection(Model model,HttpServletRequest req,HttpServletResponse resp, @RequestParam HashMap<String, Object> ajaxdata) throws Exception {
+		System.out.println(ajaxdata);
+		try {
+			errorService.updateErrorCorrection(ajaxdata);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
