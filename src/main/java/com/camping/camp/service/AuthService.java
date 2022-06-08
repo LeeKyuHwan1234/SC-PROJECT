@@ -55,8 +55,8 @@ public class AuthService {
 			sb.append("grant_type=authorization_code");
 
 			sb.append("&client_id=572d30428a009e93e6498270de9323e9"); // 본인이 발급받은 key
-			//sb.append("&redirect_uri=http://localhost:43049/auth/kakaoLogin"); // 본인이 설정한 주소
-			sb.append("&redirect_uri=http://hodudeuk.myds.me:43049/auth/kakaoLogin"); // 본인이 설정한 주소
+			sb.append("&redirect_uri=http://localhost:43049/auth/kakaoLogin"); // 본인이 설정한 주소
+			//sb.append("&redirect_uri=http://hodudeuk.myds.me:43049/auth/kakaoLogin"); // 본인이 설정한 주소
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
 			bw.flush();

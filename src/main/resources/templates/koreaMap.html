@@ -97,10 +97,147 @@
 		</div>
 		<div style="height: 150px;">
 		</div>
-		
+			<!-- modal -->
+			<div class="modal modallist" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	      <div class="modal-dialog modal-dialog-centered modal-lg">
+					<div class="modal-content2">
+						<div class="modal-header" style="color:black;">오류 정정 리스트
+							<button type="button" class="btn-close" data-bs-dismiss="modallist"	aria-label="Close"></button>
+						</div>
+						<table class="modaltable" style="color:black;">
+						<tbody>
+						</tbody>
+						</table>
+					</div>
+	   	 	</div>
+	    </div>
 		<!-- Footer-->
-		<th:block th:replace="fragment/footer :: footerFragment"></th:block>
-		<script type="text/javascript">
+		<!-- <th:block th:replace="fragment/footer :: footerFragment"></th:block> -->
+		<script th:inline="javascript">
+		var session = ([[${session.user_nickname}]])
+		var role = ([[${session.user_role}]])
+	</script>
+	<script>
+const modal = document.querySelector('.modallist');
+const btnOpenPopup = document.querySelector('.btn-open-popup');
+
+btnOpenPopup.addEventListener('click', () => {
+
+	modal.style.display = 'block';
+	$.ajax({
+		url : "error/correction/list",
+		type : "post",
+		async : false,
+		contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+		success : function(data) {
+			$('.modaltable >tbody').empty();
+			
+			var storeAdd1 = '<tr>'+
+			'<th scope="col" style="width:15%">번호</th>'+
+			'<th scope="col" style="width:45%">제목</th>'+
+			'<th scope="col" style="width:15%">작성자</th>'+
+			'<th scope="col" style="width:25%">작성 날짜</th>'+
+			'</tr>';
+
+  		 $(".modaltable > tbody").append(storeAdd1);
+			
+			for(var i =0; i< data.data.length; i++){
+  				storeAdd = 
+  				'<tr class=errortr id='+data.data[i].enumber+' onclick="errorList()">'+
+					 "<td>"+(i+1)+"</td>"+
+					 "<td>"+data.data[i].etitle+"</td>"+
+					 "<td>"+data.data[i].ewriter+"</td>"+
+					 "<td>"+data.data[i].ewrite_date+"</td>"+
+					 "</tr>";
+    		 $(".modaltable > tbody").append(storeAdd);
+  			}
+		}
+});
+});
+    const closeBtn = modal.querySelector(".btn-close")
+		 
+		closeBtn.addEventListener("click", e => {
+		modal.style.display = "none"
+		});
+
+		function errorList(){
+			$('.errortr').click(function(){
+		    var id_check = $(this).attr("id");
+				if(role == '1'){
+			 	$.ajax({
+		  		url : "error/correction/one",
+		  		type : "post",
+		  		async : false,
+		  		data: {
+		  			"enumber":id_check
+		  		},
+		  		contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+		  		success : function(data) {
+		  			var html =
+		  				'<div style="text-align:right;margin-top: 15px;"><span>'+data.data[0].ewriter+'</span>'+
+		  				'<span style="margin-left:10px;">'+data.data[0].ewrite_date+'</span></div>'+
+		  				'<div style="text-align: start; height: 200px; margin-top: 30px; padding: 20px; border: 2px solid;">'+data.data[0].econtent+'</div>';
+		  			(async () => {
+		  		  	const { value: formValues } = await Swal.fire({
+		  				 title: data.data[0].etitle,
+		  			   html: html,
+		  			   allowOutsideClick: false,
+		  			   closeOnClickOutside:false,// alert 말고 다른거 눌렀을 때 안닫히게
+		  			   showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+		  			   confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+		  			   cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+		  			   confirmButtonText: '승인', // confirm 버튼 텍스트 지정
+		  			   cancelButtonText: '반려', // cancel 버튼 텍스트 지정
+		  			   reverseButtons: true, // 버튼 순서 거꾸로
+		  			 	})
+		  			  if (formValues) {
+
+		  			    console.log('123')
+		  			  	$.ajax({
+		  			  		url : "error/correction/update",
+		  			  		type: "post",
+		  			  		async : false,
+		  			  		data: {
+		  			  			"estatus" : '승인',
+		  			  			"enumber" : data.data[0].enumber
+		  			  		},
+		  			  		contentType :"application/x-www-form-urlencoded; charset=UTF-8;",
+		  			  		success : function(data) {
+		  			  			Swal.fire({
+		  			  			   text: '승인되었습니다.'
+		  			  			})
+		  			  		}
+		  			  	})
+		  			  }
+		  			  else {	
+		  			  	$.ajax({
+						  		url : "error/correction/update",
+						  		type: "post",
+						  		async : false,
+						  		data: {
+						  			"estatus" : '반려',
+						  			"enumber" : data.data[0].enumber
+						  		},
+						  		contentType :"application/x-www-form-urlencoded; charset=UTF-8;",
+						  		success : function(data) {
+						  			Swal.fire({
+					  			   text: '승인되지 않았습니다.'
+					  			})
+					  		}
+					  	})
+		  			  }
+		  		  })()
+		  		 }
+		  	})
+			} else {
+				 Swal.fire({
+				   icon: 'error',
+				   title: 'Oops...',
+				   text: '관리자가 아닙니다!'
+				 })
+			}
+			});
+		}
 		function press(f){
 			if(f.keyCode == 13){ //javascript에서는 13이 enter키를 의미함 
 				searchform.submit(); //formname에 사용자가 지정한 form의 name입력 

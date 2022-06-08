@@ -473,7 +473,7 @@ function placesSearchCB(data, status, pagination) {
 // 검색 결과 목록과 마커를 표출하는 함수입니다
 function displayPlaces(places) {
 	 var keyword = document.getElementById('keyword').value;
-	$.ajax({
+		$.ajax({
 		url : "/search/display",
 		type : "get",
 		async : false,
@@ -546,8 +546,7 @@ function displayPlaces(places) {
 
 // 검색 결과 목록과 마커를 표출하는 함수입니다
 function displayPlaces2(places) {
-	
-			console.log(dodata)
+			$('#keyword').val('')
 			var listEl = document.getElementById('placesList'), 
 		    menuEl = document.getElementById('menu_wrap'),
 		    fragment = document.createDocumentFragment(), 
@@ -712,7 +711,6 @@ function removeMarker() {
     paginationEl.appendChild(fragment);
 }
  */
-// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 
 // 인포윈도우에 장소명을 표시합니다
 function displayInfowindow(marker, title, places) {
@@ -743,12 +741,6 @@ function removeAllChildNods(el) {
         el.removeChild (el.lastChild);
     }
 }
-//별점 퍼센트화
-function ratingToPercent() {
-    const score = 3.7 * 20;
-    return score + 1.5;
-}
-
 //닫기
 function windowClose() {
     infowindow.close();
@@ -757,7 +749,7 @@ function windowClose() {
 
 
 function roundSearch() {
-	 
+	$('#keyword').val('')
 	lat =	map.getCenter().getLat(); 
 	lng =	map.getCenter().getLng();
 	$.ajax({

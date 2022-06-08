@@ -603,7 +603,7 @@ function windowClose() {
 }
 //중심 값 바뀔 때마다 값 가져오는 함수
 function roundSearch() {
-	 
+	$('#keyword').val('')
 	lat =	map.getCenter().getLat(); 
 	lng =	map.getCenter().getLng();
 	$.ajax({
