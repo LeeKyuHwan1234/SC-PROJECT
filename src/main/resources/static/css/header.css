@@ -11502,7 +11502,7 @@ header.masthead .masthead-heading {
 	opacity:0.7;
 }
 
-@media (min-width: 807px) {
+@media (min-width: 1200px) {
 	ol, ul {
 	font-size: large;
 	}
@@ -11517,7 +11517,7 @@ header.masthead .masthead-heading {
     height:1670px;
 		}
   header.masthead .masthead-subheading {
-    font-size: 5.25rem;
+    font-size: 7.25rem;
     font-style: italic;
     font-family: 'Water Brush', cursive;
     line-height: 2.25rem;

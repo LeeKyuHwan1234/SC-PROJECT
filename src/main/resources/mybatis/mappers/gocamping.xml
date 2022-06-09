@@ -26,14 +26,24 @@
 				<foreach collection="lcList" index="index" item="item" open="and (" close=")" separator="or">
 					  lctcl like '%' || #{item} || '%'
 				</foreach>
-				<foreach collection="inList" index="index" item="item" open="and induty in (" close=")" separator=",">
-					  #{item}
+				<foreach collection="inList" index="index" item="item" open="and (" close=")" separator="or">
+						induty like '%' || #{item} || '%'
 				</foreach>
 				<foreach collection="sbList" index="index" open="and (" close=")" separator="or" item="item">
 					  sbrscl like '%' || #{item} || '%'
 				</foreach>
 				<foreach collection="siList" index="index" item="item" open="and sitedstnc in ('0'," close=")" separator=",">
-					  #{item}
+					  <if test='item.equals("ÀÏ")'>'1'</if>
+					  <if test='item.equals("ÀÌ")'>'2'</if>
+					  <if test='item.equals("»ï")'>'3'</if>
+					  <if test='item.equals("»ç")'>'4'</if>
+					  <if test='item.equals("¿À")'>'5'</if>
+					  <if test='item.equals("À°")'>'6'</if>
+					  <if test='item.equals("Ä¥")'>'7'</if>
+					  <if test='item.equals("ÆÈ")'>'8'</if>
+					  <if test='item.equals("±¸")'>'9'</if>
+					  <if test='item.equals("½Ê")'>'10'</if>
+					  <if test='item.equals("½Ê»ï")'>'13'</if>
 				</foreach>
 				<foreach collection="faList" index="index" item="item">
 					  <if test='item.equals("È­Àå½Ç")'>
